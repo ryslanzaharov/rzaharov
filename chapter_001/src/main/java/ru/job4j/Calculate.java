@@ -8,7 +8,7 @@ package ru.job4j;
 	*/
 public class Calculate {
 	/**
-	*Конструктор , вывод строки в консоль.
+	*Конструктор, вывод строки в консоль.
 	* @param args arg.
 	*/
 	public static void main(String[] args) {

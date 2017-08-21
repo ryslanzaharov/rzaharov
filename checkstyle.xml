@@ -32,10 +32,10 @@
 
 <module name="Checker">
 
-    <!--Ðàñøèðåíèå ôàéëà äîëæíî áûòü java, properties, xml-->
+    <!--Ð Ð°ÑÑˆÐ¸Ñ€ÐµÐ½Ð¸Ðµ Ñ„Ð°Ð¹Ð»Ð° Ð´Ð¾Ð»Ð¶Ð½Ð¾ Ð±Ñ‹Ñ‚ÑŒ java, properties, xml-->
     <property name="fileExtensions" value="java, properties, xml"/>
 
-    <!--Ïàêåòû äîëæíû èìåòü JavaDoc-->
+    <!--ÐŸÐ°ÐºÐµÑ‚Ñ‹ Ð´Ð¾Ð»Ð¶Ð½Ñ‹ Ð¸Ð¼ÐµÑ‚ÑŒ JavaDoc-->
     <module name="JavadocPackage"/>
 
     <!-- Checks for Size Violations.                    -->
@@ -139,7 +139,7 @@
 
         <!-- Checks for class design                         -->
         <!-- See http://checkstyle.sf.net/config_design.html -->
-        <!--<module name="DesignForExtension" />-->
+        <!--<module name="DesignForExtension"/>-->
         <!--<module name="FinalClass"/>-->
         <!--<module name="HideUtilityClassConstructor"/>-->
         <module name="InterfaceIsType"/>

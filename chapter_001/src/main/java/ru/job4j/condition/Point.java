@@ -18,7 +18,6 @@ public class Point {
 	}
 	
 	public boolean is(int a, int b) {
-		int result = a * x + b;
-		return getY()==result ? true : false;
+		return getY()==a * x + b ? true : false;
 	}
 }

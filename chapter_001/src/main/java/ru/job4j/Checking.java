@@ -8,15 +8,16 @@ public class Checking {
         int kol = 0;
         for (int i = 0; i <morigin.length; i++) {
             kol = i;
-            for (int n = 0; n<msub.length; n++) {
-                if (morigin[i] == msub[n]) {
-                    i++;
-                    if (n == msub.length-1)
-                        cont = true;
+            if (morigin[i] == msub[0]) {
+                for (int n = 0; n < msub.length; n++) {
+                    if (morigin[i++] == msub[n]) {
+                        if (n == msub.length - 1)
+                            cont = true;
+                    } else {
+                        i = kol;
+                        break;
+                    }
                 }
-                else i = kol;
-
-
             }
         }
         return cont;

@@ -8,7 +8,7 @@ public class CheckingTest {
     @Test
     public void whenChecking() {
         Checking checking = new Checking();
-        boolean result = checking.contains("Привет", "ив");
+        boolean result = checking.contains("laprivpretla", "pre");
         boolean expect = true;
         assertThat(result, is(expect));
 

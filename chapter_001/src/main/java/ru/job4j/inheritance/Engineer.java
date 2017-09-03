@@ -11,7 +11,8 @@ public class Engineer extends Profession {
     public Tool create(Invention invention) {
         String pname = null;
         String iname = null;
-        for (Profession profname : professions){
+        Professions prof = new Professions();
+        for (Profession profname : prof.professions){
             if (profname instanceof Engineer) {
                 pname =((Engineer) profname).getName();
             }

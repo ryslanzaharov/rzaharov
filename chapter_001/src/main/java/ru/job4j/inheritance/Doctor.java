@@ -11,7 +11,8 @@ package ru.job4j.inheritance;
     public Medicament treat(Sick sick) {
         String pname = null;
         String sname = null;
-        for (Profession profname : professions){
+        Professions prof = new Professions();
+        for (Profession profname : prof.professions){
             if (profname instanceof Doctor) {
                 pname =((Doctor) profname).getName();
             }

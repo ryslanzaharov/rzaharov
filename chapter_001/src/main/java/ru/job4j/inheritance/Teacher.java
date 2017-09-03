@@ -11,7 +11,8 @@ public class Teacher extends Profession {
     public Knowledge teach(Student student) {
         String pname = null;
         String sname = null;
-        for (Profession profname : professions){
+        Professions prof = new Professions();
+        for (Profession profname : prof.professions){
             if (profname instanceof Teacher) {
                 pname =((Teacher) profname).getName();
             }

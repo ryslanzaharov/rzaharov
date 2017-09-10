@@ -6,12 +6,12 @@ public class ArrayCombining {
         for (int i = 0, n = 0, j = 0; i < union.length  ; i++) {
 
             if (n == mas1.length) {
-                union[i] = mas2[j];
-                j++;
+                System.arraycopy(mas2, j, union, i, mas2.length - j);
+                break;
             }
             else if (j == mas2.length) {
-                union[j] = mas1[n];
-                n++;
+                System.arraycopy(mas1, n, union, i, mas1.length - n);
+                break;
             }
             else if (mas1[n] == mas2[j]) {
                 union[i++] = mas1[n];

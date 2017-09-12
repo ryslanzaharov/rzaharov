@@ -1,9 +1,12 @@
 package ru.job4j.Tracker;
 
+import java.util.Date;
+
 public class Item {
 
     private String id;
     private String name;
+    private Date date = new Date();
 
     public Item(String name) {
         this.name = name;
@@ -22,5 +25,13 @@ public class Item {
 
     public String getName() {
         return this.name;
+    }
+
+    public Date getDate() {
+        return date;
+    }
+
+    public void setDate(Date date) {
+        this.date = date;
     }
 }

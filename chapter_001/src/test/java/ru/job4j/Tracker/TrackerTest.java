@@ -55,13 +55,5 @@ public class TrackerTest {
         assertThat((tracker.getAll()[0]).getId(), is(expect));
     }
 
-  //  @Test
-//    public void whenFindByName() {
-//        Tracker tracker = new Tracker();
-//        Item item = new Item();
-//
-//        //Item[] item = new Item[]{new Item(),new Item(),null};
-//        Item[] expected = new Item[]{new Item(),new Item()};
-//        assertThat(tracker.findAll(), is(expected));
-//    }
+
 }

@@ -7,12 +7,11 @@ public class Item {
 
     public String description;
 
+    public Item() {}
 
-
-    public Item(String name, String description, String id) {
+    public Item(String name, String description) {
         this.name = name;
         this.description = description;
-        this.id = id;
     }
 
     public void setName(String name) {

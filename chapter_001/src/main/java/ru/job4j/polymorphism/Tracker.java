@@ -17,9 +17,7 @@ public class Tracker {
 
     protected Item findById(String id) {
         Item result = null;
-        System.out.println(id);
         for (Item item : items) {
-            System.out.println(item.getId());
             if (item != null && item.getId().equals(id)) {
                 result = item;
                 break;
@@ -40,23 +38,20 @@ public class Tracker {
         return result;
     }
 
-    public void edit(int position){
-        System.out.print("Users name:");
-        items[position].setName(consoleInput.ask());
-        System.out.print("Items description:");
-        items[position].setDescription(consoleInput.ask());
-        System.out.print("Items id:");
-        items[position].setId(consoleInput.ask());
+    public void edit(int position, String name, String desc){
+            items[position].setName(name);
+            items[position].setDescription(desc);
+            items[position].setId(generateId());
     }
 
     public void delete(int position) {
-        items[position] = null;
+        System.arraycopy(items, position + 1, items, position, items.length - position - 2);
     }
 
     public Item findByName(String name) {
         Item item = null;
         for (Item itemid : items) {
-            if (itemid.getName().equals(name))
+            if (itemid != null && itemid.getName().equals(name))
                 item = itemid;
         }
         return item;

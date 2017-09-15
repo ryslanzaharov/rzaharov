@@ -9,62 +9,32 @@ public class StartUi {
     private static final String FINDNAME = "5";
     private static final String EXIT = "6";
 
-    public static void main(String[] args) {
-        System.out.println("0. Add new Item\n" +
-                "1. Show all items\n" +
-                "2. Edit item\n" +
-                "3. Delete item\n" +
-                "4. Find item by Id\n" +
-                "5. Find items by name\n" +
-                "6. Exit Program\n" +
-                "Select:");
-        ConsoleInput consoleInput = new ConsoleInput();
-        String answer;
-        Tracker tracker = new Tracker();
-        while (!(answer = consoleInput.ask()).equals(EXIT)) {
-            if (answer.equals(ADD)) {
-                System.out.print("Users name:");
-                String name = consoleInput.ask();
-                System.out.print("Items description:");
-                String description = consoleInput.ask();
-                tracker.add(new Item(name, description, tracker.generateId()));
-            }
-            else if (answer.equals(SHOW)) {
-                    for (Item item : tracker.getAll()) {
-                        if (item != null) {
-                            System.out.println(item.getName());
-                            System.out.println(item.getDescription());
-                            System.out.println(item.getId());
-                        }
-                        else
-                            System.out.println("null");
-                    }
-                }
+    private Input input;
+    private Tracker tracker;
 
-            else if (answer.equals(EDIT)) {
-                System.out.print("Items position:");
-                int position = Integer.parseInt(consoleInput.ask());
-                tracker.edit(position);
-            }
-            else if (answer.equals(DELETE)) {
-                System.out.print("Items position:");
-                tracker.delete(Integer.valueOf(consoleInput.ask()));
-            }
-            else if (answer.equals(FINDID)) {
-                System.out.print("Items id:");
-                Item item = tracker.findById(consoleInput.ask());
-                System.out.println(item.getName());
-                System.out.println(item.getDescription());
-            }
-            else if (answer.equals(FINDNAME)) {
-                System.out.print("Users name:");
-                Item item = tracker.findByName(consoleInput.ask());
-                System.out.println(item.getName());
-                System.out.println(item.getDescription());
-            }
-            else if (answer.equals(EXIT)) {
+    public StartUi(Input input, Tracker tracker) {
+        this.input = input;
+        this.tracker = tracker;
+    }
+
+    public void init() {
+        for (int i = 0; i < input.getAnswers().length; i++) {
+            if (input.getAnswers()[i].equals(ADD)) {
+                tracker.add(new Item(input.getAnswers()[++i], input.getAnswers()[++i]));
+            } else if (input.getAnswers()[i].equals(SHOW)) {
+                tracker.getAll();
+            } else if (input.getAnswers()[i].equals(EDIT)) {
+                tracker.edit(Integer.parseInt(input.getAnswers()[++i]), input.getAnswers()[++i], input.getAnswers()[++i]);
+            } else if (input.getAnswers()[i].equals(DELETE)) {
+                tracker.delete(Integer.parseInt(input.getAnswers()[++i]));
+            } else if (input.getAnswers()[i].equals(FINDID)) {
+                tracker.findById(input.getAnswers()[++i]);
+            } else if (input.getAnswers()[i].equals(FINDNAME)) {
+                tracker.findByName(input.getAnswers()[++i]);
+            } else if (input.getAnswers()[i].equals(EXIT)) {
                 return;
             }
         }
     }
+
 }

@@ -3,6 +3,7 @@ import ru.job4j.models.*;
 
 public class StartUI {
 
+    private int[] ranges = new int[] {1,2,3,4,5,6,7};
     private Input input;
 
     public StartUI(Input input) {
@@ -14,14 +15,13 @@ public class StartUI {
         menu.fillActions();
         do {
             menu.show();
-            int key = Integer.parseInt(input.ask("Select:"));
-            menu.select(key);
+            menu.select(input.ask("Select:", ranges));
             System.out.println("____________________");
         }while(true);
     }
 
     public static void main(String[] args) {
-        Input input = new ConsoleInput();
+        Input input = new ValidateInput();
         new StartUI(input).init();
     }
 }

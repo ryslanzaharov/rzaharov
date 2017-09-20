@@ -10,4 +10,8 @@ public class StubInput implements Input {
     public String ask(String question) {
         return answers[position++];
     }
+
+    public int ask(String queston, int[] range) {
+        return -1;
+    }
 }

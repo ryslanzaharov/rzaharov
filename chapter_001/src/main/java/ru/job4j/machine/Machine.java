@@ -5,10 +5,10 @@ package ru.job4j.machine;
  * @version 01.
  * @since 26.09.17.
  */
-public class Parent {
+public class  Machine{
 
     private int price;
-    public Parent(int price) {
+    public Machine(int price) {
         this.price = price;
     }
 
@@ -41,7 +41,7 @@ public class Parent {
         return this.price;
     }
     public static void main(String[] args) {
-        Parent parent = new Parent(130);
+        Machine parent = new Machine(130);
         Child child = parent.new Child(200);
         System.out.println(parent.getMoneyTransfer(child.getSumm(), parent.getPrice()));
     }

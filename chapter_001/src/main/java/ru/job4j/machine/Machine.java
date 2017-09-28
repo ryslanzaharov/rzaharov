@@ -26,6 +26,7 @@ public class  Machine{
 
         public int getSumm() {
             return summ;
+
         }
 
         public void setSumm(int summ) {

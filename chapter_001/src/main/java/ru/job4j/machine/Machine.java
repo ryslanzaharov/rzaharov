@@ -1,4 +1,5 @@
 package ru.job4j.machine;
+
 /**
  * Класс вывода денежной сдачи при покупке с автомата.
  * @author Ryslan Zaharov (mailto:Ryslan8906137@yandex.ru).
@@ -7,47 +8,20 @@ package ru.job4j.machine;
  */
 public class  Machine{
 
-    private int price;
-    public Machine(int price) {
-        this.price = price;
+    public void automation() {
+        Input input = new Input();
+        Menu menu = new Menu();
+        Money money = new Money();
+        menu.fillActions();
+        do {
+            menu.show();
+            menu.select(Integer.parseInt(input.ask("Select:")), money, input);
+        } while (true);
     }
 
-    class Child {
-        private int summ;
-        private int price;
-        public Child(int summ) {
-            this.summ = summ;
-            this.price = price;
-        }
-
-        public int getPrice() {
-            return price;
-        }
-
-        public int getSumm() {
-            return summ;
-
-        }
-
-        public void setSumm(int summ) {
-            this.summ = summ;
-        }
-
-        public void setPrice(int price) {
-            this.price = price;
-        }
-    }
-
-    public int getPrice() {
-        return this.price;
-    }
     public static void main(String[] args) {
-        Machine parent = new Machine(130);
-        Child child = parent.new Child(200);
-        System.out.println(parent.getMoneyTransfer(child.getSumm(), parent.getPrice()));
+        Machine parent = new Machine();
+        parent.automation();
     }
 
-    public int getMoneyTransfer(int summ, int price) {
-        return summ - price;
-    }
 }

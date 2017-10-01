@@ -6,4 +6,5 @@ public class ImpossibleMoveException extends Exception {
         super(ime);
     }
 
+
 }

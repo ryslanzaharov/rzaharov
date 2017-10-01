@@ -22,6 +22,7 @@ public class BoardTest {
         assertThat(result, is(expected));
     }
 
+
     @Test
     public void whenTheCorrectCell() throws Exception {
         Board board = new Board();

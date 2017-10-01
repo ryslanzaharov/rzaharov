@@ -19,6 +19,7 @@ public class Board {
     public boolean move(Cell source, Cell dist) throws ImpossibleMoveException, OccupiedWayException, FigureNotFoundException {
         int sourceRow = source.getRow();
 
+
         int sourceCol = source.getCol();
         boolean result =false;
         try {

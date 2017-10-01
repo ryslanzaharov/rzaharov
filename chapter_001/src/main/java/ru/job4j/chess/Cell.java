@@ -18,6 +18,7 @@ public class Cell {
     }
 
 
+
     public int getRow() {
         return row;
     }

@@ -13,6 +13,7 @@ public class Bishop extends Figure {
         int width = Math.abs(this.position.getCol() - dist.getCol());
         Cell[] cells = new Cell[8];
 
+
         if (height == width) {
 
             if (dist.getRow() > this.position.getRow() && dist.getCol() < this.position.getCol()) {

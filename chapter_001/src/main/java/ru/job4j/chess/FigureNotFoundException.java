@@ -4,5 +4,6 @@ public class FigureNotFoundException extends Exception{
     public FigureNotFoundException(String fnfe) {
         super(fnfe);
 
+
     }
 }

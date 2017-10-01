@@ -5,4 +5,5 @@ public class OccupiedWayException extends Exception{
         super(owe);
     }
 
+
 }

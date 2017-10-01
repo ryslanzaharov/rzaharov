@@ -10,4 +10,5 @@ public abstract class Figure {
     abstract Cell[] way(Cell dist) throws ImpossibleMoveException;
     abstract Figure clone(Cell dest);
 
+
 }

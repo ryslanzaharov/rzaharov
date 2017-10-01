@@ -17,6 +17,7 @@ public class Cell {
         return col;
     }
 
+
     public int getRow() {
         return row;
     }

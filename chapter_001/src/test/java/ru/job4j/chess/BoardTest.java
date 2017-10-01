@@ -13,6 +13,7 @@ public class BoardTest {
         assertThat(result, is(expected));
     }
 
+
     @Test
     public void whenGetCellByCellName() {
         Board board = new Board();

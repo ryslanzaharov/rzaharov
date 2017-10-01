@@ -14,6 +14,7 @@ public class Bishop extends Figure {
         Cell[] cells = new Cell[8];
 
         if (height == width) {
+
             if (dist.getRow() > this.position.getRow() && dist.getCol() < this.position.getCol()) {
                 stepCol = -1;
             } else if (dist.getRow() < this.position.getRow() && dist.getCol() > this.position.getCol()) {

@@ -13,7 +13,6 @@ public class BoardTest {
         assertThat(result, is(expected));
     }
 
-
     @Test
     public void whenGetCellByCellName() {
         Board board = new Board();
@@ -32,7 +31,7 @@ public class BoardTest {
     }
 
     @Test
-    public void whenSettRightDestinationCellThenGetFigureInTheDestinationCell() throws Exception {
+    public void whenSetRightDestinationCellThenGetFigureInTheDestinationCell() throws Exception {
         Board board = new Board();
         Cell source = new Cell(0, 7);
         Cell destination = new Cell(7, 0);

@@ -8,6 +8,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class ConvertListTest {
+
     @Test
     public void whenToList() {
         ConvertList convertList = new ConvertList();

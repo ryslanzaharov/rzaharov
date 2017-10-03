@@ -27,6 +27,7 @@ public class ConvertList {
         for (int i =  size; i < sizeArray; i++) {
             list.add(0);
         }
+
         int[][] array = new int[rows][col];
         Iterator<Integer> iterator = list.iterator();
         for (int i = 0; i < rows; i++) {

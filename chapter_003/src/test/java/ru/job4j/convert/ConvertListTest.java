@@ -29,4 +29,16 @@ public class ConvertListTest {
         int[][] expected = {{1, 2, 3}, {4, 5, 6}, {7, 0 ,0}};
         assertThat(result, is(expected));
     }
+
+    @Test
+    public void whenConvert() {
+        ConvertList convertList = new ConvertList();
+        List<int[]> list = new ArrayList<>();
+        list.add(new int[]{1, 2, 3});
+        list.add(new int[]{4, 5, 6});
+        List<Integer> listResult = convertList.convert(list);
+        Integer[] result = listResult.toArray(new Integer[listResult.size()]);
+        int[] expected = {1, 2, 3, 4, 5, 6};
+        assertThat(result, is(expected));
+    }
 }

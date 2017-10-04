@@ -42,4 +42,14 @@ public class ConvertList {
         }
         return array;
     }
+
+    public List<Integer> convert (List<int[]> list) {
+        List<Integer> listConvert = new ArrayList<>();
+        for (int[] array : list) {
+            for (int value : array) {
+                listConvert.add(value);
+            }
+        }
+        return listConvert;
+    }
 }

@@ -8,6 +8,7 @@ import java.util.List;
  * @version 01.
  * @since 04.10.17.
  */
+
 public class UserConvert {
 
     public HashMap<Integer, User> process(List<User> list) {

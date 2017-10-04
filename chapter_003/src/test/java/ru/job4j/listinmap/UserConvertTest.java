@@ -10,6 +10,7 @@ import java.util.HashMap;
 import java.util.List;
 
 public class UserConvertTest {
+
     @Test
     public void whenConvetListInMap() {
         UserConvert userConvert = new UserConvert();

@@ -21,13 +21,17 @@ public class ConvertList {
     }
 
     public int[][] toArray (List<Integer> list, int rows) {
+        Iterator<Integer> iteratorNull = list.iterator();
+        while(iteratorNull.hasNext()) {
+            if ((iteratorNull.next())==(null))
+                iteratorNull.remove();
+        }
         int size = list.size();
         int col = (int)Math.ceil(size /(double) rows);
         int sizeArray = col * rows;
         for (int i =  size; i < sizeArray; i++) {
             list.add(0);
         }
-
         int[][] array = new int[rows][col];
         Iterator<Integer> iterator = list.iterator();
         for (int i = 0; i < rows; i++) {

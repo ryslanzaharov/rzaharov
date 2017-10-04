@@ -1,6 +1,8 @@
 package ru.job4j.start;
-import com.sun.org.apache.bcel.internal.generic.IF_ACMPEQ;
 import ru.job4j.models.*;
+
+import java.util.ArrayList;
+import java.util.Arrays;
 
 class EditItem extends BaseAction {
     public EditItem(String name, int key) {
@@ -8,7 +10,7 @@ class EditItem extends BaseAction {
     }
 
     public int key() {
-        return 3;
+        return 2;
     }
 
     public void execute(Input input, Tracker tracker) {
@@ -26,7 +28,7 @@ public class MenuTracker{
 
     private Input input;
     private Tracker tracker;
-    private UserAction[] actions = new UserAction[8];
+    private ArrayList<UserAction> actions = new ArrayList<>();
 
     public MenuTracker(Input input, Tracker tracker) {
         this.input = input;
@@ -34,17 +36,18 @@ public class MenuTracker{
     }
 
     public void fillActions() {
-        this.actions[1] = this.new AddItem("Add the new item.", 1);
-        this.actions[2] = new MenuTracker.ShowItems("Show all items", 2);
-        this.actions[3] = new EditItem("Edit item", 3);
-        this.actions[4] = this.new DeleteItem("Delete item", 4);
-        this.actions[5] = this.new FindByIdItem("Find item by Id", 5);
-        this.actions[6] = this.new FindByNameItem("Find items by name", 6);
-        this.actions[7] = this.new Exit("Exit Program", 7);
+        actions.addAll(Arrays.asList(
+                this.new AddItem("Add the new item.", 0),
+                new MenuTracker.ShowItems("Show all items", 1),
+                new EditItem("Edit item", 2),
+                this.new DeleteItem("Delete item", 3),
+                this.new FindByIdItem("Find item by Id", 4),
+                this.new FindByNameItem("Find items by name", 5),
+                this.new Exit("Exit Program", 6) ));
     }
 
     public void select(int key) {
-        this.actions[key].execute(this.input, this.tracker);
+        this.actions.get(key).execute(this.input, this.tracker);
     }
 
     public void show() {
@@ -62,7 +65,7 @@ public class MenuTracker{
         }
 
         public int key() {
-            return 1;
+            return 0;
         }
 
         public void execute(Input input, Tracker tracker) {
@@ -79,7 +82,7 @@ public class MenuTracker{
         }
 
         public int key() {
-            return 4;
+            return 3;
         }
 
         public void execute(Input input, Tracker tracker) {
@@ -96,7 +99,7 @@ public class MenuTracker{
         }
 
         public int key() {
-            return 5;
+            return 4;
         }
 
         public void execute(Input input, Tracker tracker) {
@@ -114,7 +117,7 @@ public class MenuTracker{
         }
 
         public int key() {
-            return 6;
+            return 5;
         }
 
         public void execute(Input input, Tracker tracker) {
@@ -135,7 +138,7 @@ public class MenuTracker{
         }
 
         public int key() {
-            return 7;
+            return 6;
         }
 
         public void execute(Input input, Tracker tracker) {
@@ -151,7 +154,7 @@ public class MenuTracker{
             super(name, key);
         }
         public int key() {
-            return 2;
+            return 1;
         }
 
         public void execute(Input input, Tracker tracker) {

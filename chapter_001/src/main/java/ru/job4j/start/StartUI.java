@@ -1,9 +1,11 @@
 package ru.job4j.start;
-import ru.job4j.models.*;
+
+import java.util.ArrayList;
+import java.util.Arrays;
 
 public class StartUI {
 
-    private int[] ranges = new int[] {1,2,3,4,5,6,7};
+    private ArrayList<Integer> ranges = new ArrayList<>();
     private Input input;
 
     public StartUI(Input input) {
@@ -11,6 +13,7 @@ public class StartUI {
     }
     public void init() {
         Tracker tracker = new Tracker();
+        ranges.addAll(Arrays.asList(0, 1, 2, 3, 4, 5, 6));
         MenuTracker menu = new MenuTracker(this.input, tracker);
         menu.fillActions();
         do {

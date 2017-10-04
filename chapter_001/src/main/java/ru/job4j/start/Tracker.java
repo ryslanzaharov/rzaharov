@@ -4,21 +4,22 @@ import ru.job4j.models.*;
 import java.util.*;
 
 public class Tracker {
-    private Item[] items = new Item[10];
-    private int position = 0;
+    ArrayList<Item> items = new ArrayList<>(10);
     private static final Random RN = new Random();
 
     public Item add(Item item) {
+        if (item != null)
         item.setId(this.generateId());
-        this.items[position++] = item;
+        this.items.add(item);
         return item;
     }
 
     public void edit(Item fresh) {
-        for (int i = 0; i != items.length; ++i) {
-            Item item = items[i];
+        for (Item item : items) {
+            int i = 0;
             if(item != null && item.getId().equals(fresh.getId())) {
-                items[i] = fresh;
+                items.set(i , fresh);
+                i++;
                 break;
             }
         }
@@ -34,9 +35,9 @@ public class Tracker {
     }
 
     public void delete(String id) {
-        for (int i = 0;i < items.length; i++) {
-            if (items[i] != null && items[i].getId().equals(id)) {
-                items[i] = null;
+        for (Item item : items) {
+            if (item != null && item.getId().equals(id)) {
+                items.remove(item);
             }
         }
 
@@ -44,25 +45,29 @@ public class Tracker {
 
     protected Item findById(String id) {
         Item result = null;
-        for (int i = 0;i < items.length; i++) {
-            if (items[i] != null && items[i].getId().equals(id)) {
-                result = items[i];
+        for (Item item : items) {
+            if (item != null && item.getId().equals(id)) {
+                result = item;
                 break;
             }
         }
         return result;
     }
 
-    String generateId() {
+    public ArrayList<Item> findAll() {
+        for (Item item : items) {
+            if (item == null)
+                items.remove(item);
+        }
+        return items;
+    }
+
+    public String generateId() {
         return String.valueOf(System.currentTimeMillis() + RN.nextInt(100));
     }
 
-    public Item[] getAll() {
-        Item[] result = new Item[position];
-        for (int index = 0; index != position; index++) {
-            result[index] = this.items[index];
-        }
-        return result;
+    public List<Item> getAll() {
+        return items;
     }
 
     public void exit() {

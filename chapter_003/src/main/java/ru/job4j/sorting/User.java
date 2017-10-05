@@ -9,6 +9,14 @@ public class User implements Comparable<User>{
         this.age = age;
     }
 
+    public String getName() {
+        return name;
+    }
+
+    public int getAge() {
+        return age;
+    }
+
     public int compareTo(User o) {
         final int ageComp = Integer.compare(this.age, o.age);
         return ageComp != 0 ? ageComp : this.name.compareTo(o.name);

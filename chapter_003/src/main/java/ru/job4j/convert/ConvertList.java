@@ -21,11 +21,9 @@ public class ConvertList {
     }
 
     public int[][] toArray (List<Integer> list, int rows) {
-        Iterator<Integer> iteratorNull = list.iterator();
-        while(iteratorNull.hasNext()) {
-            if ((iteratorNull.next())==(null))
-                iteratorNull.remove();
-        }
+        List<Integer> listNull = new ArrayList<>();
+        listNull.add(null);
+        list.removeAll(listNull);
         int size = list.size();
         int col = (int)Math.ceil(size /(double) rows);
         int sizeArray = col * rows;

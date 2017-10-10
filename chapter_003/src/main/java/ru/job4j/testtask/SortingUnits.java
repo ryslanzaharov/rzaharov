@@ -1,11 +1,12 @@
 package ru.job4j.testtask;
 
-import java.util.Comparator;
-import java.util.List;
+import java.util.*;
 
 public class SortingUnits {
 
     public List<Units> sortAscending(List<Units> list) {
+
+        list.addAll(newUnits(list));
         list.sort(
                 new Comparator<Units>() {
                     @Override
@@ -19,7 +20,7 @@ public class SortingUnits {
 
 
     public List<Units> sortingBydescending(List<Units> list) {
-
+        list.addAll(newUnits(list));
         list.sort(
                 new Comparator<Units>() {
                     @Override
@@ -29,5 +30,25 @@ public class SortingUnits {
                 }
         );
         return list;
+    }
+
+    public List<Units> newUnits(List<Units> list) {
+        ArrayList<String> unitsList = new ArrayList<>();
+        ArrayList<Units> result = new ArrayList<>();
+        for (Units units : list) {
+            unitsList.add(units.getUnitsName());
+        }
+        TreeSet<String> set = new TreeSet<>();
+        for (String str : unitsList) {
+            String st = str;
+            if (str.contains("\\"))
+                st = str.substring(0, str.indexOf('\\'));
+            set.add(st);
+        }
+        for (String seet : set) {
+            if (!unitsList.contains(seet))
+                result.add(new Units(seet));
+        }
+        return result;
     }
 }

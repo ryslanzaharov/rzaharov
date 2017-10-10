@@ -23,7 +23,7 @@ public class SortingUnitsTest{
         Units units8 = new Units("K1\\SK1\\SSK2");
         List<Units> list = new ArrayList<>(
                 Arrays.asList(
-                        units, units1, units2 ,units3, units4, units5, units6, units7, units8
+                         units1, units2 ,units3, units4, units5, units6, units7, units8
                 )
         );
         List<Units> result = sortingUnits.sortAscending(list);
@@ -32,7 +32,7 @@ public class SortingUnitsTest{
                         units, units2, units1, units8, units3, units4, units7, units6, units5
                 )
         );
-        assertThat(result, is(expected));
+        assertThat(result.toString(), is(expected.toString()));
     }
 
     @Test
@@ -49,7 +49,7 @@ public class SortingUnitsTest{
         Units units8 = new Units("K1\\SK1\\SSK2");
         List<Units> list = new ArrayList<>(
                 Arrays.asList(
-                        units, units1, units2 ,units3, units4, units5, units6, units7, units8
+                        units, units1, units2 ,units3, units5, units6, units7, units8
                 )
         );
         List<Units> result = sortingUnits.sortingBydescending(list);
@@ -59,6 +59,6 @@ public class SortingUnitsTest{
 
                 )
         );
-        assertThat(result, is(expected));
+        assertThat(result.toString(), is(expected.toString()));
     }
 }

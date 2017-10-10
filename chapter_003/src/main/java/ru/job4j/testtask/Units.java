@@ -1,6 +1,6 @@
 package ru.job4j.testtask;
 
-public class Units{
+public class Units implements Comparable<Units>{
 
     private String unitsName;
 
@@ -18,5 +18,9 @@ public class Units{
         return "Units{" +
                 "unitsName='" + unitsName + '\'' +
                 '}';
+    }
+
+    public int compareTo(Units o) {
+        return this.unitsName.compareTo(o.unitsName);
     }
 }

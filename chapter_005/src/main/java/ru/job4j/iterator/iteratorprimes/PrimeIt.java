@@ -26,7 +26,7 @@ public class PrimeIt implements Iterator {
 
     @Override
     public Object next() {
-        if (!hasNext())
+        if (position >= numbers.length)
             throw new NoSuchElementException();
         return numbers[position++];
     }

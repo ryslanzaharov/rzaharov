@@ -19,9 +19,9 @@ public class EventIt implements Iterator<Integer>{
     }
 
     @Override
-    public Integer next() throws NoSuchElementException {
-       if (!hasNext())
-           throw new NoSuchElementException();
+    public Integer next() throws NoSuchElementException{
+        if (position >= numbers.length)
+            throw new NoSuchElementException();
         return numbers[position++];
     }
 }

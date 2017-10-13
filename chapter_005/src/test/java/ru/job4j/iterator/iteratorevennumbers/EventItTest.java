@@ -5,7 +5,6 @@ import static org.junit.Assert.assertThat;
 import static org.hamcrest.core.Is.is;
 
 import java.util.Iterator;
-import java.util.NoSuchElementException;
 
 public class EventItTest {
 

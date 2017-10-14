@@ -15,13 +15,28 @@ public class EventIt implements Iterator<Integer>{
 
     @Override
     public boolean hasNext() {
-        return position < numbers.length && numbers[position] % 2 == 0 ? true : false;
+        Integer evenNumber = eventNumbers();
+        return position < numbers.length && evenNumber != null ? true : false;
     }
 
     @Override
     public Integer next() throws NoSuchElementException{
-        if (position >= numbers.length)
+        Integer evenNumber = eventNumbers();
+        if (position >= numbers.length || evenNumber == null)
             throw new NoSuchElementException();
-        return numbers[position++];
+        return numbers[evenNumber];
+    }
+
+    public Integer eventNumbers(){
+        Integer evenNumber = null;
+        for (; position < numbers.length; position++) {
+            if (numbers[position] % 2 == 0) {
+                evenNumber = position;
+                if (position != numbers.length - 1)
+                    position++;
+                break;
+            }
+        }
+        return evenNumber;
     }
 }

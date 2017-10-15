@@ -14,7 +14,7 @@ public class PrimeItTest {
         it.next();
         it.next();
         int result = (int)it.next();
-        int expected = 5;
+        int expected = 7;
         assertThat(result, is(expected));
     }
 

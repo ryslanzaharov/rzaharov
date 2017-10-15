@@ -10,11 +10,12 @@ public class EventItTest {
 
     @Test
     public void whenIteratorEvenNumbers() {
-        Iterator it = new EventIt(new int[] {4, 2, 1, 1, 6});
+        Iterator it = new EventIt(new int[] {4, 2, 1, 1, 6, 8});
+        it.next();
         it.next();
         it.next();
         int expected = (Integer) it.next();
-        int result = 6;
+        int result = 8;
         assertThat(result, is(expected));
     }
 }

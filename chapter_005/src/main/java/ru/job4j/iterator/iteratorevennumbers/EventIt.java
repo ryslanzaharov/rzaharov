@@ -8,6 +8,7 @@ public class EventIt implements Iterator<Integer>{
 
     private int[] numbers;
     private int position = 0;
+    private Integer evenNumber;
 
     public EventIt(final int[] numbers) {
         this.numbers = numbers;
@@ -15,28 +16,21 @@ public class EventIt implements Iterator<Integer>{
 
     @Override
     public boolean hasNext() {
-        Integer evenNumber = eventNumbers();
         return position < numbers.length && evenNumber != null ? true : false;
     }
 
     @Override
     public Integer next() throws NoSuchElementException{
-        Integer evenNumber = eventNumbers();
-        if (position >= numbers.length || evenNumber == null)
-            throw new NoSuchElementException();
-        return numbers[evenNumber];
-    }
-
-    public Integer eventNumbers(){
-        Integer evenNumber = null;
+        evenNumber = null;
         for (; position < numbers.length; position++) {
             if (numbers[position] % 2 == 0) {
                 evenNumber = position;
-                if (position != numbers.length - 1)
-                    position++;
+                position++;
                 break;
             }
         }
-        return evenNumber;
+        if (position > numbers.length || evenNumber == null)
+            throw new NoSuchElementException();
+        return numbers[evenNumber];
     }
 }

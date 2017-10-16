@@ -18,5 +18,18 @@ public class PrimeItTest {
         assertThat(result, is(expected));
     }
 
+    @Test
+    public void evenIteratorShouldReturnPrimeNumbersSequentially(){
+        PrimeIt it = new PrimeIt(new int[]{1,2,3,4,5,6,7,9});
+        assertThat(it.hasNext(), is(true));
+        assertThat(it.next(), is(2));
+        assertThat(it.hasNext(), is(true));
+        assertThat(it.next(), is(3));
+        assertThat(it.hasNext(), is(true));
+        assertThat(it.next(), is(5));
+        assertThat(it.next(), is(7));
+        assertThat(it.hasNext(), is(false));
+    }
+
 
 }

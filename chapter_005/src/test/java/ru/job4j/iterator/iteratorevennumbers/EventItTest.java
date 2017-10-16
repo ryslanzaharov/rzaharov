@@ -18,4 +18,15 @@ public class EventItTest {
         int result = 8;
         assertThat(result, is(expected));
     }
+    @Test
+    public void evenIteratorShouldReturnEvenNumbersSequentially(){
+        EventIt it = new EventIt(new int[]{1,2,3,4,5,6,7,9});
+        assertThat(it.hasNext(), is(true));
+        assertThat(it.next(), is(2));
+        assertThat(it.hasNext(), is(true));
+        assertThat(it.next(), is(4));
+        assertThat(it.hasNext(), is(true));
+        assertThat(it.next(), is(6));
+        assertThat(it.hasNext(), is(false));
+    }
 }

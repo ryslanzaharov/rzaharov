@@ -29,6 +29,20 @@ public class PrimeItTest {
         assertThat(it.next(), is(5));
         assertThat(it.next(), is(7));
         assertThat(it.hasNext(), is(false));
+       // it.next();
+        System.out.println(it.hasNext());
+    }
+
+    @Test
+    public void checkThatHasNextDoesntAffect () {
+        PrimeIt it = new PrimeIt(new int[]{2, 3, 4, 5, 6, 7, 12, 3571, 4});
+        assertThat(it.hasNext(), is(true));
+        assertThat(it.hasNext(), is(true));
+        assertThat(it.next(), is(2));
+        assertThat(it.next(), is(3));
+        assertThat(it.next(), is(5));
+        assertThat(it.next(), is(7));
+        assertThat(it.next(), is(3571));
     }
 
 

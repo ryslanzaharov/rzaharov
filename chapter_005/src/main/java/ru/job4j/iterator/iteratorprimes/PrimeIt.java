@@ -8,25 +8,22 @@ public class PrimeIt implements Iterator {
     private int[] numbers;
     private int position = 0;
     private Integer primeNumber;
+    private boolean hasN = false;
 
     public PrimeIt(final int[] numbers) {
         this.numbers = numbers;
     }
     @Override
     public boolean hasNext() {
-        boolean hasN = false;
+        if (position >= numbers.length)
+            throw new NoSuchElementException();
         primeNumber = numbers[position];
         for (int i = position; i < numbers.length; i++) {
             hasN = true;
             primeNumber = numbers[i];
             if (primeNumber == 1)
                 continue;
-            for (int n = 2; n < primeNumber - 1; n++) {
-                if (primeNumber % n == 0) {
-                    hasN = false;
-                    break;
-                }
-            }
+            primeNumb();
             if (hasN == true) {
                 break;
             }
@@ -41,13 +38,8 @@ public class PrimeIt implements Iterator {
             primeNumber = numbers[position];
             if (primeNumber == 1)
                 continue;
-            for (int i = 2; i < primeNumber - 1; i++) {
-                if (primeNumber % i == 0) {
-                    primeNumber = null;
-                    break;
-                }
-            }
-            if (primeNumber != null) {
+            primeNumb();
+            if (primeNumber != null && position < numbers.length - 1) {
                 position++;
                 break;
             }
@@ -55,5 +47,15 @@ public class PrimeIt implements Iterator {
         if (position > numbers.length || primeNumber == null)
             throw new NoSuchElementException();
         return primeNumber;
+    }
+
+    public void primeNumb() {
+        for (int n = 2; n < primeNumber - 1; n++) {
+            if (primeNumber % n == 0) {
+                hasN = false;
+                primeNumber = null;
+                break;
+            }
+        }
     }
 }

@@ -1,5 +1,7 @@
 package ru.job4j.generic;
 
+import java.util.Arrays;
+
 public class SimpleArray<T> {
 
     private Object[] objects;
@@ -28,15 +30,16 @@ public class SimpleArray<T> {
     }
 
     public Object[] delete(int position) {
-        Object [] objects1 = new Object[index - 1];
+        Object [] objects = new Object[index - 1];
         if (position < index) {
-            System.arraycopy(this.objects, 0, objects1, 0, position );
-            System.arraycopy(this.objects, position + 1, objects1, position, this.index - (position + 1));
+            System.arraycopy(this.objects, 0, objects, 0, position );
+            System.arraycopy(this.objects, position + 1, objects, position, this.index - (position + 1));
 
         }
         else
             throw new ArrayIndexOutOfBoundsException(String.format("error in delete"));
-        return objects1;
+        this.objects = objects;
+        return objects;
     }
 
     public T get(int position) {
@@ -45,4 +48,5 @@ public class SimpleArray<T> {
         else
             throw new ArrayIndexOutOfBoundsException(String.format("error in get"));
     }
+
 }

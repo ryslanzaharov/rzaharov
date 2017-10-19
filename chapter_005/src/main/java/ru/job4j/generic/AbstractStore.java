@@ -21,11 +21,6 @@ public abstract class AbstractStore<T extends Base>  implements Store<T>  {
     @Override
     public T update(T model) {
         store.update(model.getId(), model);
-//        for (Object el : store.getObjects()) {
-//            if (((T)el).getId() == model.getId()) {
-//
-//            }
-//        }
         return model;
     }
 

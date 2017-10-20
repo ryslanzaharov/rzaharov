@@ -3,59 +3,53 @@ package ru.job4j.iterator.iteratorprimes;
 import java.util.Iterator;
 import java.util.NoSuchElementException;
 
-public class PrimeIt implements Iterator {
+public class PrimeIt implements Iterator<Integer> {
 
-    private int[] numbers;
-    private int position = 0;
-    private Integer primeNumber;
-    private boolean hasN = false;
+    private int[] array;
+    private int index;
 
-    public PrimeIt(final int[] numbers) {
-        this.numbers = numbers;
-    }
-    @Override
-    public boolean hasNext() {
-        if (position >= numbers.length)
-            throw new NoSuchElementException();
-        primeNumber = numbers[position];
-        for (int i = position; i < numbers.length; i++) {
-            hasN = true;
-            primeNumber = numbers[i];
-            if (primeNumber == 1)
-                continue;
-            primeNumb();
-            if (hasN == true) {
-                break;
-            }
-        }
-        return position < numbers.length && hasN ? true : false;
+    public PrimeIt (int[] array) {
+        this.array = array;
     }
 
     @Override
-    public Object next() {
-        primeNumber = null;
-        for (; position < numbers.length; position++) {
-            primeNumber = numbers[position];
-            if (primeNumber == 1)
-                continue;
-            primeNumb();
-            if (primeNumber != null && position < numbers.length - 1) {
-                position++;
+    public boolean hasNext () {
+        boolean hasPrime = false;
+        while (index < array.length) {
+            if (isPrime(array[index])) {
+                hasPrime = true;
                 break;
             }
+            index++;
         }
-        if (position > numbers.length || primeNumber == null)
-            throw new NoSuchElementException();
-        return primeNumber;
+        return hasPrime;
     }
 
-    public void primeNumb() {
-        for (int n = 2; n < primeNumber - 1; n++) {
-            if (primeNumber % n == 0) {
-                hasN = false;
-                primeNumber = null;
+    @Override
+    public Integer next () {
+        if (hasNext()) {
+            return array[index++];
+        } else {
+            throw new NoSuchElementException();
+        }
+    }
+
+    /**
+     * Checks if parameter is prime number or not.
+     * @param numberToCheck - number to check
+     * @return - true - it is prime number, false - otherwise.
+     */
+    private boolean isPrime (int numberToCheck) {
+        boolean isPrime = true;
+        if (numberToCheck == 1) {
+            isPrime = false;
+        }
+        for (int i = 2; i < numberToCheck; i++) {
+            if (numberToCheck % i == 0) {
+                isPrime = false;
                 break;
             }
         }
+        return isPrime;
     }
 }

@@ -1,16 +1,16 @@
 package ru.job4j.list;
 
+import java.util.Arrays;
 import java.util.Iterator;
 import java.util.NoSuchElementException;
 
 public class DynamicArray<T> implements Iterable<T> {
 
     private Object[] container;
-    private int capacity = 2;
     private int count = 0;
 
     public DynamicArray() {
-        this.container = new Object[this.capacity];
+        this.container = new Object[2];
     }
 
     public DynamicArray(int capacity) {
@@ -18,26 +18,25 @@ public class DynamicArray<T> implements Iterable<T> {
         this.container = new Object[capacity];
     }
 
-    public void countingElements() {
-        this.capacity = 2 * this.capacity;
-        Object[] newContainer = new Object[capacity];
-        System.arraycopy(container, 0, newContainer, 0, container.length);
-        this.container = newContainer;
+    public void arrayCopy() {
+       this.container = Arrays.copyOf(container, 2 * container.length);
     }
 
     public void add(T value) {
         if (count == container.length) {
-            countingElements();
+            arrayCopy();
         }
         container[this.count++] = value;
     }
 
     public T get(int index) {
+        if (index >= container.length)
+            throw new ArrayIndexOutOfBoundsException("the element extends beyond the array");
         return (T)container[index];
     }
 
-    public T getAll() {
-        return (T)container;
+    public Object[] getAll() {
+        return container;
     }
 
     @Override

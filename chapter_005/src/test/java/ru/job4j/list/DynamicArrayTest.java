@@ -24,7 +24,7 @@ public class DynamicArrayTest {
         dynamicArray.add(expected.get(3));
 
         //compare the item
-        assertThat(dynamicArray.get(0), is(expected.get(0)));
+        assertThat(dynamicArray.get(3), is(expected.get(3)));
 
         //compare the elements
         assertThat(dynamicArray.getAll(), is(expected.toArray()));

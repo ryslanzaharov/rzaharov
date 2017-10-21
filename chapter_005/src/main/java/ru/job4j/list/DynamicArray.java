@@ -30,7 +30,7 @@ public class DynamicArray<T> implements Iterable<T> {
     }
 
     public T get(int index) {
-        if (index >= container.length)
+        if (index < 0 || index >= container.length )
             throw new ArrayIndexOutOfBoundsException("the element extends beyond the array");
         return (T)container[index];
     }

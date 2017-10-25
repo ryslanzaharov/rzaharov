@@ -18,13 +18,13 @@ public class DynamicArray<T> implements Iterable<T> {
         this.container = new Object[capacity];
     }
 
-    public void arrayCopy() {
+    public void increaseContainer() {
        this.container = Arrays.copyOf(container, 2 * container.length);
     }
 
     public void add(T value) {
         if (count == container.length) {
-            arrayCopy();
+            increaseContainer();
         }
         container[this.count++] = value;
     }

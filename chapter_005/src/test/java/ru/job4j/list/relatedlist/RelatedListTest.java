@@ -16,7 +16,6 @@ public class RelatedListTest {
         list.add("value5");
         list.add("value6");
         assertThat(list.get(2), is("value2"));
-
     }
 
 }

@@ -20,11 +20,28 @@ public class RelatedList<E> implements Iterable<E>{
     }
 
     public E get(int index) {
+        if (index > this.size || index < 0)
+            throw new NoSuchElementException();
          Node<E> ft = first;
         for (int i = 0; i < index; i++) {
             ft =ft.next;
         }
         return ft.item;
+    }
+
+    public void remove(int index) {
+        E el = get(index);
+        Node<E> ft = first;
+        for (int i = 0; i < index; i++) {
+            ft =ft.next;
+        }
+        Node<E> lt = ft.prev;
+        Node<E> nt = ft.next;
+        lt.next = nt;
+        nt.prev = lt;
+        ft.next = null;
+        ft.prev = null;
+        size--;
     }
 
     @Override

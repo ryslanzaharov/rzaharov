@@ -8,10 +8,14 @@ public class RelatedList<E> implements Iterable<E>{
     private Node<E> first;
     private int size = 0;
 
+    public int getSize() {
+        return size;
+    }
+
     public void add(E el) {
         final Node<E> lt = last;
         final Node<E> newNode = new Node<>(lt, el, null);
-        last = newNode;
+        this.last = newNode;
         if (lt == null)
             first = newNode;
         else
@@ -29,19 +33,35 @@ public class RelatedList<E> implements Iterable<E>{
         return ft.item;
     }
 
-    public void remove(int index) {
-        E el = get(index);
-        Node<E> ft = first;
-        for (int i = 0; i < index; i++) {
-            ft =ft.next;
+    public E removeFirst() {
+        Node<E> remove = first;
+        try {
+            Node<E> nextFirst = first.next;
+            this.first = nextFirst;
+            if (nextFirst == null) {
+                return remove.item;
+            }
+                first.prev = null;
+            size--;
+        }catch (NullPointerException npe) {
+            throw new NoSuchElementException();
         }
-        Node<E> lt = ft.prev;
-        Node<E> nt = ft.next;
-        lt.next = nt;
-        nt.prev = lt;
-        ft.next = null;
-        ft.prev = null;
-        size--;
+        return remove.item;
+    }
+
+    public E removeLast() {
+        Node<E> remove = last;
+        try {
+            Node<E> prevLast = last.prev;
+            this.last = prevLast;
+            if (prevLast == null)
+                return remove.item;
+            last.next = null;
+            size--;
+        } catch (NullPointerException npe) {
+            throw new NoSuchElementException();
+        }
+        return remove.item;
     }
 
     @Override
@@ -82,6 +102,7 @@ public class RelatedList<E> implements Iterable<E>{
             }
             else
                 next = next.next;
+
             lastReturned = next;
             nextIndex++;
             return lastReturned.item;

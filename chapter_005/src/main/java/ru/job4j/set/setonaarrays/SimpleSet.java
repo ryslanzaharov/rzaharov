@@ -1,4 +1,4 @@
-package ru.job4j.set;
+package ru.job4j.set.setonaarrays;
 import java.util.Arrays;
 import java.util.Iterator;
 import java.util.NoSuchElementException;

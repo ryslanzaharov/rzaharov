@@ -1,6 +1,7 @@
 package ru.job4j.list.relatedlist;
 
 import org.junit.Test;
+
 import static org.junit.Assert.assertThat;
 import static org.hamcrest.core.Is.is;
 
@@ -15,7 +16,7 @@ public class RelatedListTest {
         list.add("value4");
         list.add("value5");
         list.add("value6");
-        assertThat(list.get(2), is("value2"));
+        assertThat(list.get(6), is("value6"));
     }
 
 }

@@ -20,13 +20,8 @@ public class NodeTest {
         two.next = third;
         third.next = four;
         four.next = first;
-        List<Node> list = new ArrayList<>(
-                Arrays.asList(
-                      first, two, third, four
-                )
-        );
-        Node node = new Node(list);
-        boolean result = node.hasCycle();
+        Node.Cycle cycle = new Node.Cycle();
+        boolean result = cycle.hasCycle(first);
         assertThat(result, is(true));
     }
 

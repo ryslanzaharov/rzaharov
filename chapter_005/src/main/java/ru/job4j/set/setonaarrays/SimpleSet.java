@@ -18,9 +18,10 @@ public class SimpleSet<T> implements Iterable<T>, Comparable<T> {
 
     public void add(T value) {
         boolean ad = true;
-
+        if (size == 0)
+            container[size++] = value;
         for (Object el : container) {
-            if ((T)el == value)
+            if (el != null && ((T)el).equals(value))
                 ad = false;
         }
         if (ad) {
@@ -59,18 +60,19 @@ public class SimpleSet<T> implements Iterable<T>, Comparable<T> {
         return this.compareTo(o);
     }
 
-    private class Itr implements Iterator {
+    private class Itr<T> implements Iterator<T> {
         private int count = 0;
         @Override
         public boolean hasNext() {
-            return count < container.length;
+
+            return count < size;
         }
 
         @Override
-        public Object next() {
+        public T next() {
             if (!hasNext())
                 throw new NoSuchElementException();
-            return container[count++];
+            return (T)container[count++];
         }
     }
 }

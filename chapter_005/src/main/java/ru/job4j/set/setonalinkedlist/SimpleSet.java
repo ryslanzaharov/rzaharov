@@ -11,15 +11,7 @@ public class SimpleSet<E> implements Iterable<E>{
 
     public void add(E el) {
         final Node<E> lt = last;
-        boolean isAdd = true;
-        Iterator it = this.iterator();
-        while (it.hasNext()) {
-            if (it.next().equals(el)) {
-                isAdd = false;
-                break;
-            }
-        }
-        if (isAdd) {
+        if (!contains(el)) {
             final Node<E> newNode = new Node<>(lt, el, null);
             this.last = newNode;
             if (lt == null)
@@ -28,6 +20,16 @@ public class SimpleSet<E> implements Iterable<E>{
                 lt.next = newNode;
             size++;
         }
+    }
+
+    public boolean contains(E el) {
+        Iterator it = this.iterator();
+        while (it.hasNext()) {
+            if (it.next().equals(el)) {
+                return true;
+            }
+        }
+        return false;
     }
 
     @Override

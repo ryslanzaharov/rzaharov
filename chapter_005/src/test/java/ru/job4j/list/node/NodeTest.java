@@ -23,6 +23,7 @@ public class NodeTest {
         Node.Cycle cycle = new Node.Cycle();
         boolean result = cycle.hasCycle(first);
         assertThat(result, is(true));
+
     }
 
 }

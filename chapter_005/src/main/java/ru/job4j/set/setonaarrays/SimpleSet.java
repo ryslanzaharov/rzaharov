@@ -17,23 +17,28 @@ public class SimpleSet<T> implements Iterable<T>, Comparable<T> {
     }
 
     public void add(T value) {
-        boolean ad = true;
-        if (size == 0)
+        ensureCapacity();
+        if (!contains(value)) {
             container[size++] = value;
+        }
+    }
+
+    public boolean contains(T value) {
         for (Object el : container) {
             if (el != null && ((T)el).equals(value))
-                ad = false;
+                return true;
         }
-        if (ad) {
-            container[size++] = value;
-        }
-        if (size == container.length)
-            increaseContainer();
+        return false;
     }
 
     public void sort() {
         deleteNull();
         Arrays.sort(container);
+    }
+
+    public void ensureCapacity() {
+        if (size == container.length)
+            increaseContainer();
     }
 
     public void increaseContainer() {

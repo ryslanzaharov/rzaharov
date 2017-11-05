@@ -16,7 +16,7 @@ public class Node<T>{
             Node fast = first;
             if (first == null)
                 return false;
-            while(slow != null && fast != null) {
+            while(slow != null && fast != null && fast.next != null) {
                 slow = slow.next;
                 fast = fast.next.next;
                 if (fast == slow)

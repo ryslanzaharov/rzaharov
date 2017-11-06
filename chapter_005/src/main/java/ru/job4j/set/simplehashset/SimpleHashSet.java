@@ -15,32 +15,29 @@ public class SimpleHashSet<E> {
     }
 
     public boolean add (E e) {
-       return contains(e) ? true : false;
-    }
-
-    @Override
-    public String toString() {
-        return "SimpleHashSet{" +
-                "keys=" + Arrays.toString(keys) +
-                '}';
+        Integer i = contains(e);
+        if (i != null) {
+            keys[i] = e;
+            return true;
+        }
+       return false;
     }
 
     public int hash(E e) {
-        int x = Math.abs((e.hashCode() >> 10) ^ e.hashCode());
         return e.hashCode() % size;
     }
 
-    public boolean contains (E e) {
-        for(int i = hash(e); ; i++) {
+    public Integer contains (E e) {
+        for(int i = hash(e); i < size ; i++) {
             if (i == keys.length)
                 i = 0;
             if (keys[i].equals(e))
-                return false;
+                return null;
             if (keys[i] == minValue) {
-                keys[i] = e;
-                return true;
+                return i;
             }
         }
+        return null;
     }
     public boolean remove (E e) {
         for (int i = 0; i < keys.length; i++) {

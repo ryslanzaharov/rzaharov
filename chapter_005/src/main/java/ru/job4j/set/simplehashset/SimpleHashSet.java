@@ -41,7 +41,6 @@ public class SimpleHashSet<E> {
             if (i == keys.length - 1  && it == 0) {
                 it = 1;
                 i = -1;
-                System.out.println("df");
             }
         }
         return null;

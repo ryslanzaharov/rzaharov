@@ -33,7 +33,6 @@ public class SimpleHashSetTest {
         integerSimpleHashSet.add(5);
         integerSimpleHashSet.add(6);
         integerSimpleHashSet.add(1111);
-        System.out.println(integerSimpleHashSet);
         integerSimpleHashSet.remove(2);
         Object expected = null;
         assertThat(integerSimpleHashSet.keys[2], is(expected));

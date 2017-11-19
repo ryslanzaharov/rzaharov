@@ -5,44 +5,140 @@ import java.util.NoSuchElementException;
 
 public class Directory<K,V>  implements Iterable<V>{
 
-    private Object[] directory;
+    private Node<K,V>[] table;
+    int size;
 
-    public Directory(int size) {
-        this.directory = new Object[size];
+    public Directory() {
+        this.table = new Node[5];
     }
 
-    public int hash(K key) {
-        return Math.abs(key.hashCode() % directory.length);
+    public int indexFor(int h, int length) {
+        return Math.abs(h % length);
+    }
+
+    public static int hash(int h)
+    {
+        h ^= (h >>> 20) ^ (h >>> 12);
+        return h ^ (h >>> 7) ^ (h >>> 4);
     }
 
     public boolean insert(K key, V value) {
-        int index = hash(key);
-        if (index > -1 && index < directory.length) {
-            if (directory[index] == null) {
-                directory[index] = value;
-                return true;
+        boolean isInsert = false;
+        if (key != null && value != null) {
+            if (size == (int) (table.length * 0.75)) {
+                transfer(size);
+            }
+            int hash = hash(key.hashCode());
+            int index = indexFor(hash, table.length);
+            Node<K, V> e = table[index];
+            if (key == null) {
+                putForNullKey(value, table);
+            }
+            if (e == null) {
+                addNode(hash, key, value, index, table);
+                isInsert = true;
+                size++;
+            }
+            else if (!e.key.equals(key)) {
+                index++;
+                for (int i = index; i < table.length; i++) {
+                    if (table[i] == null) {
+                        addNode(hash, key, value, i, table);
+                        isInsert = true;
+                        size++;
+                        break;
+                    }
+                }
+            }
+        }
+        return isInsert;
+    }
+
+    public void putForNullKey(V val, Node<K, V> table[]) {
+        Node<K, V> nullEl = new Node(0, null, val);
+        table[0] = nullEl;
+        size++;
+    }
+
+    public void transfer(int sizeTable) {
+        sizeTable = sizeTable * 2;
+        Node<K, V>[] newTable = new Node[sizeTable];
+
+        for (int i = 0; i < table.length; i++) {
+            Node<K, V> el = table[i];
+            if (el != null)
+            if (el.key == null) {
+                putForNullKey(el.value, newTable);
             }
             else
-                return false;
+                addNode(el.hash, el.key, el.value, indexFor(el.hash, newTable.length), newTable);
         }
-        else
-            return false;
+        this.table = newTable;
+
     }
+
+    public void addNode(int hash, K key, V value, int index, Node<K, V> table[])
+    {
+        table[index] = new Node(hash, key, value);
+    }
+
+    public int elementTable(K key) {
+        int elemInd = -1;
+        int index = indexFor(key.hashCode(), table.length);
+        if (containsIndex(index))
+            for (int i = 0; i < table.length; i++) {
+                if (table[i] != null)
+                    if (table[i].key.equals(key))
+                        elemInd =  index;
+            }
+        return elemInd;
+    }
+
     public V get(K key) {
-        int index = hash(key);
-        if (index > -1 && index < directory.length)
-        return (V) directory[index];
-        else
-            return null;
+        V elem = null;
+        int ind = elementTable(key);
+        if (ind != -1)
+            elem = table[ind].value;
+        return elem;
     }
+
     public boolean delete(K key) {
-        int index = hash(key);
-        if (index > -1 && index < directory.length) {
-            directory[index] = null;
-            return true;
+        boolean isDelete = false;
+        int ind = elementTable(key);
+        if (ind != -1) {
+            table[ind] = null;
+            size--;
         }
-        else
-            return false;
+        return isDelete;
+    }
+
+    public boolean containsIndex(int index) {
+        boolean isContains = false;
+        if (index > -1 && index < table.length)
+            isContains = true;
+        return isContains;
+    }
+
+    static class Node<K,V> {
+
+        final int hash;
+        final K key;
+        V value;
+
+        Node(int hash, K key, V value) {
+            this.hash = hash;
+            this.key = key;
+            this.value = value;
+        }
+
+        @Override
+        public String toString() {
+            return "Node{" +
+                    "hash=" + hash +
+                    ", key=" + key +
+                    ", value=" + value +
+                    '}';
+        }
     }
 
     @Override
@@ -52,14 +148,14 @@ public class Directory<K,V>  implements Iterable<V>{
 
     class Iter implements Iterator<V>{
 
-        private int size = directory.length;
+        private int size = table.length;
         private int index;
 
         @Override
         public boolean hasNext() {
             boolean hasN = false;
             while (index < size) {
-                if (directory[index] != null) {
+                if (table[index] != null) {
                     hasN = true;
                     break;
                 }
@@ -70,10 +166,9 @@ public class Directory<K,V>  implements Iterable<V>{
 
         @Override
         public V next() {
-            if (hasNext())
-                return (V)directory[index++];
-            else
+            if (!hasNext())
                 throw new NoSuchElementException();
+            return (V)table[index++];
         }
     }
 }

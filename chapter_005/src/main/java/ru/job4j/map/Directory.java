@@ -24,29 +24,30 @@ public class Directory<K,V>  implements Iterable<V>{
 
     public boolean insert(K key, V value) {
         boolean isInsert = false;
-        if (key != null && value != null) {
+        if (value != null) {
             if (size == (int) (table.length * 0.75)) {
                 transfer(size);
             }
-            int hash = hash(key.hashCode());
-            int index = indexFor(hash, table.length);
-            Node<K, V> e = table[index];
             if (key == null) {
                 putForNullKey(value, table);
             }
-            if (e == null) {
-                addNode(hash, key, value, index, table);
-                isInsert = true;
-                size++;
-            }
-            else if (!e.key.equals(key)) {
-                index++;
-                for (int i = index; i < table.length; i++) {
-                    if (table[i] == null) {
-                        addNode(hash, key, value, i, table);
-                        isInsert = true;
-                        size++;
-                        break;
+            else {
+                int hash = hash(key.hashCode());
+                int index = indexFor(hash, table.length);
+                Node<K, V> e = table[index];
+                if (e == null) {
+                    addNode(hash, key, value, index, table);
+                    isInsert = true;
+                    size++;
+                } else if (!e.key.equals(key)) {
+                    index++;
+                    for (int i = index; i < table.length; i++) {
+                        if (table[i] == null) {
+                            addNode(hash, key, value, i, table);
+                            isInsert = true;
+                            size++;
+                            break;
+                        }
                     }
                 }
             }
@@ -87,18 +88,23 @@ public class Directory<K,V>  implements Iterable<V>{
         int index = indexFor(key.hashCode(), table.length);
         if (containsIndex(index))
             for (int i = 0; i < table.length; i++) {
-                if (table[i] != null)
+                if (table[i] != null && table[i].key != null) {
                     if (table[i].key.equals(key))
-                        elemInd =  index;
+                        elemInd = index;
+                }
             }
         return elemInd;
     }
 
     public V get(K key) {
         V elem = null;
-        int ind = elementTable(key);
-        if (ind != -1)
-            elem = table[ind].value;
+        if (key == null)
+            elem = table[0].value;
+        else {
+            int ind = elementTable(key);
+            if (ind != -1)
+                elem = table[ind].value;
+        }
         return elem;
     }
 
@@ -108,6 +114,7 @@ public class Directory<K,V>  implements Iterable<V>{
         if (ind != -1) {
             table[ind] = null;
             size--;
+            isDelete = true;
         }
         return isDelete;
     }
@@ -129,15 +136,6 @@ public class Directory<K,V>  implements Iterable<V>{
             this.hash = hash;
             this.key = key;
             this.value = value;
-        }
-
-        @Override
-        public String toString() {
-            return "Node{" +
-                    "hash=" + hash +
-                    ", key=" + key +
-                    ", value=" + value +
-                    '}';
         }
     }
 

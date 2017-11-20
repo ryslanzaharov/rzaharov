@@ -13,6 +13,7 @@ public class DirectoryTest {
     public void whenAddRemoveAndGetTheElementsToTheList() {
         Directory<Integer, String> directory = new Directory<>();
         //Add the elements.
+        directory.insert(null, "value0");
         directory.insert(2, "value1");
         directory.insert(3, "value2");
         directory.insert(3, "value3");

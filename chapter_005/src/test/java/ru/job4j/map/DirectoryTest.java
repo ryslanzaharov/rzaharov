@@ -21,6 +21,7 @@ public class DirectoryTest {
         directory.insert(6, "value6");
         directory.insert(7, "value7");
         directory.insert(8, "value8");
+        directory.insert(9, "value9");
         //Get the elements.
         String result = directory.get(3);
         assertThat( result, is("value2"));
@@ -28,6 +29,7 @@ public class DirectoryTest {
         directory.delete(3);
         String expected = null;
         assertThat(directory.get(3), is(expected));
+
     }
 
 }

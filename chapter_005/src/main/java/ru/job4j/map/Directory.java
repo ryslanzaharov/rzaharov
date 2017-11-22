@@ -1,11 +1,12 @@
 package ru.job4j.map;
 
+import java.util.Arrays;
 import java.util.Iterator;
 import java.util.NoSuchElementException;
 
 public class Directory<K,V>  implements Iterable<V>{
 
-    private Node<K,V>[] table;
+    public Node<K,V>[] table;
     int size;
 
     public Directory() {
@@ -47,6 +48,9 @@ public class Directory<K,V>  implements Iterable<V>{
                             isInsert = true;
                             size++;
                             break;
+                        }
+                        if (i == table.length - 1) {
+                            i = 0;
                         }
                     }
                 }

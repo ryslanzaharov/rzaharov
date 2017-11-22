@@ -37,6 +37,7 @@ public class TreeTest {
             result.add((String) iter.next());
         }
         assertThat(result, is(expected));
+        assertThat(tree.isBinary(), is(false));
     }
 
 }

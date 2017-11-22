@@ -83,10 +83,26 @@ class Tree<E extends Comparable<E>> implements SimpleTree<E> {
         return index;
     }
 
-    public void get() {
-        System.out.println(node);
-    }
+    public boolean isBinary() {
+        boolean binary = true;
+        Node<E> bNote = null;
+        Queue<Node<E>> queueNote = new ArrayDeque<>();
+        if (node != null) {
+            queueNote.add(node);
+        }
+        while(!queueNote.isEmpty()) {
+            bNote = queueNote.poll();
+            if (bNote.children != null && bNote.children.size() <= 2) {
+                queueNote.addAll(bNote.children);
+            }
+            else {
+                binary = false;
+                break;
+            }
+        }
 
+        return binary;
+    }
     @Override
     public Iterator<E> iterator() {
         return new Iter();

@@ -1,6 +1,5 @@
 package ru.job4j.map;
 
-import java.util.Arrays;
 import java.util.Iterator;
 import java.util.NoSuchElementException;
 
@@ -144,11 +143,11 @@ public class Directory<K,V>  implements Iterable<V>{
     }
 
     @Override
-    public Iterator<V> iterator() {
+    public Iterator iterator() {
         return new Iter();
     }
 
-    class Iter implements Iterator<V>{
+    class Iter implements Iterator<Node<K, V>>{
 
         private int size = table.length;
         private int index;
@@ -167,10 +166,10 @@ public class Directory<K,V>  implements Iterable<V>{
         }
 
         @Override
-        public V next() {
+        public Node<K, V> next() {
             if (!hasNext())
                 throw new NoSuchElementException();
-            return (V)table[index++];
+            return table[index++];
         }
     }
 }

@@ -5,7 +5,7 @@ import java.util.*;
 
 class Tree<E extends Comparable<E>> implements SimpleTree<E> {
 
-    private Node<E> node;
+     Node<E> node;
     private Node<E> nodeParent;
 
     private class Node<E> {
@@ -30,6 +30,7 @@ class Tree<E extends Comparable<E>> implements SimpleTree<E> {
             node = new Node<>(parent);
             nodeParent = node;
             node.addFirstChildren(child);
+            isAdd = true;
         }
         else if (searchWithAddition(node, parent, child)) {
             isAdd = true;
@@ -37,12 +38,14 @@ class Tree<E extends Comparable<E>> implements SimpleTree<E> {
         return isAdd;
     }
 
+
     public boolean searchWithAddition(Node<E> node, E parent, E child) {
-        boolean parNode = false;
+        boolean isAdd = false;
         int ind ;
         if (!contains(node, child)) {
         if ( node.value.equals(parent)) {
                 node.children.add(new Node<>(child));
+                isAdd = true;
         }
         else if (( ind = getIndex(node, parent)) != -1 && node.children.get(ind).children == null) {
                 node.children.get(ind).addFirstChildren(child);
@@ -56,9 +59,9 @@ class Tree<E extends Comparable<E>> implements SimpleTree<E> {
             }
         }
         if (node.equals(nodeParent)) {
-            parNode = true;
+            isAdd = true;
         }}
-        return parNode;
+        return isAdd;
     }
 
     public boolean contains(Node<E> node, E child) {
@@ -92,12 +95,13 @@ class Tree<E extends Comparable<E>> implements SimpleTree<E> {
         }
         while(!queueNote.isEmpty()) {
             bNote = queueNote.poll();
-            if (bNote.children != null && bNote.children.size() <= 2) {
-                queueNote.addAll(bNote.children);
-            }
-            else {
-                binary = false;
-                break;
+            if (bNote.children != null) {
+                if (bNote.children.size() <= 2) {
+                    queueNote.addAll(bNote.children);
+                } else {
+                    binary = false;
+                    break;
+                }
             }
         }
 

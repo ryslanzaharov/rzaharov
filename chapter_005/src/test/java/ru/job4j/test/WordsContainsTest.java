@@ -8,13 +8,12 @@ import java.util.Map;
 import static org.hamcrest.core.Is.is;
 import static org.junit.Assert.*;
 
-public class WordsTest {
+public class WordsContainsTest {
 
     @Test
     public void whenComparisonTest() {
-        Map<Words, Object> map = new HashMap<>();
-        map.put(new Words("value"), new Object());
-        map.put(new Words("lueav"), new Object());
-        assertThat(map.size(), is(1));
+        WordsContains wordsContains = new WordsContains();
+        boolean result = wordsContains.containsLetter("leffave", "fevaelf");
+        assertThat(result, is(true));
     }
 }

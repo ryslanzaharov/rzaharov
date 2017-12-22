@@ -8,6 +8,7 @@ public class NumberWordSpacesTest {
 
     @Test
     public void whenConsiderTheNumberOfWordsAndSpacesInTheText() {
+        System.out.println("Начало программы");
         String text = "werfw wefw rthr  rthr ";
         NumberWords firstThread = new NumberWords(text);
         NumberSpaces secondThread = new NumberSpaces(text);
@@ -22,6 +23,7 @@ public class NumberWordSpacesTest {
 
         assertThat(firstThread.getNumbWords(), is(4));
         assertThat(secondThread.getNumbSpaces(), is(5));
+        System.out.println("Конец программы");
     }
 
 }

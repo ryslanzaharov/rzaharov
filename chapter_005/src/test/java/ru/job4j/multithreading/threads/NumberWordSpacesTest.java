@@ -11,16 +11,17 @@ public class NumberWordSpacesTest {
         String text = "werfw wefw rthr  rthr ";
         NumberWords firstThread = new NumberWords(text);
         NumberSpaces secondThread = new NumberSpaces(text);
+        firstThread.newThread();
+        secondThread.newThread();
         try {
-         firstThread.thread.join();
-         secondThread.thread.join();
+         firstThread.getThread().join();
+         secondThread.getThread().join();
         }catch (InterruptedException e) {
             e.printStackTrace();
         }
 
         assertThat(firstThread.getNumbWords(), is(4));
         assertThat(secondThread.getNumbSpaces(), is(5));
-
     }
 
 }

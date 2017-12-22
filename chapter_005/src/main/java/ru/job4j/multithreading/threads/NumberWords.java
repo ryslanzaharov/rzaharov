@@ -8,19 +8,25 @@ public class NumberWords implements Runnable {
 
     public NumberWords(String text) {
         this.text = text;
+    }
+
+    public void newThread() {
         thread = new Thread(this);
         thread.start();
-        try {
-            thread.join();
-        } catch (InterruptedException e) {}
     }
 
     @Override
     public void run() {
-        this.numbWords = text.split(" +").length;
+        for (String word : text.split(" +")) {
+            numbWords++;
+        }
     }
 
     public int getNumbWords() {
         return numbWords;
+    }
+
+    public Thread getThread() {
+        return thread;
     }
 }

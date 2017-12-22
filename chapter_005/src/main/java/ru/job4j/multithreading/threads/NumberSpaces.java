@@ -4,10 +4,13 @@ public class NumberSpaces implements Runnable {
 
     private String text;
     private int numbSpaces;
-    Thread thread;
+    private Thread thread;
 
     public NumberSpaces(String text) {
         this.text = text;
+    }
+
+    public void newThread() {
         thread = new Thread(this);
         thread.start();
     }
@@ -22,5 +25,9 @@ public class NumberSpaces implements Runnable {
 
     public int getNumbSpaces() {
         return numbSpaces;
+    }
+
+    public Thread getThread() {
+        return thread;
     }
 }

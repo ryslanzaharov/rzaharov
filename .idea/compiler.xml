@@ -9,12 +9,16 @@
         <module name="chapter_001" />
         <module name="chapter_003" />
         <module name="chapter_005" />
+        <module name="chapter_007" />
       </profile>
     </annotationProcessing>
     <bytecodeTargetLevel>
       <module name="chapter_001" target="1.8" />
       <module name="chapter_003" target="1.8" />
       <module name="chapter_005" target="1.8" />
+      <module name="chapter_007" target="1.8" />
+      <module name="chh" target="1.8" />
+      <module name="chhh" target="1.8" />
       <module name="rzaharov" target="1.8" />
     </bytecodeTargetLevel>
   </component>

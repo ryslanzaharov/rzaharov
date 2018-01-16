@@ -1,5 +1,8 @@
 package ru.job4j.multithreading.users;
 
+import net.jcip.annotations.GuardedBy;
+import net.jcip.annotations.ThreadSafe;
+
 public class User {
 
     private int id;
@@ -8,11 +11,6 @@ public class User {
     public User(int id, int amount) {
         this.id = id;
         this.amount = amount;
-    }
-
-    @Override
-    public String toString() {
-        return amount+"";
     }
 
     public int getId() {

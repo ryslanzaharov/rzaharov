@@ -8,7 +8,7 @@ import java.util.Map;
 
 @ThreadSafe
 public class UserStorage {
-    @GuardedBy("this")
+    @GuardedBy("storage")
     private final Map<Integer, User> storage = new HashMap<>();
 
     public boolean add (User user) {
@@ -22,7 +22,7 @@ public class UserStorage {
         }
     }
 
-    public synchronized boolean update(User user) {
+    public boolean update(User user) {
         synchronized (storage) {
             boolean isUpdate = false;
             if (storage.containsKey(user.getId())) {
@@ -35,40 +35,37 @@ public class UserStorage {
         }
     }
 
-    public synchronized boolean delete(User user) {
+    public boolean delete(User user) {
         synchronized (storage) {
             boolean isDelete = false;
             if (storage.containsKey(user.getId())) {
                 storage.remove(user.getId());
                 isDelete = true;
             }
-
             return isDelete;
         }
     }
 
     public boolean transfer(int fromId, int toId, int amount) {
-        boolean isTransfer = false;
-        if (storage.containsKey(fromId) && storage.containsKey(toId)) {
-            User from = storage.get(fromId);
-            User to = storage.get(toId);
-            if (from.getAmount() >= amount) {
-                synchronized(from) {
-                    synchronized (to) {
-                        from.setAmount(from.getAmount() - amount);
-                        storage.put(fromId, from);
-                        to.setAmount(to.getAmount() + amount);
-                        storage.put(toId, to);
-                        isTransfer = true;
+        synchronized (storage) {
+            boolean isTransfer = false;
+            if (storage.containsKey(fromId) && storage.containsKey(toId)) {
+                User from = storage.get(fromId);
+                User to = storage.get(toId);
+                if (from.getAmount() >= amount) {
+                    synchronized (from) {
+                        synchronized (to) {
+                            from.setAmount(from.getAmount() - amount);
+                            storage.put(fromId, from);
+                            to.setAmount(to.getAmount() + amount);
+                            storage.put(toId, to);
+                            isTransfer = true;
+                        }
                     }
                 }
+
             }
-
+            return isTransfer;
         }
-        return isTransfer;
-    }
-
-    public synchronized Map<Integer, User> getStorage() {
-        return storage;
     }
 }

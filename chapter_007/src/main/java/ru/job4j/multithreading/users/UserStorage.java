@@ -8,6 +8,7 @@ import java.util.Map;
 
 @ThreadSafe
 public class UserStorage {
+
     @GuardedBy("storage")
     private final Map<Integer, User> storage = new HashMap<>();
 

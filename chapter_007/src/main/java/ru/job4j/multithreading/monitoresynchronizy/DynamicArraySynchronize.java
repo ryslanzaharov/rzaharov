@@ -8,16 +8,16 @@ import java.util.Iterator;
 import java.util.NoSuchElementException;
 
 @ThreadSafe
-public class DynamicArraySynchronizy<T> implements Iterable<T> {
+public class DynamicArraySynchronize<T> implements Iterable<T> {
     @GuardedBy("container")
     private Object[] container;
     private int count = 0;
 
-    public DynamicArraySynchronizy() {
+    public DynamicArraySynchronize() {
         this.container = new Object[2];
     }
 
-    public DynamicArraySynchronizy(int capacity) {
+    public DynamicArraySynchronize(int capacity) {
         this.container = new Object[capacity];
     }
 

@@ -9,10 +9,10 @@ import java.util.List;
 import static org.hamcrest.core.Is.is;
 import static org.junit.Assert.*;
 
-public class DynamicArraySynchronizyTest {
+public class DynamicArraySynchronizeTest {
     @Test
     public void whenAddLotOfElements() throws InterruptedException{
-        DynamicArraySynchronizy<String> dynamicArray = new DynamicArraySynchronizy<>();
+        DynamicArraySynchronize<String> dynamicArray = new DynamicArraySynchronize<>();
         List<String> expected = new ArrayList<>(
                 Arrays.asList(
                         "value1", "value2", "value3", "value4"
@@ -21,61 +21,54 @@ public class DynamicArraySynchronizyTest {
         Thread t1 = new Thread(new Runnable() {
             @Override
             public void run() {
-                synchronized (dynamicArray) {
                     try {
                         dynamicArray.add(expected.get(0));
                     } catch (Exception e) {
                         e.printStackTrace();
                     }
-                }
             }
         });
         t1.start();
+        t1.join();
 
         Thread t2 = new Thread(new Runnable() {
             @Override
             public void run() {
-
-                synchronized (dynamicArray) {
-                    try {
+                 try {
                         dynamicArray.add(expected.get(1));
                     } catch (Exception e) {
                         e.printStackTrace();
                     }
-                }
             }
         });
         t2.start();
+        t2.join();
 
         Thread t3 = new Thread(new Runnable() {
             @Override
             public void run() {
-
-                synchronized (dynamicArray) {
-                    try {
+                 try {
                         dynamicArray.add(expected.get(2));
                     } catch (Exception e) {
                         e.printStackTrace();
                     }
-                }
             }
         });
         t3.start();
+        t3.join();
 
         Thread t4 = new Thread(new Runnable() {
             @Override
             public void run() {
-
-                synchronized (dynamicArray) {
-                    try {
+                 try {
                         dynamicArray.add(expected.get(3));
                     } catch (Exception e) {
                         e.printStackTrace();
                     }
-                }
             }
         });
         t4.start();
+        t4.join();
 
         try {
             Thread.sleep(1000);

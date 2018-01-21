@@ -54,15 +54,11 @@ public class UserStorage {
                 User from = storage.get(fromId);
                 User to = storage.get(toId);
                 if (from.getAmount() >= amount) {
-                    synchronized (from) {
-                        synchronized (to) {
-                            from.setAmount(from.getAmount() - amount);
-                            storage.put(fromId, from);
-                            to.setAmount(to.getAmount() + amount);
-                            storage.put(toId, to);
-                            isTransfer = true;
-                        }
-                    }
+                    from.setAmount(from.getAmount() - amount);
+                    storage.put(fromId, from);
+                    to.setAmount(to.getAmount() + amount);
+                    storage.put(toId, to);
+                    isTransfer = true;
                 }
 
             }

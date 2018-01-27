@@ -14,49 +14,43 @@ public class RelatedListSynchronize<E> implements Iterable<E>{
 
     private int size = 0;
 
-    private final Lock locker = new ReentrantLock();
+    private final Object lock = new Object();
 
     public int getSize() {
-        return size;
+        synchronized (lock) {
+            return size;
+        }
     }
 
     public void add(E el) {
-        locker.lock();
-        final Node<E> lt;
-        try {
+        synchronized (lock) {
+            final Node<E> lt;
             lt = last;
-        final Node<E> newNode = new Node<>(lt, el, null);
-        this.last = newNode;
-        if (lt == null)
-            first = newNode;
-        else
-            lt.next = newNode;
-        size++;
-        } finally {
-            locker.unlock();
+            final Node<E> newNode = new Node<>(lt, el, null);
+            this.last = newNode;
+            if (lt == null)
+                first = newNode;
+            else
+                lt.next = newNode;
+            size++;
         }
     }
 
     public E get(int index) {
-        locker.lock();
-        try {
+        synchronized (lock) {
             if (index > this.size || index < 0)
                 throw new NoSuchElementException();
-        Node<E> ft = first;
-        for (int i = 0; i < index; i++) {
-            ft =ft.next;
-        }
-        return ft.item;
-        } finally {
-            locker.unlock();
+            Node<E> ft = first;
+            for (int i = 0; i < index; i++) {
+                ft =ft.next;
+            }
+            return ft.item;
         }
     }
 
     public E removeFirst() {
-        locker.lock();
-        try {
-        Node<E> remove = first;
-        try {
+        synchronized (lock) {
+            Node<E> remove = first;
             Node<E> nextFirst = first.next;
             this.first = nextFirst;
             if (nextFirst == null) {
@@ -64,33 +58,26 @@ public class RelatedListSynchronize<E> implements Iterable<E>{
             }
             first.prev = null;
             size--;
-        }catch (NullPointerException npe) {
-            throw new NoSuchElementException();
-        }
-        return remove.item;
-        } finally {
-            locker.unlock();
+            return remove.item;
         }
     }
 
     public E removeLast() {
-        locker.lock();
-        try {
-        Node<E> remove = last;
-        try {
-            Node<E> prevLast = last.prev;
-            this.last = prevLast;
-            if (prevLast == null)
-                return remove.item;
-            last.next = null;
-            size--;
-        } catch (NullPointerException npe) {
-            throw new NoSuchElementException();
+        synchronized (lock) {
+            Node<E> remove = last;
+            try {
+                Node<E> prevLast = last.prev;
+                this.last = prevLast;
+                if (prevLast == null)
+                    return remove.item;
+                last.next = null;
+                size--;
+            } catch (NullPointerException npe) {
+                throw new NoSuchElementException();
+            }
+            return remove.item;
         }
-        return remove.item;
-        } finally {
-            locker.unlock();
-        }
+
     }
 
     @Override
@@ -119,28 +106,27 @@ public class RelatedListSynchronize<E> implements Iterable<E>{
 
         @Override
         public boolean hasNext() {
-            return nextIndex <= size - 1;
+            synchronized (lock) {
+                return nextIndex <= size - 1;
+            }
         }
 
         @Override
         public E next() {
-            locker.lock();
-
-            try {
+            synchronized (lock) {
                 if (!hasNext())
                     throw new NoSuchElementException();
-            if (nextIndex == 0) {
-                next = first;
-            }
-            else
-                next = next.next;
+                if (nextIndex == 0) {
+                    next = first;
+                }
+                else
+                    next = next.next;
 
-            lastReturned = next;
-            nextIndex++;
-            return lastReturned.item;
-            } finally {
-                locker.unlock();
+                lastReturned = next;
+                nextIndex++;
+                return lastReturned.item;
             }
+
         }
     }
 }

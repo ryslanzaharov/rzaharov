@@ -13,58 +13,46 @@ public class DynamicArraySynchronize<T> implements Iterable<T> {
     private Object[] container;
     private int count = 0;
 
-    private final Lock locker = new ReentrantLock();
+    private final Object lock = new Object();
 
     public DynamicArraySynchronize() {
-        this.container = new Object[2];
+        synchronized (lock) {
+            this.container = new Object[2];
+        }
     }
 
     public DynamicArraySynchronize(int capacity) {
-        this.container = new Object[capacity];
+        synchronized (lock) {
+            this.container = new Object[capacity];
+        }
     }
 
     public void increaseContainer() {
-            locker.lock();
-        try {
+        synchronized (lock) {
             this.container = Arrays.copyOf(container, 2 * container.length);
-        } catch (Exception e) {
-            e.printStackTrace();
-        } finally {
-            locker.unlock();
         }
     }
 
     public void add(T value) {
-        locker.lock();
-        try {
-            if (count == container.length) {
-                   increaseContainer();
-               }
+
+        synchronized (lock) {
+            if (count == container.length)
+                increaseContainer();
             container[this.count++] = value;
-        } catch (Exception e) {
-            e.printStackTrace();
-        } finally {
-            locker.unlock();
         }
     }
 
     public T get(int index) {
-        locker.lock();
-        try {
+        synchronized (lock) {
             if (index < 0 || index >= container.length)
                 throw new ArrayIndexOutOfBoundsException("the element extends beyond the array");
             return (T) container[index];
-        } finally {
-            locker.unlock();
         }
     }
 
     public Object[] getAll() {
-        locker.lock();
-        try {
-        return container;
-        } finally {
-            locker.unlock();
+        synchronized (lock) {
+            return (Object[]) container.clone();
         }
     }
 
@@ -79,25 +67,21 @@ public class DynamicArraySynchronize<T> implements Iterable<T> {
 
         @Override
         public boolean hasNext() {
-            locker.lock();
-            try {
-                return this.index < container.length ? true : false;
-            } finally {
-                locker.unlock();
+            synchronized (lock) {
+                return this.index < count ? true : false;
             }
         }
 
         @Override
         public T next() {
-            locker.lock();
-            try {
-            if (!hasNext()) {
-                throw new NoSuchElementException();
+
+            synchronized (lock) {
+                if (!hasNext()) {
+                    throw new NoSuchElementException();
+                }
+                return (T) container[index++];
             }
-            return (T) container[index++];
-            } finally {
-                locker.unlock();
-            }
+
         }
     }
 }

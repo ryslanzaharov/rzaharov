@@ -5,26 +5,24 @@ import java.util.List;
 
 public class Amount {
 
-    private volatile int n = 0;
-    private boolean bound;
-
-    private volatile String[] quantity = new String[10];
+    private int n = 0;
+    private String[] quantity = new String[10];
 
     public synchronized void put() throws InterruptedException{
-        if (n == 10) {
+        while (n == 10) {
             wait();
         }
         quantity[n] = "value " + n;
         n++;
-        notify();
+        notifyAll();
     }
 
     public synchronized String get() throws InterruptedException{
-        if (n == 0) {
+        while (n == 0) {
             wait();
         }
         n--;
-        notify();
+        notifyAll();
         return quantity[n];
     }
 }

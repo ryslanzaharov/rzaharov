@@ -27,19 +27,16 @@ public class ParallerSearch{
 
     //возвращает список всех файлов содержащих text.
     public List<String> result(String root)
-            throws IOException
-    {
-        synchronized (fileWithWord) {
-            File dir = new File(root);
-            File[] list = dir.listFiles();
-
-            try {
-                for (File f : list) {
-                    String path = f.getCanonicalPath();
-                    if (f.isFile()) {
-                        String ext = path.substring(path.lastIndexOf(".") + 1);
-                        if (exts.contains(ext)) {
-                            BufferedReader br = new BufferedReader(new InputStreamReader(new FileInputStream(f)));
+            throws IOException {
+        File dir = new File(root);
+        File[] list = dir.listFiles();
+        for (File f : list) {
+            String path = f.getCanonicalPath();
+            if (f.isFile()) {
+                synchronized (fileWithWord) {
+                    String ext = path.substring(path.lastIndexOf(".") + 1);
+                    if (exts.contains(ext)) {
+                        try (BufferedReader br = new BufferedReader(new InputStreamReader(new FileInputStream(f)));) {
                             String line;
                             while ((line = br.readLine()) != null) {
                                 if (line.contains(text)) {
@@ -47,29 +44,29 @@ public class ParallerSearch{
                                     break;
                                 }
                             }
-                        }
-                    } else {
-                        if (list.length == 1)
-                            result(path);
-                        else {
-                            new Thread(new Runnable() {
-                                @Override
-                                public void run() {
-                                    try {
-                                        result(path);
-                                    } catch (IOException e) {
-                                        e.printStackTrace();
-                                    }
-                                }
-                            }).start();
+                        } catch (IOException e) {
+                            e.printStackTrace();
                         }
                     }
                 }
-            } catch (IOException e) {
-                e.printStackTrace();
+            } else {
+                if (list.length == 1)
+                    result(path);
+                else {
+                    new Thread(new Runnable() {
+                        @Override
+                        public void run() {
+                            try {
+                                result(path);
+                            } catch (IOException e) {
+                                e.printStackTrace();
+                            }
+                        }
+                    }).start();
+                }
             }
-            return fileWithWord;
         }
+        return fileWithWord;
     }
 
 }

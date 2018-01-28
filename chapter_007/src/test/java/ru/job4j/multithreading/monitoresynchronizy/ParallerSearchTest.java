@@ -1,15 +1,10 @@
 package ru.job4j.multithreading.monitoresynchronizy;
 
 import org.junit.Test;
-import ru.job4j.multithreading.monitoresynchronizy.searchdirect.FilesApp;
-
-import java.io.FilenameFilter;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
-
-import static org.junit.Assert.*;
 
 public class ParallerSearchTest {
     @Test

@@ -33,22 +33,22 @@ public class ParallerSearch{
         for (File f : list) {
             String path = f.getCanonicalPath();
             if (f.isFile()) {
-                synchronized (fileWithWord) {
                     String ext = path.substring(path.lastIndexOf(".") + 1);
                     if (exts.contains(ext)) {
                         try (BufferedReader br = new BufferedReader(new InputStreamReader(new FileInputStream(f)));) {
                             String line;
                             while ((line = br.readLine()) != null) {
                                 if (line.contains(text)) {
-                                    fileWithWord.add(path);
-                                    break;
+                                    synchronized (fileWithWord) {
+                                        fileWithWord.add(path);
+                                        break;
+                                    }
                                 }
                             }
                         } catch (IOException e) {
                             e.printStackTrace();
                         }
                     }
-                }
             } else {
                 if (list.length == 1)
                     result(path);

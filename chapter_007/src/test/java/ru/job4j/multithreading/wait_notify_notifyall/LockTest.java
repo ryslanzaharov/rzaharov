@@ -7,7 +7,7 @@ public class LockTest {
     @Test
     public void whenBlockObjectThroughTheClassLocks() {
         Lock lock = new Lock();
-        new Thread(new Runnable() {
+        Thread thread1 = new Thread(new Runnable() {
             @Override
             public void run() {
                 try {
@@ -21,9 +21,9 @@ public class LockTest {
                     e.printStackTrace();
                 }
             }
-        }).start();
+        });
 
-        new Thread(new Runnable() {
+        Thread thread2 = new Thread(new Runnable() {
             @Override
             public void run() {
                 try {
@@ -37,7 +37,9 @@ public class LockTest {
                     e.printStackTrace();
                 }
             }
-        }).start();
+        });
+        thread2.start();
+        thread1.start();
         try {
             Thread.sleep(200);
         } catch (InterruptedException e) {

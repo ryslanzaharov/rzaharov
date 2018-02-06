@@ -17,8 +17,10 @@ public class Lock {
 
     public void unlock() throws InterruptedException{
         synchronized (lock) {
-            locked = false;
-            lock.notifyAll();
+            if (locked) {
+                locked = false;
+                lock.notifyAll();
+            }
         }
     }
 }

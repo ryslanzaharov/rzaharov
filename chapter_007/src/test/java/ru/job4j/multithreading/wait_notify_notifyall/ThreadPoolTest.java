@@ -9,6 +9,7 @@ public class ThreadPoolTest {
     @Test
     public void whenRunTasksUsingTheThreadPool() throws InterruptedException{
         ThreadPool threadPool = new ThreadPool(Runtime.getRuntime().availableProcessors());
+        threadPool.start();
         threadPool.add(new Runnable() {
             @Override
             public void run() {
@@ -29,7 +30,7 @@ public class ThreadPoolTest {
                 System.out.println("th2");
             }
         });
-        Thread.sleep(5000);
+        Thread.sleep(500);
     }
 
 }

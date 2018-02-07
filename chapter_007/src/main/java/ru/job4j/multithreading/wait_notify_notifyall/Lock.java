@@ -2,22 +2,24 @@ package ru.job4j.multithreading.wait_notify_notifyall;
 
 public class Lock {
 
-    private boolean locked = false;
+    public volatile boolean locked = false;
     private final Object lock = new Object();
+    private Thread threadLock = null;
 
     public void lock() throws InterruptedException{
         synchronized (lock) {
-            while(locked) {
+            while(locked && threadLock != Thread.currentThread()) {
                 lock.wait();
             }
             locked = true;
+            threadLock = Thread.currentThread();
         }
 
     }
 
-    public void unlock() throws InterruptedException{
-        synchronized (lock) {
-            if (locked) {
+    public void unlock() throws InterruptedException {
+        if (Thread.currentThread() == threadLock) {
+            synchronized (lock) {
                 locked = false;
                 lock.notifyAll();
             }

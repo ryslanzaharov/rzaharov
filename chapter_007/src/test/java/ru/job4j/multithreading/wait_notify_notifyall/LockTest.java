@@ -38,8 +38,8 @@ public class LockTest {
                 }
             }
         });
-        thread2.start();
         thread1.start();
+        thread2.start();
         try {
             Thread.sleep(200);
         } catch (InterruptedException e) {

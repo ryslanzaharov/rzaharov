@@ -18,8 +18,8 @@ public class Lock {
     }
 
     public void unlock() throws InterruptedException {
+        synchronized (lock) {
         if (Thread.currentThread() == threadLock) {
-            synchronized (lock) {
                 locked = false;
                 lock.notifyAll();
             }

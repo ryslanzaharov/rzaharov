@@ -1,8 +1,5 @@
 package ru.job4j.multithreading.NonBlockingAlgoritm;
 
-import java.io.IOException;
-import java.util.LinkedHashMap;
-import java.util.Map;
 import java.util.concurrent.ConcurrentHashMap;
 
 public class Cache {
@@ -16,7 +13,7 @@ public class Cache {
     public void update(User newUser) {
         int vers = newUser.getVersion();
         cache.computeIfPresent(newUser.getId(), ((integer, user1) -> {
-            if (vers + 1 == user1.getVersion())
+            if (vers != user1.getVersion())
                 throw new RuntimeException();
             newUser.incrementVersion();
             return newUser;

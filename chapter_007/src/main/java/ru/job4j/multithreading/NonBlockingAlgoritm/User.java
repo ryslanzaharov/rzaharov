@@ -3,7 +3,7 @@ package ru.job4j.multithreading.NonBlockingAlgoritm;
 public class User {
     private String name;
     private int id;
-    private int version = 0;
+    public int version = 0;
 
     public User(int id, String name) {
         this.name = name;

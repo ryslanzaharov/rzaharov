@@ -10,7 +10,6 @@ import java.util.concurrent.locks.ReentrantLock;
  */
 
 public class Board implements Runnable{
-
     //Двумерный массив для блокирования клетки в поле.
     private final ReentrantLock[][] board = new ReentrantLock[8][8];
 

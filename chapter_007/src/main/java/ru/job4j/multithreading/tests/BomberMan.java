@@ -20,7 +20,6 @@ public class BomberMan implements Runnable{
 
     //доступ к Board.
     private Board board;
-
     //доступ к ячейкам массива в Board.
     private ReentrantLock lock;
 

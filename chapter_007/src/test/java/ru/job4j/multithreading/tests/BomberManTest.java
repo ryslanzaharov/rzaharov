@@ -26,7 +26,6 @@ public class BomberManTest {
         } catch (InterruptedException e) {
             e.printStackTrace();
         }
-
     }
 
 }

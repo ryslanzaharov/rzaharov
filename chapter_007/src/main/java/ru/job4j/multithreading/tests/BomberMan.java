@@ -25,7 +25,6 @@ public class BomberMan implements Runnable{
     private ReentrantLock lock;
 
     private final Random random = new Random();
-
     private int step;
 
     public BomberMan(int x, int y) {

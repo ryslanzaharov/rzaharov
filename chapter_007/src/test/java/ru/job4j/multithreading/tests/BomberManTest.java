@@ -12,7 +12,6 @@ public class BomberManTest {
 
     @Test
     public void whenTheHeroWalksTheFieldRandomly() {
-
         BomberMan bomberMan = new BomberMan(2, 3);
         Board board = new Board();
         bomberMan.setBoard(board);

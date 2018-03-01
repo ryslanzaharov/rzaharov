@@ -44,6 +44,7 @@ public class BomberMan implements Runnable{
             //пока не прервется нить.
         while(!Thread.currentThread().isInterrupted()){
             try {
+                TimeUnit.SECONDS.sleep(1);
                 move();
             } catch (InterruptedException e) {
                 System.out.println("Нить прервана!");
@@ -100,8 +101,6 @@ public class BomberMan implements Runnable{
             boolean getLock = lock.tryLock(500, TimeUnit.MILLISECONDS);
             if (getLock) {
                 this.lock.unlock();
-                Thread.sleep(1000);
-                lock.lock();
                 this.lock = lock;
                 System.out.println(x + " " + y);
                 steps();

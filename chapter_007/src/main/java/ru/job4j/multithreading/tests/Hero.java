@@ -12,7 +12,7 @@ import java.util.concurrent.locks.ReentrantLock;
  * @since 25.02.18.
  */
 
-public class BomberMan implements Runnable{
+public class Hero implements Runnable{
 
     //Координаты массива в Board.
     private int x;
@@ -26,15 +26,27 @@ public class BomberMan implements Runnable{
 
     private final Random random = new Random();
 
+    //хранит значения для определения координат
     private int step;
 
-    public BomberMan(int x, int y) {
-        this.x = x;
-        this.y = y;
+    private int time;
+
+    private Names name;
+
+    public Hero(Names name) {
+       this.name = name;
+       this.x = random.nextInt(8);
+       this.y = random.nextInt(8);
     }
 
     @Override
     public void run() {
+        if (this.name.equals(Names.BomberMan)) {
+            this.time = 500;
+        }
+        else {
+            this.time = 5000;
+        }
         //получаем замок из координат.
         this.lock = board.getBoard()[x][y];
         //пытаемся захватить.
@@ -45,12 +57,21 @@ public class BomberMan implements Runnable{
         while(!Thread.currentThread().isInterrupted()){
             try {
                 TimeUnit.SECONDS.sleep(1);
+                if (this.name.equals(Names.BomberMan)) {
+                    boolean kill = this.lock.hasQueuedThreads();
+                    if (kill) {
+                        System.out.println("Game over!");
+                        break;
+                    }
+                }
                 move();
             } catch (InterruptedException e) {
                 System.out.println("Нить прервана!");
             }
         }
     }
+
+
     //устанавливаем board.
     public void setBoard(Board board) {
         this.board = board;
@@ -98,11 +119,11 @@ public class BomberMan implements Runnable{
             //получаем lock.
             ReentrantLock lock = board.getBoard()[x][y];
             //пытаемся захватить lock в течение 500 мс , иначе идем обратно и меняем координаты.
-            boolean getLock = lock.tryLock(500, TimeUnit.MILLISECONDS);
+            boolean getLock = lock.tryLock(time, TimeUnit.MILLISECONDS);
             if (getLock) {
                 this.lock.unlock();
                 this.lock = lock;
-                System.out.println(x + " " + y);
+                System.out.println(x + " " + y + " " + this.name);
                 steps();
 
             } else {
@@ -115,6 +136,7 @@ public class BomberMan implements Runnable{
             stepBack();
         }
     }
+
 
 
 }

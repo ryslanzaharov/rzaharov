@@ -29,5 +29,19 @@ public class Board implements Runnable{
     @Override
     public void run() {
         initBoard();
+        board[2][3].lock();
+        board[4][4].lock();
+        board[1][3].lock();
+        board[7][3].lock();
+        try {
+            Thread.sleep(10000);
+        } catch (InterruptedException e) {
+            e.printStackTrace();
+        }
+
+        board[2][3].unlock();
+        board[4][4].unlock();
+        board[1][3].unlock();
+        board[7][3].unlock();
     }
 }

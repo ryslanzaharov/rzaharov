@@ -1,0 +1,18 @@
+//SQL скрипт инициализирующий создание новой базы данных.
+create database nameDataBase
+
+//SQL скрипт создающий таблицы для хранения структуры системы заявок.
+create table items (
+	id serial primary key,
+	Name text,
+	LastName text,
+	state_item text,
+	comments text,
+	attached_files text,
+	description text,
+	date timestamp
+);
+
+//SQL скрипт заполняющий начальные данные для системы заявок.
+insert into items(name, lastname, state_item, comments, attached_files, description, date) values('Ivan', 'Ivanov', 'главная роль', 'комментарии',
+ 'резюме.txt','предписание какое-либо', '1999-01-08 04:04:04');

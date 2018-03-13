@@ -1,3 +1,4 @@
+
 //SQL скрипт инициализирующий создание новой базы данных.
 create database nameDataBase
 

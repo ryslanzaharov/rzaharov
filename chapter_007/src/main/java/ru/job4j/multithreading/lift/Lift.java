@@ -13,19 +13,19 @@ import java.util.concurrent.TimeUnit;
 public class Lift implements Runnable{
 
     //кол-во этажей в подъезде.
-    private int numbFloors;
+    private final int numbFloors;
     //высота одного этажа.
-    private int heightFloor;
+    private final int heightFloor;
     //скорость лифта при движении в метрах в секунду.
-    private int speed;
+    private final int speed;
     //время между открытием и закрытием дверей.
-    private int time;
+    private final int time;
     //этаж в подъезде и этаж в лифте
     private BlockingQueue<Integer> queue;
     //исходное положение лифта
     private int from = 1;
 
-    private Input input;
+    private final Input input;
     //счетчик для лифта
     private int count = 0;
 

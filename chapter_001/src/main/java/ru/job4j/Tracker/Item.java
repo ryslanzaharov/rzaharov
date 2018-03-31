@@ -1,12 +1,22 @@
 package ru.job4j.Tracker;
 
+import java.sql.Time;
+import java.sql.Timestamp;
 import java.util.Date;
+
+/**
+ * Класс описывающий заявку.
+ * @author Ryslan Zaharov (mailto:Ryslan8906137@yandex.ru).
+ * @version 01.
+ * @since 31.03.18.
+ */
 
 public class Item {
 
     private String id;
     private String name;
-    private Date date = new Date();
+//    private Date date = new Date();
+    private Timestamp date = new Timestamp(System.currentTimeMillis());
 
     public Item(String name) {
         this.name = name;
@@ -27,11 +37,7 @@ public class Item {
         return this.name;
     }
 
-    public Date getDate() {
+    public Timestamp getDate() {
         return date;
-    }
-
-    public void setDate(Date date) {
-        this.date = date;
     }
 }

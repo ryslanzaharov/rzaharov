@@ -12,13 +12,13 @@ public class Tracker {
          return item;
     }
 
-    public void update(Item item) {
-        this.items[Integer.parseInt(item.getId())] = item;
-    }
-
-    public void delete(Item item) {
-        this.items[Integer.parseInt(item.getId())] = null;
-    }
+//    public void update(Item item) {
+//        this.items[Integer.parseInt(item.getId())] = item;
+//    }
+//
+//    public void delete(Item item) {
+//        this.items[Integer.parseInt(item.getId())] = null;
+//    }
 
     public Item[] findAll() {
         int c = 0;

@@ -66,7 +66,6 @@ public class SQLite {
                 System.exit(0);
             conn.prepareStatement("CREATE TABLE IF NOT EXISTS TEST(id INTEGER PRIMARY KEY, FIELD INTEGER)").executeUpdate();
         } catch (SQLException e) {
-            System.out.println(e);
             log.error(e.getMessage(), e);
         }
     }

@@ -32,6 +32,10 @@ public class DataBaseItems {
         this.password = password;
     }
 
+    public Connection getConn() {
+        return conn;
+    }
+
     public void open() {
         try {
             this.conn = DriverManager.getConnection(url, username, password);
@@ -45,9 +49,8 @@ public class DataBaseItems {
     }
 
     public void insert(Item item) {
-        try {
-            PreparedStatement pst = conn.prepareStatement("INSERT INTO itemss(name, items_date) VALUES(?, ?)",
-                    Statement.RETURN_GENERATED_KEYS);
+        try(PreparedStatement pst = conn.prepareStatement("INSERT INTO itemss(name, items_date) VALUES(?, ?)",
+                Statement.RETURN_GENERATED_KEYS)) {
             pst.setString(1, item.getName());
             pst.setTimestamp(2, item.getDate());
             pst.executeUpdate();
@@ -59,8 +62,7 @@ public class DataBaseItems {
     }
 
     public void deleteByName(Item item) {
-        try {
-            PreparedStatement pst = conn.prepareStatement("DELETE FROM itemss WHERE name IN (?)");
+        try(PreparedStatement pst = conn.prepareStatement("DELETE FROM itemss WHERE name IN (?)")) {
             pst.setString(1, item.getName());
             pst.executeUpdate();
         } catch (SQLException e) {
@@ -69,8 +71,7 @@ public class DataBaseItems {
     }
 
     public void deleteById(int id) {
-        try {
-            PreparedStatement pst = conn.prepareStatement("DELETE FROM itemss WHERE id IN (?)");
+        try(PreparedStatement pst = conn.prepareStatement("DELETE FROM itemss WHERE id IN (?)")) {
             pst.setInt(1, id);
             pst.executeUpdate();
         } catch (SQLException e) {
@@ -79,8 +80,7 @@ public class DataBaseItems {
     }
 
     public String getItemById(int id) {
-        try {
-            PreparedStatement pst = conn.prepareStatement("SELECT * FROM itemss AS i WHERE i.id IN (?)");
+        try(PreparedStatement pst = conn.prepareStatement("SELECT * FROM itemss AS i WHERE i.id IN (?)")) {
             pst.setInt(1, id);
             ResultSet rs = pst.executeQuery();
             if (rs.next())
@@ -94,8 +94,8 @@ public class DataBaseItems {
 
     public ArrayList<String> getItemByName(String name) {
         ArrayList<String> list = new ArrayList<>();
-        try {
-            PreparedStatement pst = conn.prepareStatement("SELECT * FROM itemss AS i WHERE i.name IN (?)");
+        try(PreparedStatement pst = conn.prepareStatement("SELECT * FROM itemss AS i WHERE i.name IN (?)")) {
+
             pst.setString(1, name);
             ResultSet rs = pst.executeQuery();
             while (rs.next())
@@ -108,8 +108,7 @@ public class DataBaseItems {
     }
 
     public boolean updateItemNameById(int id, String name) {
-        try {
-            PreparedStatement pst = conn.prepareStatement("UPDATE itemss SET name = ? WHERE id = ?");
+        try(PreparedStatement pst = conn.prepareStatement("UPDATE itemss SET name = ? WHERE id = ?")) {
             pst.setString(1, name);
             pst.setInt(2, id);
             pst.executeUpdate();
@@ -123,8 +122,7 @@ public class DataBaseItems {
 
     public ArrayList<String> getItems() {
         ArrayList<String> list = new ArrayList<>();
-        try {
-            PreparedStatement pst = conn.prepareStatement("SELECT * FROM itemss");
+        try(PreparedStatement pst = conn.prepareStatement("SELECT * FROM itemss")) {
             ResultSet rs = pst.executeQuery();
             while(rs.next()) {
                 list.add(String.format("%s %s", rs.getString("name"), rs.getTimestamp("items_date")));
@@ -133,16 +131,6 @@ public class DataBaseItems {
             log.error(e.getMessage(), e);
         }
         return list;
-    }
-
-    public void close() {
-        if (conn != null) {
-            try {
-                conn.close();
-            } catch (SQLException e) {
-                log.error(e.getMessage(), e);
-            }
-        }
     }
 
 

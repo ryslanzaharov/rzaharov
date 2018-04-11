@@ -12,14 +12,6 @@ public class Tracker {
          return item;
     }
 
-//    public void update(Item item) {
-//        this.items[Integer.parseInt(item.getId())] = item;
-//    }
-//
-//    public void delete(Item item) {
-//        this.items[Integer.parseInt(item.getId())] = null;
-//    }
-
     public Item[] findAll() {
         int c = 0;
         for (int i = items.length-1;i > 0; i--) {

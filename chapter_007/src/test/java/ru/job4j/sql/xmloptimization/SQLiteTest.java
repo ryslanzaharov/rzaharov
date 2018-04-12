@@ -8,6 +8,7 @@ import javax.xml.parsers.SAXParser;
 import javax.xml.parsers.SAXParserFactory;
 import java.io.File;
 import java.io.IOException;
+import java.sql.Connection;
 import java.util.Calendar;
 
 public class SQLiteTest {
@@ -21,16 +22,15 @@ public class SQLiteTest {
     //Расчитывем время выполнения.
     @Test
     public void whenMarkTime() {
-        long l1 = System.currentTimeMillis();
-        whenInsertDateInTable();
-        whenCreateXmlDocumentByStaxAndTransformationInXlst();
-        whenParsingXmlWithSax();
-        long totalTime = System.currentTimeMillis() - l1;
-        Calendar calendar = Calendar.getInstance();
-        calendar.setTimeInMillis(totalTime);
-        long sec = calendar.get(Calendar.SECOND);
-        System.out.println(sec);
-        sqLite.close();
+            long l1 = System.currentTimeMillis();
+            whenInsertDateInTable();
+            whenCreateXmlDocumentByStaxAndTransformationInXlst();
+            whenParsingXmlWithSax();
+            long totalTime = System.currentTimeMillis() - l1;
+            Calendar calendar = Calendar.getInstance();
+            calendar.setTimeInMillis(totalTime);
+            long sec = calendar.get(Calendar.SECOND);
+            System.out.println(sec);
     }
 
     //Добавляем данные в бд.
@@ -63,7 +63,6 @@ public class SQLiteTest {
         sqLite.open();
         sqLite.createXmlDocByDom();
         sqLite.transformationXMLinXLST();
-        sqLite.close();
     }
 
     //Создаем xml документ с помощью Jaxb технологии и трансформируем с помощью xlst.
@@ -75,7 +74,6 @@ public class SQLiteTest {
         sqLite.open();
         sqLite.createXmlDocByJaxb();
         sqLite.transformationXMLinXLST();
-        sqLite.close();
     }
 
     //Парсируем xml2 с помощью sax.

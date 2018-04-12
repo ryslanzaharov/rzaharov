@@ -57,6 +57,10 @@ public class SQLite {
         this.xslFile = xslFile;
     }
 
+    public Connection getConn() {
+        return conn;
+    }
+
     //соединение с бд
     public void open () {
         try {
@@ -101,14 +105,14 @@ public class SQLite {
 
     //добавляем данные с помощью технологии stax
     public void createXmlDocumentByStax() {
-        try  {
-            XMLOutputFactory factory = XMLOutputFactory.newInstance();
+        XMLOutputFactory factory = XMLOutputFactory.newInstance();
+        try(PreparedStatement pst = conn.prepareStatement("SELECT * FROM TEST"))  {
             XMLStreamWriter writer = factory.createXMLStreamWriter(new FileWriter(xml1));
             writer.writeStartDocument("UTF-8", "1.1");
             writer.writeCharacters("\n");
             writer.writeStartElement("entries");
             writer.writeCharacters("\n");
-            PreparedStatement pst = conn.prepareStatement("SELECT * FROM TEST");
+
             ResultSet rs = pst.executeQuery();
             while (rs.next()) {
                 writer.writeStartElement("entry");
@@ -149,6 +153,7 @@ public class SQLite {
                 entries.getEntry().add(field(rs.getString("FIELD")));
             }
             marshaller.marshal(entries, xml1);
+            rs.close();
         } catch (JAXBException e) {
             log.error(e.getMessage(), e);
         } catch (SQLException e) {
@@ -191,6 +196,7 @@ public class SQLite {
             StreamResult file = new StreamResult(xml1);
             //записываем данные
             transformer.transform(source, file);
+            rs.close();
         } catch (ParserConfigurationException e) {
             log.error(e.getMessage(), e);
         } catch (TransformerException te) {

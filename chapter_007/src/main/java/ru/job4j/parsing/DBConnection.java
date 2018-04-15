@@ -5,19 +5,21 @@ import org.slf4j.LoggerFactory;
 
 import java.sql.*;
 
-public class DBConnection{
+/**
+ * Класс для соединения с бд и добавления данных.
+ * @author Ryslan Zaharov (mailto:Ryslan8906137@yandex.ru).
+ * @version 01.
+ * @since 18.08.17.
+ */
 
-    private final String url;
+public class DBConnection{
 
     private Connection conn;
     private boolean isInsert = true;
     private static final Logger log = LoggerFactory.getLogger(DBConnection.class);
+    public static String isCopy;
 
     public DBConnection(String url) {
-        this.url = url;
-    }
-
-    public void open() {
         try {
             conn = DriverManager.getConnection(url, "postgres", "");
             if (conn == null) {
@@ -30,24 +32,15 @@ public class DBConnection{
         }
     }
 
-    public void insert(String vacancy, String author, Timestamp date, String links, int i) {
+    /**
+     * добавление данных вакансии в бд.
+     */
+
+    public boolean insert(String vacancy, String author, Timestamp date, String links, int i) {
         Savepoint savepoint = null;
-        try {
+        try(final PreparedStatement ps = conn.prepareStatement(SqlQuery.INSERT, Statement.RETURN_GENERATED_KEYS)) {
             savepoint = conn.setSavepoint(String.valueOf(i));
-            PreparedStatement ps = conn.prepareStatement(SqlQuery.INSERT,
-                    Statement.RETURN_GENERATED_KEYS);
-            PreparedStatement result = conn.prepareStatement(SqlQuery.SELECT);
-            result.setMaxRows(1);
-            ResultSet rs = result.executeQuery();
-            if (rs.next()) {
-                if (rs.getString("vacancy").equals(vacancy) && rs.getString("author").equals(author)
-                        && rs.getTimestamp("date").equals(date) && rs.getString("links").equals(links) ) {
-                    isInsert = false;
-                    System.out.println(rs.getString("date"));
-                }
-                else isInsert = true;
-            }
-            if (isInsert) {
+            if (revise(links)) {
                 ps.setString(1, vacancy);
                 ps.setString(2, author);
                 ps.setTimestamp(3, date);
@@ -58,17 +51,35 @@ public class DBConnection{
         } catch (SQLException e) {
             log.error(e.getMessage(), e);
             try {
+                log.error(e.getMessage(), e);
                 conn.rollback(savepoint);
             } catch (SQLException e1) {
+                log.error(e1.getMessage(), e1);
             }
         }
+        return isInsert;
     }
 
-    public void close() {
-            try {
-                conn.close();
-            } catch (SQLException e) {
-                e.printStackTrace();
+    /**
+     * сверяем ссылки вакансии для исключения дублирования.
+     */
+
+    public boolean revise (String links) {
+        try(final PreparedStatement result = conn.prepareStatement(SqlQuery.SELECT)) {
+            if (ScannerParser.isFirstEl) {
+                ScannerParser.isFirstEl = false;
+                result.setMaxRows(1);
+                ResultSet rs = result.executeQuery();
+                if (rs.next())
+                    isCopy = rs.getString("links");
             }
+            if (isCopy != null && isCopy.equals(links))
+                isInsert = false;
+            else
+                isInsert = true;
+        } catch (SQLException e) {
+            log.error(e.getMessage(), e);
+        }
+        return isInsert;
     }
 }

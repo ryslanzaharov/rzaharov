@@ -22,9 +22,6 @@ public class DBConnection{
     public DBConnection(String url) {
         try {
             conn = DriverManager.getConnection(url, "postgres", "");
-            if (conn == null) {
-                System.exit(0);
-            }
             conn.setAutoCommit(false);
             conn.prepareStatement(SqlQuery.CREATE_TABLE).executeUpdate();
         } catch (SQLException e) {

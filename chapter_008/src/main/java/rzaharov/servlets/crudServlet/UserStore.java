@@ -95,4 +95,18 @@ public class UserStore {
         return i;
     }
 
+    public void close() {
+        try {
+            conn.close();
+        } catch (SQLException e) {
+            log.error(e.getMessage(), e);
+        } finally {
+            try {
+                conn.close();
+            } catch (SQLException e) {
+                e.printStackTrace();
+            }
+        }
+    }
+
 }

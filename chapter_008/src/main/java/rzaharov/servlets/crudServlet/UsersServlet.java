@@ -82,4 +82,9 @@ public class UsersServlet extends HttpServlet {
             pw.append("no account deleted");
         pw.flush();
     }
+
+    @Override
+    public void destroy() {
+        users.close();
+    }
 }

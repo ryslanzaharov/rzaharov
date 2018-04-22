@@ -3,9 +3,19 @@
         <servlet-name>EchoServlet</servlet-name>
         <servlet-class>rzaharov.servlets.EchoServlet</servlet-class>
     </servlet>
-
     <servlet-mapping>
         <servlet-name>EchoServlet</servlet-name>
         <url-pattern>/echo</url-pattern>
     </servlet-mapping>
+
+    <servlet>
+        <servlet-name>UsersServlet</servlet-name>
+        <servlet-class>rzaharov.servlets.crudServlet.UsersServlet</servlet-class>
+
+    </servlet>
+    <servlet-mapping>
+        <servlet-name>UsersServlet</servlet-name>
+        <url-pattern>/user</url-pattern>
+    </servlet-mapping>
+
 </web-app>

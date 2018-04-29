@@ -19,10 +19,15 @@ import java.util.Calendar;
  * @since 29.04.18.
  */
 
-public class Create extends HttpServlet {
+public class CreateController extends HttpServlet {
 
     private final UserStore users = UserStore.UserStoreSingleton.INSTANCE.getInstance();
     private User user;
+
+    @Override
+    protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
+        req.getRequestDispatcher("/WEB-INF/views/servletjsp/CreateView.jsp").forward(req, resp);
+    }
 
     @Override
     protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
@@ -33,6 +38,6 @@ public class Create extends HttpServlet {
         user.setLogin(req.getParameter("login"));
         user.setCreateDate(new Timestamp(Calendar.getInstance().getTimeInMillis()));
         users.insert(user);
-        resp.sendRedirect(String.format("%s/servletjsp/create.jsp", req.getContextPath()));
+        resp.sendRedirect(String.format("%s/create", req.getContextPath()));
     }
 }

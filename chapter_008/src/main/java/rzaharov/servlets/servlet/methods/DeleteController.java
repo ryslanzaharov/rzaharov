@@ -17,7 +17,7 @@ import java.io.PrintWriter;
  * @since 29.04.18.
  */
 
-public class Delete extends HttpServlet {
+public class DeleteController extends HttpServlet {
 
    private final UserStore users = UserStore.UserStoreSingleton.INSTANCE.getInstance();
 
@@ -25,7 +25,7 @@ public class Delete extends HttpServlet {
     protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
         resp.setContentType("text/html");
         users.delete(req.getParameter("email"));
-        resp.sendRedirect(String.format("%s/servletjsp/list.jsp",req.getContextPath()));
+        resp.sendRedirect(String.format("%s/",req.getContextPath()));
     }
 
 }

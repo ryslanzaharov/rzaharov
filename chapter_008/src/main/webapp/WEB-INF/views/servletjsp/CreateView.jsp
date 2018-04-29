@@ -11,7 +11,7 @@
         Login : <input type="text" name="login">
                 <input type="submit" value="Create">
     </form>
-    <form action="<%=request.getContextPath()%>/servletjsp/list.jsp" >
+    <form action="${pageContext.servletContext.contextPath}/" >
         <input type="submit" value="Back">
     </form>
 </body>

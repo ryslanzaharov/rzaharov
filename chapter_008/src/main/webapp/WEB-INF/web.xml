@@ -1,11 +1,11 @@
 <web-app>
     <servlet>
-        <servlet-name>EchoServlet</servlet-name>
-        <servlet-class>rzaharov.servlets.EchoServlet</servlet-class>
+        <servlet-name>Users Controller Servlet</servlet-name>
+        <servlet-class>rzaharov.servlets.UsersController</servlet-class>
     </servlet>
     <servlet-mapping>
-        <servlet-name>EchoServlet</servlet-name>
-        <url-pattern>/echo</url-pattern>
+        <servlet-name>Users Controller Servlet</servlet-name>
+        <url-pattern>/e</url-pattern>
     </servlet-mapping>
 
     <servlet>
@@ -21,39 +21,39 @@
     <!--приложение для работы с пользователем-->
 
     <servlet>
-        <servlet-name>Get</servlet-name>
-        <servlet-class>rzaharov.servlets.servlet.methods.Get</servlet-class>
+        <servlet-name>Get Controller Servlet</servlet-name>
+        <servlet-class>rzaharov.servlets.servlet.methods.GetController</servlet-class>
         <load-on-startup>1</load-on-startup>
     </servlet>
     <servlet-mapping>
-        <servlet-name>Get</servlet-name>
-        <url-pattern>/list</url-pattern>
+        <servlet-name>Get Controller Servlet</servlet-name>
+        <url-pattern>/</url-pattern>
     </servlet-mapping>
 
     <servlet>
-        <servlet-name>Edit</servlet-name>
-        <servlet-class>rzaharov.servlets.servlet.methods.Edit</servlet-class>
+        <servlet-name>Edit Controller Servlet</servlet-name>
+        <servlet-class>rzaharov.servlets.servlet.methods.EditController</servlet-class>
     </servlet>
     <servlet-mapping>
-        <servlet-name>Edit</servlet-name>
+        <servlet-name>Edit Controller Servlet</servlet-name>
         <url-pattern>/edit</url-pattern>
     </servlet-mapping>
 
     <servlet>
-        <servlet-name>Delete</servlet-name>
-        <servlet-class>rzaharov.servlets.servlet.methods.Delete</servlet-class>
+        <servlet-name>Delete Controller Servlet</servlet-name>
+        <servlet-class>rzaharov.servlets.servlet.methods.DeleteController</servlet-class>
     </servlet>
     <servlet-mapping>
-        <servlet-name>Delete</servlet-name>
+        <servlet-name>Delete Controller Servlet</servlet-name>
         <url-pattern>/delete</url-pattern>
     </servlet-mapping>
 
     <servlet>
-        <servlet-name>Create</servlet-name>
-        <servlet-class>rzaharov.servlets.servlet.methods.Create</servlet-class>
+        <servlet-name>Create Controller Servlet</servlet-name>
+        <servlet-class>rzaharov.servlets.servlet.methods.CreateController</servlet-class>
     </servlet>
     <servlet-mapping>
-        <servlet-name>Create</servlet-name>
+        <servlet-name>Create Controller Servlet</servlet-name>
         <url-pattern>/create</url-pattern>
     </servlet-mapping>
 

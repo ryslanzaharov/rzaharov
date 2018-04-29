@@ -19,10 +19,16 @@ import java.util.Calendar;
  * @since 29.04.18.
  */
 
-public class Edit extends HttpServlet{
+public class EditController extends HttpServlet{
 
    private final UserStore users = UserStore.UserStoreSingleton.INSTANCE.getInstance();
     private User user;
+
+    @Override
+    protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
+        req.setAttribute("users", users.select(req.getParameter("email")));
+        req.getRequestDispatcher("/WEB-INF/views/servletjsp/EditView.jsp").forward(req, resp);
+    }
 
     @Override
     protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
@@ -35,6 +41,6 @@ public class Edit extends HttpServlet{
         user.setCreateDate(new Timestamp(Calendar.getInstance().getTimeInMillis()));
         users.update(oldEmail, user);
         users.update(req.getParameter("email"), user);
-        resp.sendRedirect(String.format("%s/servletjsp/list.jsp", req.getContextPath()));
+        resp.sendRedirect(String.format("%s/", req.getContextPath()));
     }
 }

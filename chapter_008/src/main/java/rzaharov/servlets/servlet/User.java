@@ -6,7 +6,7 @@ import java.sql.Timestamp;
  * Класс пользователя.
  * @author Ryslan Zaharov (mailto:Ryslan8906137@yandex.ru).
  * @version 01.
- * @since 28.04.18.
+ * @since 02.05.18.
  */
 
 public class User {
@@ -15,6 +15,24 @@ public class User {
     private String name;
     private String login;
     private Timestamp createDate;
+    private String password;
+    private String role;
+
+    public String getRole() {
+        return role;
+    }
+
+    public void setRole(String role) {
+        this.role = role;
+    }
+
+    public String getPassword() {
+        return password;
+    }
+
+    public void setPassword(String password) {
+        this.password = password;
+    }
 
     public String getName() {
         return name;

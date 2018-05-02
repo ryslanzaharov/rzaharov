@@ -16,7 +16,7 @@ import java.util.Calendar;
  * Сервлет для ввода данных пользователя.
  * @author Ryslan Zaharov (mailto:Ryslan8906137@yandex.ru).
  * @version 01.
- * @since 29.04.18.
+ * @since 02.05.18.
  */
 
 public class CreateController extends HttpServlet {
@@ -26,6 +26,14 @@ public class CreateController extends HttpServlet {
 
     @Override
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
+        if(req.getSession().getAttribute("login") != null) {
+            String email = req.getParameter("email");
+            String role = users.select(req.getSession().getAttribute("login").toString()).getRole();
+            if (role.equals("Admin"))
+                req.setAttribute("role", role);
+        }
+        else
+            req.setAttribute("role", "User");
         req.getRequestDispatcher("/WEB-INF/views/servletjsp/CreateView.jsp").forward(req, resp);
     }
 
@@ -37,6 +45,11 @@ public class CreateController extends HttpServlet {
         user.setName(req.getParameter("name"));
         user.setLogin(req.getParameter("login"));
         user.setCreateDate(new Timestamp(Calendar.getInstance().getTimeInMillis()));
+        user.setPassword(req.getParameter("password"));
+        if (req.getParameter("email").equals("root"))
+            user.setRole("Admin");
+        else
+            user.setRole("User");
         users.insert(user);
         resp.sendRedirect(String.format("%s/create", req.getContextPath()));
     }

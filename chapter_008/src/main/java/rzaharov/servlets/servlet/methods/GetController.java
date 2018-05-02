@@ -15,7 +15,7 @@ import java.util.List;
  * Сервдет для получения данных с бд.
  * @author Ryslan Zaharov (mailto:Ryslan8906137@yandex.ru).
  * @version 01.
- * @since 22.04.18.
+ * @since 02.05.18.
  */
 
 public class GetController extends HttpServlet {
@@ -25,6 +25,8 @@ public class GetController extends HttpServlet {
   @Override
   protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
     req.setAttribute("users", UserStore.UserStoreSingleton.INSTANCE.getInstance().select());
+    if (req.getSession().getAttribute("login") != null)
+    req.setAttribute("role", users.select(req.getSession().getAttribute("login").toString()).getRole());
     req.getRequestDispatcher("/WEB-INF/views/servletjsp/ListView.jsp").forward(req, resp);
   }
 

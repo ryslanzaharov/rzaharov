@@ -27,7 +27,18 @@ public class EditController extends HttpServlet{
     @Override
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
         req.setAttribute("users", users.select(req.getParameter("email")));
-        req.getRequestDispatcher("/WEB-INF/views/servletjsp/EditView.jsp").forward(req, resp);
+        String email = req.getParameter("email");
+        String role = users.select(req.getSession().getAttribute("login").toString()).getRole();
+        if (email.equals(req.getSession().getAttribute("login")) ||
+                role.equals("Admin")) {
+            req.setAttribute("role", role);
+            req.getRequestDispatcher("/WEB-INF/views/servletjsp/EditView.jsp").forward(req, resp);
+        }
+        else {
+            req.setAttribute("error", "No access rights!");
+            req.getRequestDispatcher("/WEB-INF/views/servletjsp/").forward(req, resp);
+        }
+
     }
 
     @Override
@@ -39,8 +50,10 @@ public class EditController extends HttpServlet{
         user.setName(req.getParameter("name"));
         user.setLogin(req.getParameter("login"));
         user.setCreateDate(new Timestamp(Calendar.getInstance().getTimeInMillis()));
+        user.setPassword(req.getParameter("password"));
+        user.setRole(req.getParameter("role"));
         users.update(oldEmail, user);
-        users.update(req.getParameter("email"), user);
+      //  users.update(req.getParameter("email"), user);
         resp.sendRedirect(String.format("%s/", req.getContextPath()));
     }
 }

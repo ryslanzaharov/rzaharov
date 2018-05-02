@@ -6,13 +6,14 @@ import org.slf4j.LoggerFactory;
 import java.io.IOException;
 import java.sql.*;
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
 
 /**
  * Класс для соединения с бд.
  * @author Ryslan Zaharov (mailto:Ryslan8906137@yandex.ru).
  * @version 01.
- * @since 28.04.18.
+ * @since 02.05.18.
  */
 
 public class UserStore {
@@ -40,6 +41,8 @@ public class UserStore {
 
     private static volatile UserStore users;
 
+    private HashMap<User, Enum> role = new HashMap<>();
+
     private UserStore() {
         try {
             Class.forName("org.postgresql.Driver");
@@ -50,6 +53,18 @@ public class UserStore {
         }
     }
 
+    public boolean isCredentional(String email, String password) {
+        boolean exists = false;
+        if (!email.isEmpty() && !password.isEmpty()) {
+            User user = select(email);
+            if (user.getEmail() != null)
+            if (user.getEmail().equals(email) && user.getPassword().equals(password)) {
+                exists = true;
+            }
+        }
+        return exists;
+    }
+
     public int insert(User user) {
         int i = 0;
         try(PreparedStatement insert = conn.prepareStatement(SqlQuery.INSERT)) {
@@ -57,6 +72,8 @@ public class UserStore {
             insert.setString(2, user.getName());
             insert.setString(3, user.getLogin());
             insert.setTimestamp(4, user.getCreateDate());
+            insert.setString(5, user.getPassword());
+            insert.setString(6, user.getRole());
             i = insert.executeUpdate();
         } catch (SQLException e) {
             log.error(e.getMessage(), e);
@@ -75,6 +92,8 @@ public class UserStore {
                 user.setName(rs.getString("name"));
                 user.setLogin(rs.getString("login"));
                 user.setCreateDate(rs.getTimestamp("date"));
+                user.setPassword(rs.getString("password"));
+                user.setRole(rs.getString("role"));
                 usersList.add(user);
             }
         } catch (SQLException e) {
@@ -94,6 +113,8 @@ public class UserStore {
                 user.setName(rs.getString("name"));
                 user.setLogin(rs.getString("login"));
                 user.setCreateDate(rs.getTimestamp("date"));
+                user.setPassword(rs.getString("password"));
+                user.setRole(rs.getString("role"));
             }
         } catch (SQLException e) {
             log.error(e.getMessage(), e);
@@ -108,7 +129,9 @@ public class UserStore {
             update.setString(2, user.getName());
             update.setString(3, user.getLogin());
             update.setTimestamp(4, user.getCreateDate());
-            update.setString(5, email);
+            update.setString(5, user.getPassword());
+            update.setString(6, user.getRole());
+            update.setString(7, email);
             i = update.executeUpdate();
         } catch (SQLException e) {
             log.error(e.getMessage(), e);

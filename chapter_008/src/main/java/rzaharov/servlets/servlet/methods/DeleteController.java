@@ -14,7 +14,7 @@ import java.io.PrintWriter;
  * Сервлет для удаления данных пользователя.
  * @author Ryslan Zaharov (mailto:Ryslan8906137@yandex.ru).
  * @version 01.
- * @since 29.04.18.
+ * @since 02.05.18.
  */
 
 public class DeleteController extends HttpServlet {
@@ -22,10 +22,25 @@ public class DeleteController extends HttpServlet {
    private final UserStore users = UserStore.UserStoreSingleton.INSTANCE.getInstance();
 
     @Override
-    protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
+    protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
         resp.setContentType("text/html");
+        String email = req.getParameter("email");
+        String role = users.select(req.getSession().getAttribute("login").toString()).getRole();
+        if (email.equals(req.getSession().getAttribute("login")) ||
+                role.equals("Admin")) {
+            doPost(req, resp);
+        }
+        else {
+            req.setAttribute("error", "No access rights!");
+        }
+        req.getRequestDispatcher(String.format("%s/", req.getContextPath())).forward(req, resp);
+    }
+
+    @Override
+    protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
         users.delete(req.getParameter("email"));
-        resp.sendRedirect(String.format("%s/",req.getContextPath()));
+        if (req.getParameter("email").equals(req.getSession().getAttribute("login")))
+            req.getSession().setAttribute("login", null);
     }
 
 }

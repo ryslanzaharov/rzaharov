@@ -23,6 +23,7 @@ public class SignOutController extends HttpServlet{
     @Override
     protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
         req.getSession().setAttribute("login", null);
+        if (req.getRequestDispatcher("/WEB-INF/views/LoginView.jsp") != null)
         doGet(req, resp);
     }
 }

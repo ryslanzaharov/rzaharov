@@ -41,8 +41,6 @@ public class UserStore {
 
     private static volatile UserStore users;
 
-    private HashMap<User, Enum> role = new HashMap<>();
-
     private UserStore() {
         try {
             Class.forName("org.postgresql.Driver");

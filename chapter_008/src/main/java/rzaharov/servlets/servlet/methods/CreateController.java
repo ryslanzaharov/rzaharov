@@ -46,7 +46,7 @@ public class CreateController extends HttpServlet {
         user.setLogin(req.getParameter("login"));
         user.setCreateDate(new Timestamp(Calendar.getInstance().getTimeInMillis()));
         user.setPassword(req.getParameter("password"));
-        if (req.getParameter("email").equals("root"))
+        if (req.getParameter("email").equals("root") || req.getParameter("role").equals("Admin"))
             user.setRole("Admin");
         else
             user.setRole("User");

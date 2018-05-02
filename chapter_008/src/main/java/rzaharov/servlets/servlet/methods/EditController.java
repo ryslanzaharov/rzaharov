@@ -53,7 +53,6 @@ public class EditController extends HttpServlet{
         user.setPassword(req.getParameter("password"));
         user.setRole(req.getParameter("role"));
         users.update(oldEmail, user);
-      //  users.update(req.getParameter("email"), user);
         resp.sendRedirect(String.format("%s/", req.getContextPath()));
     }
 }

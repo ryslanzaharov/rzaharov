@@ -19,7 +19,7 @@ import java.io.PrintWriter;
 
 public class DeleteController extends HttpServlet {
 
-   private final UserStore users = UserStore.UserStoreSingleton.INSTANCE.getInstance();
+   private final UserStore users = UserStore.getInstance();
 
     @Override
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {

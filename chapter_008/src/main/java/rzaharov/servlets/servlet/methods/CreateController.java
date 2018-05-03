@@ -21,7 +21,7 @@ import java.util.Calendar;
 
 public class CreateController extends HttpServlet {
 
-    private final UserStore users = UserStore.UserStoreSingleton.INSTANCE.getInstance();
+    private final UserStore users = UserStore.getInstance();
     private User user;
 
     @Override

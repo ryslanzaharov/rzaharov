@@ -20,11 +20,11 @@ import java.util.List;
 
 public class GetController extends HttpServlet {
 
-  private final UserStore users = UserStore.UserStoreSingleton.INSTANCE.getInstance();
+  private final UserStore users = UserStore.getInstance();
 
   @Override
   protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-    req.setAttribute("users", UserStore.UserStoreSingleton.INSTANCE.getInstance().select());
+    req.setAttribute("users", UserStore.getInstance().select());
     if (req.getSession().getAttribute("login") != null)
     req.setAttribute("role", users.select(req.getSession().getAttribute("login").toString()).getRole());
     req.getRequestDispatcher("/WEB-INF/views/servletjsp/ListView.jsp").forward(req, resp);

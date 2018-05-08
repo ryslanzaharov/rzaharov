@@ -10,15 +10,17 @@ package rzaharov.servlets.servlet;
 public class SqlQuery {
 
     public static final String CREATE_TABLE = "CREATE TABLE IF NOT EXISTS userdata(email VARCHAR(20) PRIMARY KEY," +
-            " name VARCHAR, login VARCHAR, date TIMESTAMP, password VARCHAR, role VARCHAR)";
+            " name VARCHAR, login VARCHAR, date TIMESTAMP, password VARCHAR, role VARCHAR, country VARCHAR, city VARCHAR)";
 
-    public static final String INSERT = "INSERT INTO userdata(email, name, login, date, password, role) VALUES(?, ?, ?, ?, ?, ?)";
+    public static final String INSERT = "INSERT INTO userdata(email, name, login, date, password, role, country, city) " +
+            "VALUES(?, ?, ?, ?, ?, ?, ?, ?)";
 
     public static final String SELECT = "SELECT * FROM userdata";
 
     public static final String SELECT_EMAIL = "SELECT * FROM userdata WHERE email = ?";
 
-    public static final String UPDATE = "UPDATE userdata SET  email = ?, name = ?, login = ?, date = ?, password = ?, role = ? WHERE email = ?";
+    public static final String UPDATE = "UPDATE userdata SET  email = ?, name = ?, login = ?, date = ?, password = ?, " +
+            "role = ?, country = ?, city = ? WHERE email = ?";
 
     public static final String DELETE = "DELETE FROM userdata WHERE email = ?";
 }

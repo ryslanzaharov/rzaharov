@@ -4,7 +4,10 @@
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
 <html>
 <head>
-    <title>Title</title>
+    <title>Users data</title>
+    <style>
+        <jsp:directive.include file="/static/css/style.css" />
+    </style>
 </head>
 <body>
 <c:if test="${error != ''}">
@@ -12,12 +15,15 @@
         <c:out value="${error}"/>
     </div>
 </c:if>
+<H1>Users data</H1>
 <table border="1"><caption>Users data</caption>
         <tr>
             <th>Email</th>
            <th>Name</th>
             <th>Login</th>
            <th>Date</th>
+            <th>Country</th>
+            <th>City</th>
             <c:if test="${role == 'Admin'}">
                 <th>Role</th>
             </c:if>
@@ -30,6 +36,8 @@
             <td><c:out value="${user.name}"></c:out> </td>
             <td><c:out value="${user.login}"></c:out> </td>
             <td><c:out value="${user.createDate}"></c:out> </td>
+            <td><c:out value="${user.country}"></c:out> </td>
+            <td><c:out value="${user.city}"></c:out> </td>
             <c:if test="${role == 'Admin'}">
                 <td><c:out value="${user.role}"></c:out> </td>
             </c:if>
@@ -42,7 +50,7 @@
             <button type="submit">Delete</button>
             </form></td></tr>
     </c:forEach>
-    </table>
+    </table><br>
 <c:if test="${role == 'Admin'}">
 <form action="${pageContext.servletContext.contextPath}/create" method="get">
     <button type="submit">Create</button>

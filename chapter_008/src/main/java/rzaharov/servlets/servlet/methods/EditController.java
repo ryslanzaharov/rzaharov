@@ -46,13 +46,28 @@ public class EditController extends HttpServlet{
         resp.setContentType("text/html");
         this.user = new User();
         String oldEmail = req.getParameter("oldEmail");
-        user.setEmail(req.getParameter("email"));
-        user.setName(req.getParameter("name"));
-        user.setLogin(req.getParameter("login"));
-        user.setCreateDate(new Timestamp(Calendar.getInstance().getTimeInMillis()));
-        user.setPassword(req.getParameter("password"));
-        user.setRole(req.getParameter("role"));
-        users.update(oldEmail, user);
-        resp.sendRedirect(String.format("%s/", req.getContextPath()));
+        String email = req.getParameter("email");
+        String name = req.getParameter("name");
+        String login = req.getParameter("login");
+        String password = req.getParameter("password");
+        String country = req.getParameter("country");
+        String city = req.getParameter("city");
+        String role = req.getParameter("role");
+        if (email != "" && name != "" && login != "" && password != "" && country != ""&& city != "" && role != "") {
+            user.setEmail(email);
+            user.setName(name);
+            user.setLogin(login);
+            user.setCreateDate(new Timestamp(Calendar.getInstance().getTimeInMillis()));
+            user.setPassword(password);
+            user.setRole(role);
+            user.setCountry(country);
+            user.setCity(city);
+            users.update(oldEmail, user);
+            resp.sendRedirect(String.format("%s/", req.getContextPath()));
+        }
+        else {
+            req.setAttribute("error", "Please correct input date.");
+            doGet(req, resp);
+        }
     }
 }

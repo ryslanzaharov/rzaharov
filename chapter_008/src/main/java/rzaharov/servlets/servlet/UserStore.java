@@ -68,6 +68,8 @@ public class UserStore {
             insert.setTimestamp(4, user.getCreateDate());
             insert.setString(5, user.getPassword());
             insert.setString(6, user.getRole());
+            insert.setString(7, user.getCountry());
+            insert.setString(8, user.getCity());
             i = insert.executeUpdate();
         } catch (SQLException e) {
             log.error(e.getMessage(), e);
@@ -88,6 +90,8 @@ public class UserStore {
                 user.setCreateDate(rs.getTimestamp("date"));
                 user.setPassword(rs.getString("password"));
                 user.setRole(rs.getString("role"));
+                user.setCountry(rs.getString("country"));
+                user.setCity(rs.getString("city"));
                 usersList.add(user);
             }
         } catch (SQLException e) {
@@ -109,6 +113,8 @@ public class UserStore {
                 user.setCreateDate(rs.getTimestamp("date"));
                 user.setPassword(rs.getString("password"));
                 user.setRole(rs.getString("role"));
+                user.setCountry(rs.getString("country"));
+                user.setCity(rs.getString("city"));
             }
         } catch (SQLException e) {
             log.error(e.getMessage(), e);
@@ -125,7 +131,9 @@ public class UserStore {
             update.setTimestamp(4, user.getCreateDate());
             update.setString(5, user.getPassword());
             update.setString(6, user.getRole());
-            update.setString(7, email);
+            update.setString(7, user.getCountry());
+            update.setString(8, user.getCity());
+            update.setString(9, email);
             i = update.executeUpdate();
         } catch (SQLException e) {
             log.error(e.getMessage(), e);

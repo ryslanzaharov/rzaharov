@@ -13,10 +13,29 @@ public class User {
 
     private String email;
     private String name;
+
+    public String getCountry() {
+        return country;
+    }
+
+    public void setCountry(String country) {
+        this.country = country;
+    }
+
+    public String getCity() {
+        return city;
+    }
+
+    public void setCity(String city) {
+        this.city = city;
+    }
+
     private String login;
     private Timestamp createDate;
     private String password;
     private String role;
+    private String country;
+    private String city;
 
     public String getRole() {
         return role;

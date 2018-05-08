@@ -27,7 +27,6 @@ public class CreateController extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
         if(req.getSession().getAttribute("login") != null) {
-            String email = req.getParameter("email");
             String role = users.select(req.getSession().getAttribute("login").toString()).getRole();
             if (role.equals("Admin"))
                 req.setAttribute("role", role);
@@ -41,16 +40,34 @@ public class CreateController extends HttpServlet {
     protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
         resp.setContentType("text/html");
         this.user = new User();
-        user.setEmail(req.getParameter("email"));
-        user.setName(req.getParameter("name"));
-        user.setLogin(req.getParameter("login"));
-        user.setCreateDate(new Timestamp(Calendar.getInstance().getTimeInMillis()));
-        user.setPassword(req.getParameter("password"));
-        if (req.getParameter("email").equals("root") || req.getParameter("role").equals("Admin"))
-            user.setRole("Admin");
-        else
-            user.setRole("User");
-        users.insert(user);
-        resp.sendRedirect(String.format("%s/create", req.getContextPath()));
+        String email = req.getParameter("email");
+        String name = req.getParameter("name");
+        String login = req.getParameter("login");
+        String password = req.getParameter("password");
+        String country = req.getParameter("country");
+        String city = req.getParameter("city");
+        String role = req.getParameter("role");
+        if (email != "" && name != "" && login != "" && password != "" && country != ""&& city != "" && role != "") {
+            user.setEmail(email);
+            user.setName(name);
+            user.setLogin(login);
+            user.setCreateDate(new Timestamp(Calendar.getInstance().getTimeInMillis()));
+            user.setPassword(password);
+            user.setCountry(country);
+            user.setCity(city);
+            user.setRole(role);
+//        if ( req.getParameter("role") != null || req.getParameter("email").equals("root") || req.getParameter("role").equals("Admin"))
+//            user.setRole("Admin");
+//        else
+//            user.setRole("User");
+            users.insert(user);
+            //resp.sendRedirect(String.format("%s/create", req.getContextPath()));
+            doGet(req, resp);
+        }
+        else {
+            req.setAttribute("error", "Please correct input date.");
+            doGet(req, resp);
+        }
+
     }
 }

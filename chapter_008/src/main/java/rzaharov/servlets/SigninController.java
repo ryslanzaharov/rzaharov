@@ -27,7 +27,7 @@ public class SigninController extends HttpServlet {
     protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
         String login = req.getParameter("login");
         String password = req.getParameter("password");
-        if (UserStore.UserStoreSingleton.INSTANCE.getInstance().isCredentional(login, password)) {
+        if (UserStore.getInstance().isCredentional(login, password)) {
             HttpSession session = req.getSession();
             synchronized (session) {
                 session.setAttribute("login", login);

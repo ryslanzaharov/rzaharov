@@ -1,12 +1,23 @@
 <web-app>
-    <servlet>
-        <servlet-name>Users Controller Servlet</servlet-name>
-        <servlet-class>rzaharov.servlets.UsersController</servlet-class>
-    </servlet>
-    <servlet-mapping>
-        <servlet-name>Users Controller Servlet</servlet-name>
-        <url-pattern>/e</url-pattern>
-    </servlet-mapping>
+    <!--<servlet>-->
+        <!--<servlet-name>Users Controller Servlet</servlet-name>-->
+        <!--<servlet-class>rzaharov.servlets.UsersController</servlet-class>-->
+    <!--</servlet>-->
+    <!--<servlet-mapping>-->
+        <!--<servlet-name>Users Controller Servlet</servlet-name>-->
+        <!--<url-pattern>/</url-pattern>-->
+    <!--</servlet-mapping>-->
+
+    <!--Filter-->
+
+    <filter>
+        <filter-name>AuthFilter</filter-name>
+        <filter-class>rzaharov.servlets.AuthFilter</filter-class>
+    </filter>
+    <filter-mapping>
+        <filter-name>AuthFilter</filter-name>
+        <url-pattern>*</url-pattern>
+    </filter-mapping>
 
     <!--Signin-->
 
@@ -30,17 +41,16 @@
         <url-pattern>/signout</url-pattern>
     </servlet-mapping>
 
-    <!--Filter-->
+    <!--Json-->
 
-    <filter>
-        <filter-name>AuthFilter</filter-name>
-        <filter-class>rzaharov.servlets.AuthFilter</filter-class>
-    </filter>
-    <filter-mapping>
-        <filter-name>AuthFilter</filter-name>
-        <url-pattern>*</url-pattern>
-    </filter-mapping>
-    <!---->
+    <servlet>
+        <servlet-name>JsonController</servlet-name>
+        <servlet-class>rzaharov.servlets.JsonController</servlet-class>
+    </servlet>
+    <servlet-mapping>
+        <servlet-name>JsonController</servlet-name>
+        <url-pattern>/json</url-pattern>
+    </servlet-mapping>
 
     <servlet>
         <servlet-name>UsersServlet</servlet-name>
@@ -92,5 +102,16 @@
     </servlet-mapping>
 
     <!---->
+
+    <!--Ajax-->
+
+    <servlet>
+        <servlet-name>AjaxRequest</servlet-name>
+        <servlet-class>rzaharov.servlets.AjaxRequest</servlet-class>
+    </servlet>
+    <servlet-mapping>
+        <servlet-name>AjaxRequest</servlet-name>
+        <url-pattern>/ajax</url-pattern>
+    </servlet-mapping>
 
 </web-app>

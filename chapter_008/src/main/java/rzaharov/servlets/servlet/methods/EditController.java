@@ -53,7 +53,8 @@ public class EditController extends HttpServlet{
         String country = req.getParameter("country");
         String city = req.getParameter("city");
         String role = req.getParameter("role");
-        if (email != "" && name != "" && login != "" && password != "" && country != ""&& city != "" && role != "") {
+        if (!email.equals("") && !name.equals("") && !login.equals("") && !password.equals("")
+                && !country.equals("") && !city.equals("") && !role.equals("")) {
             user.setEmail(email);
             user.setName(name);
             user.setLogin(login);

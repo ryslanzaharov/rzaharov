@@ -10,14 +10,14 @@
 
     <!--Filter-->
 
-    <filter>
-        <filter-name>AuthFilter</filter-name>
-        <filter-class>rzaharov.servlets.AuthFilter</filter-class>
-    </filter>
-    <filter-mapping>
-        <filter-name>AuthFilter</filter-name>
-        <url-pattern>*</url-pattern>
-    </filter-mapping>
+    <!--<filter>-->
+        <!--<filter-name>AuthFilter</filter-name>-->
+        <!--<filter-class>rzaharov.servlets.AuthFilter</filter-class>-->
+    <!--</filter>-->
+    <!--<filter-mapping>-->
+        <!--<filter-name>AuthFilter</filter-name>-->
+        <!--<url-pattern>*</url-pattern>-->
+    <!--</filter-mapping>-->
 
     <!--Signin-->
 
@@ -64,15 +64,15 @@
 
     <!--приложение для работы с пользователем-->
 
-    <servlet>
-        <servlet-name>Get Controller Servlet</servlet-name>
-        <servlet-class>rzaharov.servlets.servlet.methods.GetController</servlet-class>
-        <load-on-startup>1</load-on-startup>
-    </servlet>
-    <servlet-mapping>
-        <servlet-name>Get Controller Servlet</servlet-name>
-        <url-pattern>/</url-pattern>
-    </servlet-mapping>
+    <!--<servlet>-->
+        <!--<servlet-name>Get Controller Servlet</servlet-name>-->
+        <!--<servlet-class>rzaharov.servlets.servlet.methods.GetController</servlet-class>-->
+        <!--<load-on-startup>1</load-on-startup>-->
+    <!--</servlet>-->
+    <!--<servlet-mapping>-->
+        <!--<servlet-name>Get Controller Servlet</servlet-name>-->
+        <!--<url-pattern>/</url-pattern>-->
+    <!--</servlet-mapping>-->
 
     <servlet>
         <servlet-name>Edit Controller Servlet</servlet-name>
@@ -113,5 +113,16 @@
         <servlet-name>AjaxRequest</servlet-name>
         <url-pattern>/ajax</url-pattern>
     </servlet-mapping>
+
+    <!--&lt;!&ndash;uploadFile&ndash;&gt;-->
+
+    <!--<servlet>-->
+        <!--<servlet-name>UploadDownloadFileServlet</servlet-name>-->
+        <!--<servlet-class>rzaharov.servlets.sendfile.UploadDownloadFileServlet</servlet-class>-->
+    <!--</servlet>-->
+    <!--<servlet-mapping>-->
+        <!--<servlet-name>UploadDownloadFileServlet</servlet-name>-->
+        <!--<url-pattern>/uploadFile</url-pattern>-->
+    <!--</servlet-mapping>-->
 
 </web-app>

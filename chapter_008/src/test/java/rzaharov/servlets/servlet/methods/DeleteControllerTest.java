@@ -19,7 +19,7 @@ public class DeleteControllerTest {
 
     @Test
     public void whenDeleteUserData() throws ServletException, IOException {
-        UserStore users = UserStore.UserStoreSingleton.INSTANCE.getInstance();
+        UserStore users = UserStore.getInstance();
 
         CreateController controllerCreate = new CreateController();
         HttpServletRequest request = mock(HttpServletRequest.class);

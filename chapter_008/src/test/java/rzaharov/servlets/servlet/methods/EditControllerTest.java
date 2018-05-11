@@ -18,7 +18,7 @@ public class EditControllerTest {
 
     @Test
     public void whenUpdateUsersData() throws ServletException, IOException {
-        UserStore users = UserStore.UserStoreSingleton.INSTANCE.getInstance();
+        UserStore users = UserStore.getInstance();
 
         CreateController controllerCreate = new CreateController();
         HttpServletRequest request = mock(HttpServletRequest.class);

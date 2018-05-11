@@ -20,7 +20,7 @@ public class CreateControllerTest {
 
     @Test
     public void whenCreateNewUserAccount() throws ServletException, IOException {
-        UserStore users = UserStore.UserStoreSingleton.INSTANCE.getInstance();
+        UserStore users = UserStore.getInstance();
         CreateController controller = new CreateController();
         HttpServletRequest request = mock(HttpServletRequest.class);
         HttpServletResponse response = mock(HttpServletResponse.class);

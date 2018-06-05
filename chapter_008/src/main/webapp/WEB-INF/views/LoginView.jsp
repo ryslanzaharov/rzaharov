@@ -30,7 +30,7 @@
     </div>
 </c:if>
 <form action="${pageContext.servletContext.contextPath}/signin" method="post"  onsubmit="return validate();">
-    Your email : <input type="text" name="login"><br/><br/>
+    Your login : <input type="text" name="login"><br/><br/>
     Password : <input type="password" name="password"><br/>
     <input type="submit" value="Sign in">
 </form>

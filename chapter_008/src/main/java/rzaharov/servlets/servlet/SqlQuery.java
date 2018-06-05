@@ -1,7 +1,7 @@
 package rzaharov.servlets.servlet;
 
 /**
- * Класс sql запросов.
+ * Класс pgsql запросов.
  * @author Ryslan Zaharov (mailto:Ryslan8906137@yandex.ru).
  * @version 01.
  * @since 02.05.18.

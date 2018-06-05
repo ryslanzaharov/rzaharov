@@ -45,11 +45,11 @@ public class Pricing extends Object {
         //Retrieve the (only) data element and cast it to Element
        // Node dataNode = mapRoot.getElementsByTagName("data").item(0);
     //    Element dataElement = (Element)dataNode;
-        //Retrieve the sql statement
-      //  String sql = dataElement.getAttribute("FIELD");
+        //Retrieve the pgsql statement
+      //  String pgsql = dataElement.getAttribute("FIELD");
 
         //Output the SQL statement
-      //  System.out.println(sql);
+      //  System.out.println(pgsql);
 
         //For the JDBC-ODBC bridge, use
         //driverName = "sun.jdbc.odbc.JdbcOdbcDriver"

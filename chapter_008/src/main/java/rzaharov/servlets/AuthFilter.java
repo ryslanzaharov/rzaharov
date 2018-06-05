@@ -17,7 +17,6 @@ import java.io.IOException;
 
 public class AuthFilter implements Filter {
 
-    private final UserStore users = UserStore.getInstance();
     @Override
     public void init(FilterConfig filterConfig) throws ServletException {
 

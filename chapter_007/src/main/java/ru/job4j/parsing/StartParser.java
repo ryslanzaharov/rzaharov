@@ -14,7 +14,7 @@ public class StartParser{
     /**
     * адрес парируемого сайта.
     */
-    private final static String URL = "http://www.sql.ru/forum/job-offers/";
+    private final static String URL = "http://www.pgsql.ru/forum/job-offers/";
 
     public static void main(String[] args) {
         ScannerParser jp = new ScannerParser(URL, new DBConnection("jdbc:postgresql://localhost:5432/java_a_from_z"));

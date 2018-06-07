@@ -1,0 +1,10 @@
+<hibernate-mapping>
+    <class name="rzaharov.example.models.Item">
+        <id name="id" column="id">
+            <generator class="identity"/>
+        </id>
+        <property name="itemName" column="itemName"/>
+        <property name="created" column="create_date"/>
+    </class>
+</hibernate-mapping>
+

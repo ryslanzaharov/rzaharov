@@ -1,0 +1,10 @@
+<hibernate-mapping>
+    <class name="rzaharov.example.models.Comment" table="comment">
+        <id name="id" column="id">
+            <generator class="identity"/>
+        </id>
+        <property name="commentName" column="commentName"/>
+        <property name="commentText" column="commentText"/>
+        <property name="created" column="create_date"/>
+    </class>
+</hibernate-mapping>

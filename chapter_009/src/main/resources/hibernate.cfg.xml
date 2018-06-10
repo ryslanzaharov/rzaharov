@@ -10,8 +10,12 @@
         <property name="connection.password"></property>
         <property name="dialect">org.hibernate.dialect.PostgreSQL94Dialect</property>
 
+        <!--example-->
         <mapping resource="rzaharov/example/models/User.hbm.xml"/>
         <mapping resource="rzaharov/example/models/Comment.hbm.xml"/>
         <mapping resource="rzaharov/example/models/Item.hbm.xml"/>
+
+        <!--todolist-->
+        <mapping resource="rzaharov/todolist/models/Item.hbm.xml"/>
     </session-factory>
 </hibernate-configuration>

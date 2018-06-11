@@ -57,12 +57,7 @@ public class CreateController extends HttpServlet {
             user.setCountry(country);
             user.setCity(city);
             user.setRole(role);
-//        if ( req.getParameter("role") != null || req.getParameter("email").equals("root") || req.getParameter("role").equals("Admin"))
-//            user.setRole("Admin");
-//        else
-//            user.setRole("User");
             users.insert(user);
-            //resp.sendRedirect(String.format("%s/create", req.getContextPath()));
             doGet(req, resp);
         }
         else {

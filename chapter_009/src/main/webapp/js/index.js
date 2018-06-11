@@ -7,8 +7,8 @@ function updatePage() {
     $("#tasks").empty();
     $(
         $.ajax({
-            url: './index?showDone='+done,
             type: 'GET',
+            url: './index?showdone=' + done,
             complete: function (data) {
                 var tasks = JSON.parse(data.responseText);
                 for (var i = 0; i < tasks.length; i++) {

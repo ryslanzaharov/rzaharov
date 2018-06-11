@@ -16,7 +16,9 @@ public class Index extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
         resp.setContentType("text/html");
+        System.out.println(req.getParameter("showdone"));
         boolean done = Boolean.valueOf(req.getParameter("done"));
+        System.out.println(done);
         DBManager.getInstance().buildSessionFactry();
         ObjectMapper objectMapper = new ObjectMapper();
         PrintWriter writer = resp.getWriter();

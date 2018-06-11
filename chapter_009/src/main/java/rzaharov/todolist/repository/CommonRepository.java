@@ -24,19 +24,6 @@ public abstract class CommonRepository<T> {
         this.dbManager = DBManager.getInstance();
     }
 
-//    public void execute(DBOperation dbOperation, T value) {
-//        try(Session session = this.dbManager.getSession()) {
-//            this.sessions = session;
-//            session.beginTransaction();
-//            dbOperation.execute(session, value);
-//            session.getTransaction().commit();
-//            session.close();
-//        } catch (HibernateException e) {
-//            log.error(e.getMessage(), e);
-//            sessions.getTransaction().rollback();
-//        }
-//    }
-
     public void execute(DBOperation dbOperation, T value) {
         final Session session = this.dbManager.getSession();
         final Transaction tx = session.beginTransaction();

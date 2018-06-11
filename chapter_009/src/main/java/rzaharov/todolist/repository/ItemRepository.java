@@ -7,6 +7,12 @@ import rzaharov.todolist.models.Item;
 import java.util.ArrayList;
 import java.util.List;
 
+/**
+ * @author rzaharov
+ * @version 0.1
+ * @since 11.06.2018
+ */
+
 public class ItemRepository extends CommonRepository<Item> {
 
     private static final ItemRepository itemRepository = new ItemRepository();

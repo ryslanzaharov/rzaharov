@@ -1,6 +1,6 @@
 package rzaharov.servlets.cop.musiccourt.servlet;
 
-import rzaharov.servlets.cop.musiccourt.dao.FactoryDAO;
+import rzaharov.servlets.cop.musiccourt.dao.postgres.FactoryDAO;
 
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
@@ -11,7 +11,7 @@ import java.io.IOException;
 
 public class SignInController extends HttpServlet {
 
-    private final FactoryDAO factoryDAO = FactoryDAO.getInstance();
+    private final FactoryDAO factoryDAO = FactoryDAO.Singleton.INSTANCE.getInstance();
 
     @Override
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {

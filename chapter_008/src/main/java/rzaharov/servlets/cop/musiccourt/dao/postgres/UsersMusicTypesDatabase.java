@@ -1,6 +1,7 @@
 package rzaharov.servlets.cop.musiccourt.dao.postgres;
 
-import rzaharov.servlets.cop.musiccourt.dao.FactoryDAO;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 import java.sql.Connection;
 import java.sql.PreparedStatement;
@@ -11,7 +12,9 @@ import java.util.List;
 
 public class UsersMusicTypesDatabase {
 
-    private final FactoryDAO factoryDAO = FactoryDAO.getInstance();
+    private static  final Logger Log = LoggerFactory.getLogger(UsersMusicTypesDatabase.class);
+
+    private final FactoryDAO factoryDAO = FactoryDAO.Singleton.INSTANCE.getInstance();
 
     private final Connection connection = factoryDAO.getConn();
 
@@ -21,7 +24,7 @@ public class UsersMusicTypesDatabase {
             add.setInt(2, music_type_id);
             add.executeUpdate();
         } catch (SQLException e) {
-            e.printStackTrace();
+            Log.error(e.getMessage(), e);
         }
     }
 
@@ -29,25 +32,27 @@ public class UsersMusicTypesDatabase {
         List<Integer> list = new ArrayList<>();
         try(PreparedStatement get = connection.prepareStatement(UsersMusicTypesSql.GetById.QUERY)) {
             get.setInt(1, user_id);
-            ResultSet rs = get.executeQuery();
-            while (rs.next()) {
-                list.add(rs.getInt("music_type_id"));
+            try(ResultSet rs = get.executeQuery()) {
+                while (rs.next()) {
+                    list.add(rs.getInt("music_type_id"));
+                }
             }
         } catch (SQLException e) {
-            e.printStackTrace();
+            Log.error(e.getMessage(), e);
         }
         return list;
     }
 
     public void updateUserMusicTypes(Integer user_id, Integer music_type_id) {
         try(PreparedStatement update = connection.prepareStatement(UsersMusicTypesSql.ADD.QUERY)) {
-            PreparedStatement delete = connection.prepareStatement(UsersMusicTypesSql.DELETE.QUERY);
-            delete.executeUpdate();
-            update.setInt(1, music_type_id);
-            update.setInt(2, user_id);
-            update.executeUpdate();
+            try(PreparedStatement delete = connection.prepareStatement(UsersMusicTypesSql.DELETE.QUERY)) {
+                delete.executeUpdate();
+                update.setInt(1, music_type_id);
+                update.setInt(2, user_id);
+                update.executeUpdate();
+            }
         } catch (SQLException e) {
-            e.printStackTrace();
+            Log.error(e.getMessage(), e);
         }
     }
 
@@ -56,7 +61,7 @@ public class UsersMusicTypesDatabase {
             delete.setInt(1, user_id);
             delete.executeUpdate();
         } catch (SQLException e) {
-            e.printStackTrace();
+            Log.error(e.getMessage(), e);
         }
     }
 

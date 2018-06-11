@@ -1,8 +1,8 @@
 package rzaharov.servlets.cop.musiccourt.dao.postgres;
 
-import rzaharov.servlets.cop.musiccourt.dao.FactoryDAO;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import rzaharov.servlets.cop.musiccourt.dao.UserDao;
-import rzaharov.servlets.cop.musiccourt.dao.UserRepository;
 import rzaharov.servlets.cop.musiccourt.models.Address;
 import rzaharov.servlets.cop.musiccourt.models.MusicType;
 import rzaharov.servlets.cop.musiccourt.models.Role;
@@ -14,30 +14,34 @@ import java.util.List;
 
 public class UserDatabaseDao implements UserDao{
 
-    private final FactoryDAO factoryDAO = FactoryDAO.getInstance();
+    private static final Logger Log = LoggerFactory.getLogger(UserDatabaseDao.class);
 
-    private final Connection connection = factoryDAO.getConn();
+    private static final FactoryDAO factoryDAO = FactoryDAO.Singleton.INSTANCE.getInstance();
+
+    private static Connection connection = factoryDAO.getConn();
+
 
     @Override
     public List<User> getAll() {
         List<User> users = new ArrayList<>();
         AddressDatabaseDao add = new AddressDatabaseDao();
         try(PreparedStatement getUsers = connection.prepareStatement(UserSql.GET.QUERY)) {
-            ResultSet rs = getUsers.executeQuery();
-            while (rs.next()) {
-                User user = new User();
-                user.setId(rs.getInt("id"));
-                user.setName(rs.getString("name"));
-                user.setSurname(rs.getString("surname"));
-                user.setRole(getRole(rs.getString("login")));
-                user.setLogin(rs.getString("login"));
-                user.setPassword(rs.getString("password"));
-                user.setMusicTypes(getMusicType(user));
-                user.setAddress(add.getById(user.getId()));
-                users.add(user);
+            try(ResultSet rs = getUsers.executeQuery()) {
+                while (rs.next()) {
+                    User user = new User();
+                    user.setId(rs.getInt("id"));
+                    user.setName(rs.getString("name"));
+                    user.setSurname(rs.getString("surname"));
+                    user.setRole(getRole(rs.getString("login")));
+                    user.setLogin(rs.getString("login"));
+                    user.setPassword(rs.getString("password"));
+                    user.setMusicTypes(getMusicType(user));
+                    user.setAddress(add.getById(user.getId()));
+                    users.add(user);
+                }
             }
         } catch (SQLException e) {
-            e.printStackTrace();
+            Log.error(e.getMessage(), e);
         }
         return users;
     }
@@ -47,18 +51,19 @@ public class UserDatabaseDao implements UserDao{
         User user = new User();
         try(PreparedStatement get = connection.prepareStatement(UserSql.GetById.QUERY)) {
             get.setInt(1, id);
-            ResultSet rs = get.executeQuery();
-            if (rs.next()) {
-               user.setId(rs.getInt("id"));
-               user.setName(rs.getString("name"));
-               user.setSurname(rs.getString("surname"));
-                user.setRole_id(rs.getInt("role_id"));
-                user.setLogin(rs.getString("login"));
-                user.setPassword(rs.getString("password"));
-                get.executeUpdate();
+            try(ResultSet rs = get.executeQuery()) {
+                if (rs.next()) {
+                    user.setId(rs.getInt("id"));
+                    user.setName(rs.getString("name"));
+                    user.setSurname(rs.getString("surname"));
+                    user.setRole_id(rs.getInt("role_id"));
+                    user.setLogin(rs.getString("login"));
+                    user.setPassword(rs.getString("password"));
+                    get.executeUpdate();
+                }
             }
         } catch (Exception e) {
-            e.printStackTrace();
+            Log.error(e.getMessage(), e);
         }
         return user;
     }
@@ -73,7 +78,7 @@ public class UserDatabaseDao implements UserDao{
             add.setString(5, model.getPassword());
             add.executeUpdate();
         } catch (SQLException e) {
-            e.printStackTrace();
+            Log.error(e.getMessage(), e);
         }
     }
 
@@ -92,7 +97,7 @@ public class UserDatabaseDao implements UserDao{
             for (MusicType musicType : model.getMusicTypes())
                 usersMusicTypesDatabase.addUserMusicTypes(model.getId(), musicType.getId());
         } catch (SQLException e) {
-            e.printStackTrace();
+            Log.error(e.getMessage(), e);
         }
     }
 
@@ -102,7 +107,7 @@ public class UserDatabaseDao implements UserDao{
             delete.setInt(1, id);
             delete.executeUpdate();
         } catch (SQLException e) {
-            e.printStackTrace();
+            Log.error(e.getMessage(), e);
         }
     }
 
@@ -161,22 +166,24 @@ public class UserDatabaseDao implements UserDao{
     @Override
     public User getUser(String login) {
         User user = new User();
-        try(PreparedStatement get = connection.prepareStatement(UserSql.GetByLogin.QUERY)) {
+        try(PreparedStatement get = factoryDAO.getConn()
+                .prepareStatement(UserSql.GetByLogin.QUERY)) {
+            System.out.println(login + " login");
             get.setString(1, login);
-            ResultSet rs = get.executeQuery();
-            if (rs.next()) {
-                user.setId(rs.getInt("id"));
-                user.setName(rs.getString("name"));
-                user.setSurname(rs.getString("surname"));
-                user.setLogin(rs.getString("login"));
-                user.setPassword(rs.getString("password"));
-                user.setRole_id(rs.getInt("role_id"));
-                user.setRole(getRole(user.getRole_id()));
-                user.setAddress(getAddress(user));
+            try(ResultSet rs = get.executeQuery()) {
+                if (rs.next()) {
+                    user.setId(rs.getInt("id"));
+                    user.setName(rs.getString("name"));
+                    user.setSurname(rs.getString("surname"));
+                    user.setLogin(rs.getString("login"));
+                    user.setPassword(rs.getString("password"));
+                    user.setRole_id(rs.getInt("role_id"));
+                    user.setRole(getRole(user.getRole_id()));
+                    user.setAddress(getAddress(user));
+                }
             }
-
         } catch (SQLException e) {
-            e.printStackTrace();
+            Log.error(e.getMessage(), e);
         }
         return user;
     }
@@ -187,7 +194,7 @@ public class UserDatabaseDao implements UserDao{
             del.setString(1, login);
             del.executeUpdate();
         } catch (SQLException e) {
-            e.printStackTrace();
+            Log.error(e.getMessage(), e);
         }
     }
 

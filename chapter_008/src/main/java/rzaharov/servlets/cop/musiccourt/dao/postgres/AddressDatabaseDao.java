@@ -1,7 +1,8 @@
 package rzaharov.servlets.cop.musiccourt.dao.postgres;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import rzaharov.servlets.cop.musiccourt.dao.AddressDao;
-import rzaharov.servlets.cop.musiccourt.dao.FactoryDAO;
 import rzaharov.servlets.cop.musiccourt.models.Address;
 
 import java.sql.Connection;
@@ -13,10 +14,12 @@ import java.util.List;
 
 public class AddressDatabaseDao implements AddressDao {
 
+    private static final Logger Log = LoggerFactory.getLogger(AddressDatabaseDao.class);
+
     /**
      * Connection of database.
      */
-    private final FactoryDAO factoryDAO = FactoryDAO.getInstance();
+    private final FactoryDAO factoryDAO = FactoryDAO.Singleton.INSTANCE.getInstance();
 
     private final Connection connection = factoryDAO.getConn();
 
@@ -25,19 +28,20 @@ public class AddressDatabaseDao implements AddressDao {
         List<Address> addresses = new ArrayList<>();
         Address address;
         try(PreparedStatement select = connection.prepareStatement(AddressSql.GET.QUERY)) {
-            ResultSet rs = select.executeQuery();
-            while(rs.next()) {
-                address = new Address();
-                address.setId(rs.getInt("id"));
-                address.setCity(rs.getString("city"));
-                address.setDistrict(rs.getString("district"));
-                address.setStreet(rs.getString("street"));
-                address.setHouse(rs.getString("house"));
-                address.setApartment(rs.getInt("apartment"));
-                addresses.add(address);
+            try(ResultSet rs = select.executeQuery()) {
+                while (rs.next()) {
+                    address = new Address();
+                    address.setId(rs.getInt("id"));
+                    address.setCity(rs.getString("city"));
+                    address.setDistrict(rs.getString("district"));
+                    address.setStreet(rs.getString("street"));
+                    address.setHouse(rs.getString("house"));
+                    address.setApartment(rs.getInt("apartment"));
+                    addresses.add(address);
+                }
             }
         } catch (SQLException e) {
-            e.printStackTrace();
+            Log.error(e.getMessage(), e);
         }
         return addresses;
     }
@@ -47,19 +51,19 @@ public class AddressDatabaseDao implements AddressDao {
         Address address = new Address();
         try(PreparedStatement select = connection.prepareStatement(AddressSql.GetById.QUERY)) {
             select.setInt(1, id);
-            ResultSet rs = select.executeQuery();
-            if (rs.next()) {
-              //  address = new Address();
-                address.setId(rs.getInt("id"));
-                address.setCity(rs.getString("city"));
-                address.setDistrict(rs.getString("district"));
-                address.setStreet(rs.getString("street"));
-                address.setHouse(rs.getString("house"));
-                address.setApartment(rs.getInt("apartment"));
+            try(ResultSet rs = select.executeQuery()) {
+                if (rs.next()) {
+                    //  address = new Address();
+                    address.setId(rs.getInt("id"));
+                    address.setCity(rs.getString("city"));
+                    address.setDistrict(rs.getString("district"));
+                    address.setStreet(rs.getString("street"));
+                    address.setHouse(rs.getString("house"));
+                    address.setApartment(rs.getInt("apartment"));
+                }
             }
-
         } catch (SQLException e) {
-            e.printStackTrace();
+            Log.error(e.getMessage(), e);
         }
         return address;
     }
@@ -74,7 +78,7 @@ public class AddressDatabaseDao implements AddressDao {
             add.setInt(5, model.getApartment());
             add.executeUpdate();
         }catch (SQLException e) {
-            e.printStackTrace();
+            Log.error(e.getMessage(), e);
         }
     }
 
@@ -89,7 +93,7 @@ public class AddressDatabaseDao implements AddressDao {
             update.setInt(6, model.getId());
             update.executeUpdate();
         } catch (SQLException e) {
-            e.printStackTrace();
+            Log.error(e.getMessage(), e);
         }
     }
 
@@ -99,7 +103,7 @@ public class AddressDatabaseDao implements AddressDao {
             delete.setInt(1, id);
             delete.executeUpdate();
         } catch (SQLException e) {
-            e.printStackTrace();
+            Log.error(e.getMessage(), e);
         }
 
     }

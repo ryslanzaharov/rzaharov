@@ -1,6 +1,5 @@
 package rzaharov.servlets.cop.musiccourt.servlet.methods;
 
-import rzaharov.servlets.cop.musiccourt.dao.FactoryDAO;
 import rzaharov.servlets.cop.musiccourt.dao.postgres.UserDatabaseDao;
 import rzaharov.servlets.cop.musiccourt.models.Address;
 import rzaharov.servlets.cop.musiccourt.models.MusicType;
@@ -12,10 +11,7 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
-import java.sql.Timestamp;
 import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.Calendar;
 import java.util.List;
 
 /**
@@ -26,8 +22,6 @@ import java.util.List;
  */
 
 public class CreateController extends HttpServlet {
-
-    private final FactoryDAO factoryDAO = FactoryDAO.getInstance();
 
     private final UserDatabaseDao udd = new UserDatabaseDao();
 

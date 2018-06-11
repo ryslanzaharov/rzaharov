@@ -1,9 +1,6 @@
 package rzaharov.servlets.cop.musiccourt.servlet.methods;
 
-import rzaharov.servlets.cop.musiccourt.dao.FactoryDAO;
 import rzaharov.servlets.cop.musiccourt.dao.postgres.*;
-import rzaharov.servlets.cop.musiccourt.models.MusicType;
-import rzaharov.servlets.cop.musiccourt.models.User;
 
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
@@ -13,10 +10,6 @@ import java.io.IOException;
 import java.sql.Connection;
 
 public class GetController extends HttpServlet {
-
-    private final FactoryDAO factoryDAO = FactoryDAO.getInstance();
-
-    private final Connection connection = factoryDAO.getConn();
 
     private final UserDatabaseDao udd = new UserDatabaseDao();
 

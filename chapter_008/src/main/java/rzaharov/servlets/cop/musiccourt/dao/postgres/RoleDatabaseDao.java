@@ -1,6 +1,7 @@
 package rzaharov.servlets.cop.musiccourt.dao.postgres;
 
-import rzaharov.servlets.cop.musiccourt.dao.FactoryDAO;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import rzaharov.servlets.cop.musiccourt.dao.RoleDao;
 import rzaharov.servlets.cop.musiccourt.models.Role;
 import rzaharov.servlets.cop.musiccourt.models.User;
@@ -14,7 +15,9 @@ import java.util.List;
 
 public class RoleDatabaseDao implements RoleDao {
 
-    private final FactoryDAO factoryDAO = FactoryDAO.getInstance();
+    private static final Logger Log = LoggerFactory.getLogger(RoleDatabaseDao.class);
+
+    private final FactoryDAO factoryDAO = FactoryDAO.Singleton.INSTANCE.getInstance();
 
     private final Connection connection = factoryDAO.getConn();
 
@@ -22,15 +25,16 @@ public class RoleDatabaseDao implements RoleDao {
     public List<Role> getAll() {
         List<Role> roles = new ArrayList<>();
         try(PreparedStatement get = connection.prepareStatement(RoleSql.GET.QUERY)) {
-            ResultSet rs = get.executeQuery();
-            while (rs.next()) {
-                Role role = new Role();
-                role.setId(rs.getInt("id"));
-                role.setName(rs.getString("name"));
-                roles.add(role);
+            try(ResultSet rs = get.executeQuery()) {
+                while (rs.next()) {
+                    Role role = new Role();
+                    role.setId(rs.getInt("id"));
+                    role.setName(rs.getString("name"));
+                    roles.add(role);
+                }
             }
         } catch (SQLException e) {
-            e.printStackTrace();
+            Log.error(e.getMessage(), e);
         }
         return roles;
     }
@@ -40,13 +44,14 @@ public class RoleDatabaseDao implements RoleDao {
         Role role = new Role();
         try(PreparedStatement getById = connection.prepareStatement(RoleSql.GetById.QUERY)) {
             getById.setInt(1, id);
-            ResultSet rs = getById.executeQuery();
-            if (rs.next()) {
-                role.setId(rs.getInt("id"));
-                role.setName(rs.getString("name"));
+            try(ResultSet rs = getById.executeQuery()) {
+                if (rs.next()) {
+                    role.setId(rs.getInt("id"));
+                    role.setName(rs.getString("name"));
+                }
             }
         } catch (Exception e) {
-            e.printStackTrace();
+            Log.error(e.getMessage(), e);
         }
         return role;
     }
@@ -56,7 +61,7 @@ public class RoleDatabaseDao implements RoleDao {
         try(PreparedStatement add = connection.prepareStatement(RoleSql.ADD.QUERY)) {
             add.setString(1, model.getName());
         } catch (SQLException e) {
-            e.printStackTrace();
+            Log.error(e.getMessage(), e);
         }
     }
 
@@ -66,7 +71,7 @@ public class RoleDatabaseDao implements RoleDao {
             update.setString(1, model.getName());
             update.setInt(2, model.getId());
         } catch (SQLException e) {
-            e.printStackTrace();
+            Log.error(e.getMessage(), e);
         }
     }
 
@@ -75,7 +80,7 @@ public class RoleDatabaseDao implements RoleDao {
         try(PreparedStatement delete = connection.prepareStatement(RoleSql.DELETE.QUERY)) {
             delete.executeUpdate();
         } catch (SQLException e) {
-            e.printStackTrace();
+            Log.error(e.getMessage(), e);
         }
     }
 
@@ -84,13 +89,14 @@ public class RoleDatabaseDao implements RoleDao {
         List<User> list = new ArrayList<>();
         try(PreparedStatement getUser = connection.prepareStatement(RoleSql.GetUser.QUERY)) {
             getUser.setInt(1, role.getId());
-            ResultSet rs = getUser.executeQuery();
-            UserDatabaseDao udd = new UserDatabaseDao();
-            while(rs.next()) {
-                list.add(udd.getById(rs.getInt("id")));
+            try(ResultSet rs = getUser.executeQuery()) {
+                UserDatabaseDao udd = new UserDatabaseDao();
+                while (rs.next()) {
+                    list.add(udd.getById(rs.getInt("id")));
+                }
             }
         } catch (SQLException e) {
-            e.printStackTrace();
+            Log.error(e.getMessage(), e);
         }
         return list;
     }

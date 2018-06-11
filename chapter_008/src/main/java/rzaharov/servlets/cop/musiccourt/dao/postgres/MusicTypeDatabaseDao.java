@@ -1,6 +1,7 @@
 package rzaharov.servlets.cop.musiccourt.dao.postgres;
 
-import rzaharov.servlets.cop.musiccourt.dao.FactoryDAO;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import rzaharov.servlets.cop.musiccourt.dao.MusicTypeDao;
 import rzaharov.servlets.cop.musiccourt.models.MusicType;
 import rzaharov.servlets.cop.musiccourt.models.User;
@@ -11,7 +12,9 @@ import java.util.List;
 
 public class MusicTypeDatabaseDao implements MusicTypeDao {
 
-    private final FactoryDAO factoryDAO = FactoryDAO.getInstance();
+    private static final Logger Log = LoggerFactory.getLogger(MusicTypeDatabaseDao.class);
+
+    private final FactoryDAO factoryDAO = FactoryDAO.Singleton.INSTANCE.getInstance();
 
     private final Connection connection = factoryDAO.getConn();
 
@@ -25,12 +28,13 @@ public class MusicTypeDatabaseDao implements MusicTypeDao {
         MusicType musicType = new MusicType();
         try(PreparedStatement getById = connection.prepareCall(MusicTypeSql.GetById.QUERY)) {
             getById.setInt(1, id);
-            ResultSet rs = getById.executeQuery();
-            if (rs.next()) {
-                musicType.setName(rs.getString("name"));
+            try(ResultSet rs = getById.executeQuery()) {
+                if (rs.next()) {
+                    musicType.setName(rs.getString("name"));
+                }
             }
         } catch (SQLException e) {
-            e.printStackTrace();
+            Log.error(e.getMessage(), e);
         }
         return musicType;
     }
@@ -41,7 +45,7 @@ public class MusicTypeDatabaseDao implements MusicTypeDao {
             add.setString(1, model.getName());
             add.executeUpdate();
         } catch (SQLException e) {
-            e.printStackTrace();
+            Log.error(e.getMessage(), e);
         }
     }
 
@@ -52,7 +56,7 @@ public class MusicTypeDatabaseDao implements MusicTypeDao {
             update.setInt(2, model.getId());
             update.executeUpdate();
         } catch (SQLException e) {
-            e.printStackTrace();
+            Log.error(e.getMessage(), e);
         }
     }
 
@@ -62,7 +66,7 @@ public class MusicTypeDatabaseDao implements MusicTypeDao {
             delete.setInt(1, id);
             delete.executeUpdate();
         } catch (SQLException e) {
-            e.printStackTrace();
+            Log.error(e.getMessage(), e);
         }
     }
 
@@ -71,14 +75,15 @@ public class MusicTypeDatabaseDao implements MusicTypeDao {
         List<Integer> users = new ArrayList<>();
         try(PreparedStatement getUsers = connection.prepareStatement(MusicTypeSql.GetByName.QUERY)) {
             getUsers.setString(1, musicType);
-            ResultSet rs = getUsers.executeQuery();
-            while (rs.next()) {
-                User user = new User();
-                user.setId(rs.getInt("id"));
-                user.setName(rs.getString("name"));
-            }
+           try(ResultSet rs = getUsers.executeQuery()) {
+               while (rs.next()) {
+                   User user = new User();
+                   user.setId(rs.getInt("id"));
+                   user.setName(rs.getString("name"));
+               }
+           }
         } catch (SQLException e) {
-            e.printStackTrace();
+            Log.error(e.getMessage(), e);
         }
         return users;
     }
@@ -86,7 +91,6 @@ public class MusicTypeDatabaseDao implements MusicTypeDao {
     enum MusicTypeSql {
         GetById("SELECT * FROM music_type WHERE id = ?"),
         GetByName("SELECT * FROM music_type WHERE name = ?"),
-        GET("SELECT * FROM music_type"),
         DELETE("DELETE FROM music_type WHERE id = ?"),
         ADD("INSERT INTO music_type(name) VALUES(?)"),
         UPDATE("UPDATE music_type SET name = ? WHERE id = ?");

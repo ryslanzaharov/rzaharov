@@ -25,9 +25,7 @@ public class DBManager {
     }
 
    public Session getSession() {
-
-       Session session = factory.openSession();
-       return session;
+       return factory.openSession();
    }
 
     public void buildSessionFactory() {

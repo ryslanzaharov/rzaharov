@@ -1,6 +1,9 @@
 package rzaharov.example.repository;
 
+import org.hibernate.HibernateException;
 import org.hibernate.Session;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import rzaharov.example.database.AllModels;
 import rzaharov.example.database.DBManager;
 import rzaharov.example.database.DBOperation;
@@ -18,6 +21,10 @@ public abstract class CommonRepository<T> {
 
     private DBManager dbManager;
 
+    private static final Logger log = LoggerFactory.getLogger(DBManager.class);
+
+    private Session sessions = null;
+
     /**
      * Default constructor.
      */
@@ -26,29 +33,42 @@ public abstract class CommonRepository<T> {
     }
 
     public void execute(DBOperation db, T value) {
-        Session session = this.dbManager.getSession();
-        session.beginTransaction();
-        db.execute(session, value);
-        session.getTransaction().commit();
-        session.close();
+        try(Session session = this.dbManager.getSession()) {
+            sessions = session;
+            session.beginTransaction();
+            db.execute(session, value);
+            session.getTransaction().commit();
+        } catch (HibernateException e) {
+            log.error(e.getMessage(), e);
+            sessions.getTransaction().rollback();
+        }
     }
 
     public T getById(ID operation) {
-        Session session = this.dbManager.getSession();
-        session.beginTransaction();
-        T value = (T) operation.getById(session);
-        session.getTransaction().commit();
-        session.close();
+        T value = null;
+        try(Session session = this.dbManager.getSession()) {
+            sessions = session;
+            session.beginTransaction();
+            value = (T) operation.getById(session);
+            session.getTransaction().commit();
+        } catch (HibernateException e) {
+            log.error(e.getMessage(), e);
+            sessions.getTransaction().rollback();
+        }
         return value;
-
     }
 
     public List<T> getAll(AllModels allModels) {
-        Session session = this.dbManager.getSession();
-        session.beginTransaction();
-        List<T> list = allModels.getAll(session);
-        session.getTransaction().commit();
-        session.close();
+        List<T> list = null;
+        try(Session session = this.dbManager.getSession()) {
+            sessions = session;
+            session.beginTransaction();
+            list = allModels.getAll(session);
+            session.getTransaction().commit();
+        } catch (HibernateException e) {
+            log.error(e.getMessage(), e);
+            sessions.getTransaction().rollback();
+        }
         return list;
     }
 

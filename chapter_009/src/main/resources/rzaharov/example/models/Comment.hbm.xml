@@ -6,5 +6,10 @@
         <property name="commentName" column="commentName"/>
         <property name="commentText" column="commentText"/>
         <property name="created" column="create_date"/>
+
+        <many-to-one name="item"
+                     column="item_id"
+                     class="rzaharov.example.models.Item"/>
+
     </class>
 </hibernate-mapping>

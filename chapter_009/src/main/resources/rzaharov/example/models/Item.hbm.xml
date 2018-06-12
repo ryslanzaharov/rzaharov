@@ -5,6 +5,15 @@
         </id>
         <property name="itemName" column="itemName"/>
         <property name="created" column="create_date"/>
+
+        <many-to-one name="author"
+                     column="author_id"
+                     class="rzaharov.example.models.User" />
+
+        <bag name="comments" inverse="true">
+            <key column="item_id" not-null="true"/>
+            <one-to-many class="rzaharov.example.models.Comment"/>
+        </bag>
     </class>
 </hibernate-mapping>
 

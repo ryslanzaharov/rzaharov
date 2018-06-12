@@ -9,6 +9,7 @@
         <property name="connection.username">postgres</property>
         <property name="connection.password"></property>
         <property name="dialect">org.hibernate.dialect.PostgreSQL94Dialect</property>
+        <property name="show_sql">true</property>
 
         <!--example-->
         <mapping resource="rzaharov/example/models/User.hbm.xml"/>
@@ -17,5 +18,10 @@
 
         <!--todolist-->
         <mapping resource="rzaharov/todolist/models/Item.hbm.xml"/>
+
+        <!--carlist-->
+        <mapping resource="rzaharov/carlist/models/Car.hbm.xml"/>
+        <mapping resource="rzaharov/carlist/models/Condition.hbm.xml"/>
+        <mapping resource="rzaharov/carlist/models/Engine.hbm.xml"/>
     </session-factory>
 </hibernate-configuration>

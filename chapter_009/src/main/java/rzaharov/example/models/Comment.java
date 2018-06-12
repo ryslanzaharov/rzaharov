@@ -16,6 +16,7 @@ public class Comment {
     private String commentName;
     private String commentText;
     private Timestamp created;
+    private Item item;
 
     public int getId() {
         return id;
@@ -47,5 +48,23 @@ public class Comment {
 
     public void setCreated(Timestamp created) {
         this.created = created;
+    }
+
+    public Item getItem() {
+        return item;
+    }
+
+    public void setItem(Item item) {
+        this.item = item;
+    }
+
+    @Override
+    public String toString() {
+        return "Comment{" +
+                "id=" + id +
+                ", commentName='" + commentName + '\'' +
+                ", commentText='" + commentText + '\'' +
+                ", created=" + created +
+                '}';
     }
 }

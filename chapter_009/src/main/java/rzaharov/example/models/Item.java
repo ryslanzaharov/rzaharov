@@ -18,14 +18,20 @@ public class Item {
     private Timestamp created;
 
     private User author;
-    private List<Item> items;
+    private List<Comment> comments;
 
-    public List<Item> getItems() {
-        return items;
+    public Item() {}
+
+    public Item(int id) {
+        this.id = id;
     }
 
-    public void setItems(List<Item> items) {
-        this.items = items;
+    public List<Comment> getComments() {
+        return comments;
+    }
+
+    public void setComments(List<Comment> comments) {
+        this.comments = comments;
     }
 
     public User getAuthor() {
@@ -59,5 +65,16 @@ public class Item {
 
     public void setCreated(Timestamp created) {
         this.created = created;
+    }
+
+    @Override
+    public String toString() {
+        return "Item{" +
+                "id=" + id +
+                ", itemName='" + itemName + '\'' +
+                ", created=" + created +
+                ", author=" + author +
+                ", comments=" + comments +
+                '}';
     }
 }

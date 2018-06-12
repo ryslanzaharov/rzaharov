@@ -17,6 +17,12 @@ public class User {
     private String password;
     private Timestamp created;
 
+    public User() {}
+
+    public User(int id) {
+        this.id = id;
+    }
+
     public int getId() {
         return id;
     }
@@ -47,5 +53,15 @@ public class User {
 
     public void setCreated(Timestamp created) {
         this.created = created;
+    }
+
+    @Override
+    public String toString() {
+        return "User{" +
+                "id=" + id +
+                ", login='" + login + '\'' +
+                ", password='" + password + '\'' +
+                ", created=" + created +
+                '}';
     }
 }

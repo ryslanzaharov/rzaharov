@@ -10,13 +10,13 @@ import java.util.List;
 public class EngineRepository extends CommonRepository<Engine> {
 
     private DBManager dbManager;
-    public static final EngineRepository instance = new EngineRepository();
+    private static final EngineRepository instance = new EngineRepository();
 
-    public EngineRepository() {
+    private EngineRepository() {
         this.dbManager = DBManager.getInstance();
     }
 
-    public EngineRepository getInstance() {
+    public static EngineRepository getInstance() {
         return instance;
     }
 

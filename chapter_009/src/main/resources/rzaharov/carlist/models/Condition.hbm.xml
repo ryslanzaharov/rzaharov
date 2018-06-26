@@ -7,8 +7,9 @@
         <property name="year" column="year"/>
         <property name="mileage" column="mileage"/>
 
-        <many-to-one name="car"
-                     column="id_car"
-                     class="rzaharov.carlist.models.Car"/>
+        <!--<many-to-one name="car"-->
+                     <!--column="id_car"-->
+                     <!--class="rzaharov.carlist.models.Car"-->
+                     <!--lazy="false" cascade="all" fetch="join"/>-->
     </class>
 </hibernate-mapping>

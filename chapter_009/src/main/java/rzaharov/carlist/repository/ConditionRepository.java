@@ -9,13 +9,13 @@ import java.util.List;
 public class ConditionRepository extends CommonRepository<Condition> {
 
     private DBManager dbManager;
-    public static final ConditionRepository instance = new ConditionRepository();
+    private static final ConditionRepository instance = new ConditionRepository();
 
     public ConditionRepository() {
         this.dbManager = DBManager.getInstance();
     }
 
-    public ConditionRepository getInstance() {
+    public static ConditionRepository getInstance() {
         return instance;
     }
 

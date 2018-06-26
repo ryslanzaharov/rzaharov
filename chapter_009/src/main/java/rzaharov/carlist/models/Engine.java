@@ -1,16 +1,40 @@
 package rzaharov.carlist.models;
 
+import javax.persistence.*;
 import java.util.List;
 
+//@Entity
+//@Table(name = "engine")
 public class Engine {
 
+//    @Id
+//    @GeneratedValue(strategy = GenerationType.IDENTITY)
+//    @Column(name = "id")
     private int id;
+
+ //   @Column(name = "name")
     private String name;
+
+ //   @Column(name = "type_engine")
     private String type_engine;
+
+ //   @Column(name = "condition")
     private String condition;
-    private List<Car> cars;
 
     public Engine() {}
+
+    public Engine(int id, String name, String type_engine, String condition) {
+        this.name = name;
+        this.type_engine = type_engine;
+        this.condition = condition;
+        this.id = id;
+    }
+
+    public Engine(String name, String type_engine, String condition) {
+        this.name = name;
+        this.type_engine = type_engine;
+        this.condition = condition;
+    }
 
     public Engine(int id) {
         this.id = id;
@@ -48,13 +72,6 @@ public class Engine {
         this.condition = condition;
     }
 
-    public List<Car> getCars() {
-        return cars;
-    }
-
-    public void setCars(List<Car> cars) {
-        this.cars = cars;
-    }
 
     @Override
     public String toString() {

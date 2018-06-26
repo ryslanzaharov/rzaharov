@@ -22,28 +22,39 @@
     <link rel="stylesheet" href="css/style.css" />
 </head>
 <body>
-
+<div class="row">
+    <div class="container">
+        <div class="row">
             <div class="col-6">
-                <form class="form-inline">
-                    <div class="form-group">
-                        <label for="desc">Description</label>
-                        <textarea class="form-control" rows="1" id="desc"></textarea>
-                        <input type="submit" value="Add" class="btn btn-primary" onclick="formSubmit()"/>
-                    </div>
-                    <div class="form-group">
-                        <label for="done">Show only done task</label>
-                        <input class="form-control" type="checkbox" id="done" onchange="updatePage()"/>
-                    </div>
+                <form action="./signin" method="get">
+                    <input type="submit" value="Sign In">
                 </form>
-
-                <table id="tasks" class="table">
+                <form action="./createCar" method="post">
+                    <button type="submit">Create</button>
+                </form>
+                <table id="list" class="table">
                     <tr>
                         <th>ID</th>
-                        <th>Description</th>
-                        <th>Creation time</th>
-                        <th>Done</th>
+                        <th>Photo</th>
+                        <th>Producer</th>
+                        <th>Model</th>
+                        <th>Body</th>
+                        <th>Engine</th>
+                        <th>Type_of_engine</th>
+                        <th>Engine_condition</th>
+                        <th>Car_condition</th>
+                        <th>Year</th>
+                        <th>Mileage</th>
+                        <th>Price</th>
+                        <th>Sale</th>
                     </tr>
                 </table>
             </div>
+            <div class="col"></div>
+        </div>
+    </div>
+</div>
 </body>
 </html>
+
+

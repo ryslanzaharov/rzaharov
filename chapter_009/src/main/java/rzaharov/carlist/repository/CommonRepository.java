@@ -8,6 +8,7 @@ import rzaharov.carlist.database.AllModels;
 import rzaharov.carlist.database.DBManager;
 import rzaharov.carlist.database.DBOperation;
 import rzaharov.carlist.database.ID;
+import rzaharov.carlist.models.Car;
 
 import java.util.List;
 
@@ -23,7 +24,7 @@ public abstract class CommonRepository<T> {
     }
 
     public void execute(DBOperation dbOperation, T value) {
-        final Session session = dbManager.getSession();
+        final Session session = dbManager.getSessionFactory().openSession();
         final Transaction trans = session.beginTransaction();
         try {
             dbOperation.execute(session, value);
@@ -37,7 +38,7 @@ public abstract class CommonRepository<T> {
     }
 
     public T getById(ID idOperation) {
-        final Session session = dbManager.getSession();
+        final Session session = dbManager.getSessionFactory().openSession();
         final Transaction trans = session.beginTransaction();
         T value = null;
         try {
@@ -53,7 +54,7 @@ public abstract class CommonRepository<T> {
     }
 
     public List<T> getAll(AllModels allModels) {
-        final Session session = dbManager.getSession();
+        final Session session = dbManager.getSessionFactory().openSession();
         final Transaction trans = session.beginTransaction();
         List<T> lists = null;
         try {
@@ -62,9 +63,10 @@ public abstract class CommonRepository<T> {
             log.error(e.getMessage(), e);
             trans.rollback();
         } finally {
-            trans.commit();
             session.close();
         }
         return lists;
     }
+
+
 }

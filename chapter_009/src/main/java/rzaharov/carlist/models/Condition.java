@@ -1,12 +1,37 @@
 package rzaharov.carlist.models;
 
+import javax.persistence.*;
+
+//@Entity
+//@Table(name = "condition")
 public class Condition {
 
+//    @Id
+//    @GeneratedValue(strategy = GenerationType.IDENTITY)
+//    @Column(name = "id")
     private int id;
+
+ //   @Column(name = "condition")
     private String condition;
+
+ //   @Column(name = "year")
     private int year;
+
+ //   @Column(name = "mileage")
     private int mileage;
-    private Car car;
+
+    public Condition(int id, String condition, int year, int mileage) {
+        this.condition = condition;
+        this.year = year;
+        this.mileage = mileage;
+        this.id = id;
+    }
+
+    public Condition(String condition, int year, int mileage) {
+        this.condition = condition;
+        this.year = year;
+        this.mileage = mileage;
+    }
 
     public Condition() {}
 
@@ -46,14 +71,6 @@ public class Condition {
         this.mileage = mileage;
     }
 
-    public Car getCar() {
-        return car;
-    }
-
-    public void setCar(Car car) {
-        this.car = car;
-    }
-
     @Override
     public String toString() {
         return "Condition{" +
@@ -61,7 +78,6 @@ public class Condition {
                 ", condition='" + condition + '\'' +
                 ", year=" + year +
                 ", mileage=" + mileage +
-                ", car=" + car +
                 '}';
     }
 }

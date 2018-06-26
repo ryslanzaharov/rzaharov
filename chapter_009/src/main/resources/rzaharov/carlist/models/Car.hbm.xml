@@ -7,9 +7,23 @@
         <property name="model" column="model"/>
         <property name="body_type" column="body_type"/>
         <property name="price" column="price"/>
+        <property name="sale" column="sale"/>
+        <property name="photo" column="photo"/>
 
         <many-to-one name="engine"
                      column="engine_id"
-                     class="rzaharov.carlist.models.Engine"/>
+                     class="rzaharov.carlist.models.Engine"
+                     lazy="false" cascade="all" fetch="join"/>
+
+        <many-to-one name="user"
+                     column="user_id"
+                     class="rzaharov.carlist.models.User"
+                     lazy="false" cascade="all" fetch="join"/>
+
+        <many-to-one name="condition"
+                     column="condition_id"
+                     class="rzaharov.carlist.models.Condition"
+                     lazy="false" cascade="all" fetch="join"/>
+
     </class>
 </hibernate-mapping>

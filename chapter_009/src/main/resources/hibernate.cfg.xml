@@ -17,11 +17,17 @@
         <mapping resource="rzaharov/example/models/Item.hbm.xml"/>
 
         <!--todolist-->
-        <mapping resource="rzaharov/todolist/models/Item.hbm.xml"/>
+        <!--<mapping resource="rzaharov/todolist/models/Item.hbm.xml"/>-->
+        <mapping class="rzaharov.todolist.models.Item"/>
 
         <!--carlist-->
         <mapping resource="rzaharov/carlist/models/Car.hbm.xml"/>
         <mapping resource="rzaharov/carlist/models/Condition.hbm.xml"/>
         <mapping resource="rzaharov/carlist/models/Engine.hbm.xml"/>
+        <mapping resource="rzaharov/carlist/models/User.hbm.xml"/>
+        <!--<mapping class="rzaharov.carlist.models.User"/>-->
+        <!--<mapping class="rzaharov.carlist.models.Engine"/>-->
+        <!--<mapping class="rzaharov.carlist.models.Condition"/>-->
+        <!--<mapping class="rzaharov.carlist.models.Car"/>-->
     </session-factory>
 </hibernate-configuration>

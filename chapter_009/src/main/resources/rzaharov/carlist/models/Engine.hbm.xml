@@ -7,9 +7,9 @@
         <property name="type_engine" column="type_engine"/>
         <property name="condition" column="condition"/>
 
-        <bag name="cars" inverse="true">
-            <key column="engine_id" not-null="true"/>
-            <one-to-many class="rzaharov.carlist.models.Car"/>
-        </bag>
+        <!--<bag name="cars" inverse="true">-->
+            <!--<key column="engine_id" not-null="true"/>-->
+            <!--<one-to-many class="rzaharov.carlist.models.Car"/>-->
+        <!--</bag>-->
     </class>
 </hibernate-mapping>

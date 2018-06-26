@@ -1,5 +1,6 @@
 package rzaharov.carlist.repository;
 
+import org.hibernate.Query;
 import org.hibernate.Session;
 import rzaharov.carlist.database.DBManager;
 import rzaharov.carlist.models.Car;
@@ -8,14 +9,14 @@ import java.util.List;
 
 public class CarRepository extends CommonRepository<Car> {
 
-    public static final CarRepository instance = new CarRepository();
+    private static final CarRepository instance = new CarRepository();
     private DBManager dbManager;
 
-    public CarRepository() {
+    private CarRepository() {
         this.dbManager = DBManager.getInstance();
     }
 
-    private static CarRepository getInstance() {
+    public static CarRepository getInstance() {
         return instance;
     }
 
@@ -37,6 +38,24 @@ public class CarRepository extends CommonRepository<Car> {
 
     public List<Car> getAll() {
         return super.getAll(session -> session.createQuery("from Car").list());
+    }
+
+    public List<Car> getCarByParam(Car car) {
+        return super.getAll(session -> {
+            Query query = session.createQuery("from Car where mark=:mark and body_type=:bt and engine=:engine")
+                    .setParameter("mark", car.getMark())
+                    .setParameter("bt", car.getBody_type())
+                    .setParameter("engine", car.getEngine());
+            return query.list();
+        });
+    }
+
+    public List<Car> getByUserId(int user_id) {
+        return super.getAll(session -> {
+            Query query = session.createQuery("from Car where user_id=:user_id")
+                    .setParameter("user_id", user_id);
+            return query.list();
+        });
     }
 
 

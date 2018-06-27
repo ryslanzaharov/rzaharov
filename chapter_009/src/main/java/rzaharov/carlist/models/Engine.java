@@ -3,22 +3,22 @@ package rzaharov.carlist.models;
 import javax.persistence.*;
 import java.util.List;
 
-//@Entity
-//@Table(name = "engine")
+@Entity
+@Table(name = "engine")
 public class Engine {
 
-//    @Id
-//    @GeneratedValue(strategy = GenerationType.IDENTITY)
-//    @Column(name = "id")
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @Column(name = "id")
     private int id;
 
- //   @Column(name = "name")
+    @Column(name = "name")
     private String name;
 
- //   @Column(name = "type_engine")
+    @Column(name = "type_engine")
     private String type_engine;
 
- //   @Column(name = "condition")
+    @Column(name = "condition")
     private String condition;
 
     public Engine() {}

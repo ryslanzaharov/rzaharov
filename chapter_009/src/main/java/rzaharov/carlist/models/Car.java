@@ -2,43 +2,43 @@ package rzaharov.carlist.models;
 
 import javax.persistence.*;
 
-//@Entity
-//@Table(name = "car")
+@Entity
+@Table(name = "car")
 public class Car {
 
-   // @Id
-   // @GeneratedValue(strategy = GenerationType.IDENTITY)
-  //  @Column(name = "id")
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @Column(name = "id")
     private int id;
 
-   // @Column(name = "mark")
+    @Column(name = "mark")
     private String mark;
 
-    //@Column(name = "model")
+    @Column(name = "model")
     private String model;
 
-  //  @Column(name = "body_type")
+    @Column(name = "body_type")
     private String body_type;
 
-   // @Column(name = "price")
+    @Column(name = "price")
     private Integer price;
 
-  //  @Column(name = "sale")
+    @Column(name = "sale")
     private String sale;
 
-//    @ManyToOne(cascade = {CascadeType.ALL}, fetch = FetchType.LAZY)
-//    @JoinColumn(name = "engine_id")
+    @ManyToOne(cascade = {CascadeType.ALL}, fetch = FetchType.LAZY)
+    @JoinColumn(name = "engine_id")
     private Engine engine;
 
-//    @ManyToOne(cascade = {CascadeType.ALL}, fetch = FetchType.LAZY)
-//    @JoinColumn(name = "user_id")
+    @ManyToOne(cascade = {CascadeType.ALL}, fetch = FetchType.LAZY)
+    @JoinColumn(name = "user_id")
     private User user;
 
-//    @ManyToOne(cascade = {CascadeType.ALL}, fetch = FetchType.LAZY)
-//    @JoinColumn(name = "condition_id")
+    @ManyToOne(cascade = {CascadeType.ALL}, fetch = FetchType.LAZY)
+    @JoinColumn(name = "condition_id")
     private Condition condition;
 
-  //  @Column(name = "photo")
+    @Column(name = "photo")
     private String photo;
 
     public Car() {}

@@ -2,22 +2,22 @@ package rzaharov.carlist.models;
 
 import javax.persistence.*;
 
-//@Entity
-//@Table(name = "condition")
+@Entity
+@Table(name = "condition")
 public class Condition {
 
-//    @Id
-//    @GeneratedValue(strategy = GenerationType.IDENTITY)
-//    @Column(name = "id")
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @Column(name = "id")
     private int id;
 
- //   @Column(name = "condition")
+    @Column(name = "condition")
     private String condition;
 
- //   @Column(name = "year")
+    @Column(name = "year")
     private int year;
 
- //   @Column(name = "mileage")
+    @Column(name = "mileage")
     private int mileage;
 
     public Condition(int id, String condition, int year, int mileage) {

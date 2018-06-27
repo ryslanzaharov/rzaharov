@@ -5,24 +5,23 @@ import java.sql.Timestamp;
 import java.util.List;
 import java.util.Set;
 
-//@Entity
-//@Table(name = "users")
+@Entity
+@Table(name = "users")
 public class User {
 
-//    @Id
-//    @GeneratedValue(strategy = GenerationType.IDENTITY)
-//    @Column(name = "id")
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @Column(name = "id")
     private int id;
 
- //   @Column(name = "login")
+    @Column(name = "login")
     private String login;
 
- //   @Column(name = "password")
+    @Column(name = "password")
     private String password;
 
-//    @Column(name = "create_date")
+    @Column(name = "create_date")
     private Timestamp created;
- //   private Set<Car> cars;
 
     public User(String login, String password) {
         this.login = login;

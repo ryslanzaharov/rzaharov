@@ -4,6 +4,13 @@
         "http://www.hibernate.org/dtd/hibernate-configuration-3.0.dtd">
 <hibernate-configuration>
     <session-factory>
+        <!--<property name="connection.url">jdbc:postgresql://localhost:5432/postgres</property>-->
+        <!--<property name="connection.driver_class">org.postgresql.Driver</property>-->
+        <!--<property name="connection.username">postgres</property>-->
+        <!--<property name="connection.password"></property>-->
+        <!--<property name="dialect">org.hibernate.dialect.PostgreSQL94Dialect</property>-->
+        <!--<property name="show_sql">true</property>-->
+
         <property name="connection.url">jdbc:postgresql://localhost:5432/postgres</property>
         <property name="connection.driver_class">org.postgresql.Driver</property>
         <property name="connection.username">postgres</property>
@@ -21,13 +28,24 @@
         <mapping class="rzaharov.todolist.models.Item"/>
 
         <!--carlist-->
-        <mapping resource="rzaharov/carlist/models/Car.hbm.xml"/>
-        <mapping resource="rzaharov/carlist/models/Condition.hbm.xml"/>
-        <mapping resource="rzaharov/carlist/models/Engine.hbm.xml"/>
-        <mapping resource="rzaharov/carlist/models/User.hbm.xml"/>
-        <!--<mapping class="rzaharov.carlist.models.User"/>-->
-        <!--<mapping class="rzaharov.carlist.models.Engine"/>-->
-        <!--<mapping class="rzaharov.carlist.models.Condition"/>-->
-        <!--<mapping class="rzaharov.carlist.models.Car"/>-->
+
+        <!--<mapping resource="rzaharov/carlist/models/Car.hbm.xml"/>-->
+        <!--<mapping resource="rzaharov/carlist/models/Condition.hbm.xml"/>-->
+        <!--<mapping resource="rzaharov/carlist/models/Engine.hbm.xml"/>-->
+        <!--<mapping resource="rzaharov/carlist/models/User.hbm.xml"/>-->
+
+        <mapping class="rzaharov.carlist.models.User"/>
+        <mapping class="rzaharov.carlist.models.Engine"/>
+        <mapping class="rzaharov.carlist.models.Condition"/>
+        <mapping class="rzaharov.carlist.models.Car"/>
+
+        <!--<property name="hibernate.c3p0.min_size">10</property>-->
+        <!--<property name="hibernate.c3p0.min_size">10</property>-->
+        <!--<property name="hibernate.c3p0.max_size">20</property>-->
+        <!--<property name="hibernate.c3p0.acquire_increment">1</property>-->
+        <!--<property name="hibernate.c3p0.idle_test_period">3000</property>-->
+        <!--<property name="hibernate.c3p0.max_statements">50</property>-->
+        <!--<property name="hibernate.c3p0.timeout">1800</property>-->
+
     </session-factory>
 </hibernate-configuration>

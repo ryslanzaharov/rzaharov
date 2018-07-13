@@ -1,24 +1,37 @@
 package rzaharov.carlist.models;
 
+import lombok.Getter;
+import lombok.Setter;
+import org.hibernate.annotations.Proxy;
+
 import javax.persistence.*;
 import java.util.List;
 
 @Entity
 @Table(name = "engine")
+@Proxy(lazy = false)
 public class Engine {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "id")
+    @Getter
+    @Setter
     private int id;
 
     @Column(name = "name")
+    @Getter
+    @Setter
     private String name;
 
     @Column(name = "type_engine")
+    @Getter
+    @Setter
     private String type_engine;
 
     @Column(name = "condition")
+    @Getter
+    @Setter
     private String condition;
 
     public Engine() {}
@@ -39,39 +52,6 @@ public class Engine {
     public Engine(int id) {
         this.id = id;
     }
-
-    public int getId() {
-        return id;
-    }
-
-    public void setId(int id) {
-        this.id = id;
-    }
-
-    public String getName() {
-        return name;
-    }
-
-    public void setName(String name) {
-        this.name = name;
-    }
-
-    public String getType_engine() {
-        return type_engine;
-    }
-
-    public void setType_engine(String type_engine) {
-        this.type_engine = type_engine;
-    }
-
-    public String getCondition() {
-        return condition;
-    }
-
-    public void setCondition(String condition) {
-        this.condition = condition;
-    }
-
 
     @Override
     public String toString() {

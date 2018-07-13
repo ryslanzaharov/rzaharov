@@ -3,6 +3,8 @@ package rzaharov.carlist.controllers;
 import org.apache.commons.fileupload.FileItem;
 import org.apache.commons.fileupload.disk.DiskFileItemFactory;
 import org.apache.commons.fileupload.servlet.ServletFileUpload;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import rzaharov.carlist.models.Car;
 import rzaharov.carlist.models.Condition;
 import rzaharov.carlist.models.Engine;
@@ -19,18 +21,21 @@ import java.io.File;
 import java.io.IOException;
 import java.util.Iterator;
 import java.util.List;
+import java.util.Properties;
 import java.util.concurrent.ConcurrentHashMap;
 import java.util.concurrent.ConcurrentMap;
 
 public class CreateCar extends HttpServlet {
 
+    private static final Logger Log = LoggerFactory.getLogger(CreateCar.class);
     static final int fileMaxSize = 1000 * 1024;
     static final int memMaxSize = 1000 * 1024;
 
     private static final ConcurrentMap<String, String> FORM = new ConcurrentHashMap<String, String>();
 
-    private String filePath = "C:/projects/rzaharov/chapter_009/src/main/webapp/img/";
+    private String filePath ;
     private File file;
+    String fileUrl = "img/";
 
     @Override
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
@@ -39,6 +44,11 @@ public class CreateCar extends HttpServlet {
 
     @Override
     protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
+        try {
+            Properties properties = new Properties();
+            properties.load(CreateCar.class.getClassLoader().getResourceAsStream("fp.properties"));
+            this.filePath = properties.getProperty("FILE_PATH");
+
 //управление параметрами запроса.
         DiskFileItemFactory diskFileItemFactory = new DiskFileItemFactory();
         diskFileItemFactory.setRepository(new File(filePath));
@@ -46,8 +56,8 @@ public class CreateCar extends HttpServlet {
         //процесс парсинга.
         ServletFileUpload upload = new ServletFileUpload(diskFileItemFactory);
         upload.setSizeMax(fileMaxSize);
-        String fileUrl = "img/";
-        try {
+
+
             //парсинг запроса.
             List<FileItem> fileItems = upload.parseRequest(req);
             //список запросов.
@@ -70,7 +80,7 @@ public class CreateCar extends HttpServlet {
                 }
             }
         } catch (Exception e) {
-            e.printStackTrace();
+            Log.error(e.getMessage(), e);
         }
         resp.setContentType("text/html");
         HttpSession session = req.getSession();
@@ -88,8 +98,10 @@ public class CreateCar extends HttpServlet {
                 FORM.get("condition_condition"),
                 Integer.parseInt(FORM.get("year")),
                 Integer.parseInt(FORM.get("mileage"))));
-        User user = UserRepository.getInstance().getUserByLogin(session.getAttribute("login").toString()).get(0);
-        car.setUser(user);
+        if (session.getAttribute("login") != null) {
+            User user = UserRepository.getInstance().getUserByLogin(session.getAttribute("login").toString()).get(0);
+            car.setUser(user);
+        }
         car.setPhoto(fileUrl);
         CarRepository.getInstance().add(car);
         doGet(req, resp);

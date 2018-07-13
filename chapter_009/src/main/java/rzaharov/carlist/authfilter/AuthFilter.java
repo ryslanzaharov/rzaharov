@@ -16,7 +16,6 @@ public class AuthFilter implements Filter {
     @Override
     public void doFilter(ServletRequest req, ServletResponse resp, FilterChain chain) throws IOException, ServletException {
         HttpServletRequest request = (HttpServletRequest) req;
-        System.out.println(request.getRequestURI());
         if (request.getRequestURI().contains("/signin") || request.getRequestURI().contains("/createUser") ||
                 request.getRequestURI().contains("/index") || request.getRequestURI().equals("/ch9/") ||
                 request.getRequestURI().contains("img/")){

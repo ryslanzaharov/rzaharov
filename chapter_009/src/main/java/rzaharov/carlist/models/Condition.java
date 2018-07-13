@@ -1,23 +1,36 @@
 package rzaharov.carlist.models;
 
+import lombok.Getter;
+import lombok.Setter;
+import org.hibernate.annotations.Proxy;
+
 import javax.persistence.*;
 
 @Entity
 @Table(name = "condition")
+@Proxy(lazy = false)
 public class Condition {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "id")
+    @Getter
+    @Setter
     private int id;
 
     @Column(name = "condition")
+    @Getter
+    @Setter
     private String condition;
 
     @Column(name = "year")
+    @Getter
+    @Setter
     private int year;
 
     @Column(name = "mileage")
+    @Getter
+    @Setter
     private int mileage;
 
     public Condition(int id, String condition, int year, int mileage) {
@@ -37,38 +50,6 @@ public class Condition {
 
     public Condition(int id) {
         this.id = id;
-    }
-
-    public int getId() {
-        return id;
-    }
-
-    public void setId(int id) {
-        this.id = id;
-    }
-
-    public String getCondition() {
-        return condition;
-    }
-
-    public void setCondition(String condition) {
-        this.condition = condition;
-    }
-
-    public int getYear() {
-        return year;
-    }
-
-    public void setYear(int year) {
-        this.year = year;
-    }
-
-    public int getMileage() {
-        return mileage;
-    }
-
-    public void setMileage(int mileage) {
-        this.mileage = mileage;
     }
 
     @Override

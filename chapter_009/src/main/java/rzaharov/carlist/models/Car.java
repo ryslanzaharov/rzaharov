@@ -1,44 +1,69 @@
 package rzaharov.carlist.models;
 
+import lombok.Getter;
+import lombok.Setter;
+import org.hibernate.annotations.Proxy;
+
 import javax.persistence.*;
 
 @Entity
 @Table(name = "car")
+@Proxy(lazy = false)
 public class Car {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "id")
+    @Getter
+    @Setter
     private int id;
 
     @Column(name = "mark")
+    @Getter
+    @Setter
     private String mark;
 
     @Column(name = "model")
+    @Getter
+    @Setter
     private String model;
 
     @Column(name = "body_type")
+    @Getter
+    @Setter
     private String body_type;
 
     @Column(name = "price")
+    @Getter
+    @Setter
     private Integer price;
 
     @Column(name = "sale")
+    @Getter
+    @Setter
     private String sale;
 
     @ManyToOne(cascade = {CascadeType.ALL}, fetch = FetchType.LAZY)
     @JoinColumn(name = "engine_id")
+    @Getter
+    @Setter
     private Engine engine;
 
     @ManyToOne(cascade = {CascadeType.ALL}, fetch = FetchType.LAZY)
     @JoinColumn(name = "user_id")
+    @Getter
+    @Setter
     private User user;
 
     @ManyToOne(cascade = {CascadeType.ALL}, fetch = FetchType.LAZY)
     @JoinColumn(name = "condition_id")
+    @Getter
+    @Setter
     private Condition condition;
 
     @Column(name = "photo")
+    @Getter
+    @Setter
     private String photo;
 
     public Car() {}
@@ -47,86 +72,6 @@ public class Car {
         this.id = id;
     }
 
-
-    public int getId() {
-        return id;
-    }
-
-    public void setId(int id) {
-        this.id = id;
-    }
-
-    public String getMark() {
-        return mark;
-    }
-
-    public void setMark(String mark) {
-        this.mark = mark;
-    }
-
-    public String getModel() {
-        return model;
-    }
-
-    public void setModel(String model) {
-        this.model = model;
-    }
-
-    public String getBody_type() {
-        return body_type;
-    }
-
-    public void setBody_type(String body_type) {
-        this.body_type = body_type;
-    }
-
-    public Integer getPrice() {
-        return price;
-    }
-
-    public void setPrice(Integer price) {
-        this.price = price;
-    }
-
-    public Engine getEngine() {
-        return engine;
-    }
-
-    public void setEngine(Engine engine) {
-        this.engine = engine;
-    }
-
-    public User getUser() {
-        return user;
-    }
-
-    public void setUser(User user) {
-        this.user = user;
-    }
-
-    public Condition getCondition() {
-        return condition;
-    }
-
-    public void setCondition(Condition condition) {
-        this.condition = condition;
-    }
-
-    public String getSale() {
-        return sale;
-    }
-
-    public void setSale(String sale) {
-        this.sale = sale;
-    }
-
-    public String getPhoto() {
-        return photo;
-    }
-
-    public void setPhoto(String photo) {
-        this.photo = photo;
-    }
 
     @Override
     public String toString() {

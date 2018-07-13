@@ -16,8 +16,10 @@ public class Index extends HttpServlet {
 
     @Override
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
+       // DBManager.getInstance().getSession();
         DBManager.getInstance().buildSessionFactory();
         resp.setContentType("text/html");
+        System.out.println(req.getParameter("mark") + "marlk");
         ObjectMapper objectMapper = new ObjectMapper();
         PrintWriter writer = resp.getWriter();
         writer.append(objectMapper.writeValueAsString(CarRepository.getInstance().getAll()));

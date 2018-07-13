@@ -3,6 +3,8 @@ window.onload = updatePage;
 
 function updatePage() {
     $(
+//        var mark = document.getElementById('mark').value;
+//        ?mark=' + mark
         $.ajax({
             type: 'GET',
             url: './index',

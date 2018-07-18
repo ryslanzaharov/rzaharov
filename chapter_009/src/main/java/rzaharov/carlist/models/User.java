@@ -1,5 +1,6 @@
 package rzaharov.carlist.models;
 
+import lombok.Data;
 import lombok.Getter;
 import lombok.Setter;
 import org.hibernate.annotations.Proxy;
@@ -11,29 +12,21 @@ import java.util.Set;
 
 @Entity
 @Table(name = "users")
-@Proxy(lazy = false)
+@Data
 public class User {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "id")
-    @Getter
-    @Setter
     private int id;
 
     @Column(name = "login")
-    @Getter
-    @Setter
     private String login;
 
     @Column(name = "password")
-    @Getter
-    @Setter
     private String password;
 
     @Column(name = "create_date")
-    @Getter
-    @Setter
     private Timestamp created;
 
     public User(String login, String password) {

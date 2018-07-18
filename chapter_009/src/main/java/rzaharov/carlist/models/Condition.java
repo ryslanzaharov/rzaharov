@@ -1,5 +1,6 @@
 package rzaharov.carlist.models;
 
+import lombok.Data;
 import lombok.Getter;
 import lombok.Setter;
 import org.hibernate.annotations.Proxy;
@@ -8,29 +9,21 @@ import javax.persistence.*;
 
 @Entity
 @Table(name = "condition")
-@Proxy(lazy = false)
+@Data
 public class Condition {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "id")
-    @Getter
-    @Setter
     private int id;
 
     @Column(name = "condition")
-    @Getter
-    @Setter
     private String condition;
 
     @Column(name = "year")
-    @Getter
-    @Setter
     private int year;
 
     @Column(name = "mileage")
-    @Getter
-    @Setter
     private int mileage;
 
     public Condition(int id, String condition, int year, int mileage) {

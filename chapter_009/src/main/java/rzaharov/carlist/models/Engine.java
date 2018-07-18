@@ -1,5 +1,6 @@
 package rzaharov.carlist.models;
 
+import lombok.Data;
 import lombok.Getter;
 import lombok.Setter;
 import org.hibernate.annotations.Proxy;
@@ -9,29 +10,21 @@ import java.util.List;
 
 @Entity
 @Table(name = "engine")
-@Proxy(lazy = false)
+@Data
 public class Engine {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "id")
-    @Getter
-    @Setter
     private int id;
 
     @Column(name = "name")
-    @Getter
-    @Setter
     private String name;
 
     @Column(name = "type_engine")
-    @Getter
-    @Setter
     private String type_engine;
 
     @Column(name = "condition")
-    @Getter
-    @Setter
     private String condition;
 
     public Engine() {}

@@ -37,7 +37,8 @@ public class CarRepository extends CommonRepository<Car> {
     }
 
     public List<Car> getAll() {
-        return super.getAll(session -> session.createQuery("from Car").list());
+        return super.getAll(session -> session.createQuery("from Car c left join fetch c.user left join fetch c.engine" +
+                " left join fetch c.condition").list());
     }
 
     public List<Car> getCarByParam(Car car) {

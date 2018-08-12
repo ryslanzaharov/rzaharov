@@ -22,6 +22,20 @@
     <link rel="stylesheet" href="css/style.css" />
 </head>
 <body>
+<form id="mark">
+    Mark : <select name="mark">
+    <option value="">--Выберите--</option>
+    <option value="honda">Honda</option>
+    <option value="mazda">Mazda</option>
+    <option value="opel">Opel</option>
+    <option value="lada">Lada</option>
+</select>
+    <!--Show for last day : <input type="checkbox" id="last" name="data"><br/><br/>-->
+    Show for last day <input type="checkbox" id="last" />
+    <input type="button"  onclick="updatePage()" value="Search"></input>
+</form>
+
+
 <div class="row">
     <div class="container">
         <div class="row">
@@ -47,6 +61,7 @@
                         <th>Mileage</th>
                         <th>Price</th>
                         <th>Sale</th>
+                        <th>Date</th>
                     </tr>
                 </table>
             </div>

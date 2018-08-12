@@ -6,6 +6,7 @@ import lombok.Setter;
 import org.hibernate.annotations.Proxy;
 
 import javax.persistence.*;
+import java.sql.Timestamp;
 
 @Entity
 @Table(name = "car") @Data
@@ -46,6 +47,9 @@ public class Car {
     @Column(name = "photo")
     private String photo;
 
+    @Column(name = "dates")
+    private Timestamp date;
+
     public Car() {}
 
     public Car(int id) {
@@ -66,6 +70,7 @@ public class Car {
             //    ", user=" + user +
                 ", condition=" + condition +
                 ", photo='" + photo + '\'' +
+                "date = " + date +
                 '}';
     }
 }

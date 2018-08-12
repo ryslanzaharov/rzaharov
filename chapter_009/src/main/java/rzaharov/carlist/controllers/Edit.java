@@ -30,7 +30,6 @@ public class Edit extends HttpServlet {
     protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
         resp.setContentType("text/html");
         HttpSession session = req.getSession();
-        System.out.println(req.getParameter("sale"));
         Car car = new Car();
         car.setId(Integer.parseInt(req.getParameter("car_id")));
         car.setMark(req.getParameter("mark"));

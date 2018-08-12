@@ -14,7 +14,8 @@ CREATE TABLE car
   price INTEGER,
   engine_id integer NOT NULL REFERENCES engine(id),
   condition_id integer NOT NULL REFERENCES condition(id),
-  user_id integer NOT NULL REFERENCES users(id)
+  user_id integer NOT NULL REFERENCES users(id),
+  dates DATE NOT NULL
 );
 
 CREATE TABLE condition(

@@ -2,12 +2,20 @@
 window.onload = updatePage;
 
 function updatePage() {
-    $(
-//        var mark = document.getElementById('mark').value;
-//        ?mark=' + mark
+   // $(
+    $("#list").empty();
+    var mark = $('#mark').serialize();
+    var last = $('#last').prop('checked');
+    var data = {
+        'mark': mark,
+        'last':last
+    };
+    console.log(data);
         $.ajax({
             type: 'GET',
             url: './index',
+            data : data,
+       //     dataType: 'json',
             complete: function (data) {
                 var tasks = JSON.parse(data.responseText);
                 for (var i = 0; i < tasks.length; i++) {
@@ -16,7 +24,7 @@ function updatePage() {
                 setHandlers();
             }
         })
-    )
+ //   )
 }
 
 function getTasks(task) {
@@ -65,7 +73,12 @@ function getTasks(task) {
     var sale = document.createElement("td");
     sale.innerHTML = task.sale;
     tr.append(sale);
-    console.log(tr);
+    var date = document.createElement("td");
+    var newd = new Date();
+    newd.setTime(task.date);
+    var str = newd.toUTCString();
+    date.innerHTML = str;
+    tr.append(date);
     return tr;
 
 }

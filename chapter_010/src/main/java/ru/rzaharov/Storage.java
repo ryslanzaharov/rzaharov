@@ -2,5 +2,5 @@ package ru.rzaharov;
 
 public interface Storage {
 
-    void add(User user);
+    void addUser(User user);
 }

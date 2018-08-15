@@ -8,7 +8,7 @@ public class JdbcStorage implements Storage {
     private static final Logger log = LoggerFactory.getLogger(JdbcStorage.class);
 
     @Override
-    public void add(User user) {
-
+    public void addUser(User user) {
+        System.out.println("store to jdbc");
     }
 }

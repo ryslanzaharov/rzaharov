@@ -2,7 +2,6 @@ package ru.rzaharov;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
 import java.util.ArrayList;
@@ -19,19 +18,23 @@ public class MemoryStorage implements Storage {
         users.add(user);
     }
 
-    public User getUserByIndex(int index) {
-        return users.get(index);
+    @Override
+    public User getById(int id) {
+        return users.get(id);
     }
 
-    public void addUserByIndex(int index, User user) {
-        users.add(index, user);
+    @Override
+    public void update(int id, User user) {
+        users.add(id, user);
     }
 
-    public void removeUser(int index) {
-        users.remove(index);
+    @Override
+    public List<User> getAll() {
+        return users;
     }
 
-    public void removeUser(User user) {
+    @Override
+    public void remove(User user) {
         users.remove(user);
     }
 

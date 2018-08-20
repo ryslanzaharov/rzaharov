@@ -53,21 +53,4 @@ public class Car {
         this.id = id;
     }
 
-
-    @Override
-    public String toString() {
-        return "Car{" +
-                "id=" + id +
-                ", mark='" + mark + '\'' +
-                ", model='" + model + '\'' +
-                ", body_type='" + body_type + '\'' +
-                ", price=" + price +
-                ", sale='" + sale + '\'' +
-                ", engine=" + engine +
-            //    ", user=" + user +
-                ", condition=" + condition +
-                ", photo='" + photo + '\'' +
-                "date = " + date +
-                '}';
-    }
 }

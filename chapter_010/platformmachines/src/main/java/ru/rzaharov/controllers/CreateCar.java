@@ -39,7 +39,7 @@ public class CreateCar{
 
     private String filePath ;
     private File file;
-    String fileUrl = "img/";
+    private String fileName;
 
     @RequestMapping(value = "/createCar", method = RequestMethod.GET)
     protected String showPage() {
@@ -70,12 +70,11 @@ public class CreateCar{
                 //если это не обычное поле.
                 if (!fileItem.isFormField()) {
                     //получаем название файла.
-                    String fileName = fileItem.getName();
+                    fileName = fileItem.getName();
                     //создаем файл.
                     file = new File(filePath + fileName);
                     //записываем полученные данные в file на диске.
                     fileItem.write(file);
-                    fileUrl += fileName;
                 }
                 else {
                     FORM.put(fileItem.getFieldName(), fileItem.getString());
@@ -104,7 +103,7 @@ public class CreateCar{
             User user = UserRepository.getInstance().getUserByLogin(session.getAttribute("login").toString()).get(0);
             car.setUser(user);
         }
-        car.setPhoto(fileUrl);
+        car.setPhoto("img/" + fileName);
         CarRepository.getInstance().add(car);
         showPage();
     }

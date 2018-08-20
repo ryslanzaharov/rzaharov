@@ -42,13 +42,4 @@ public class Engine {
         this.id = id;
     }
 
-    @Override
-    public String toString() {
-        return "Engine{" +
-                "id=" + id +
-                ", name='" + name + '\'' +
-                ", type_engine='" + type_engine + '\'' +
-                ", condition='" + condition + '\'' +
-                '}';
-    }
 }

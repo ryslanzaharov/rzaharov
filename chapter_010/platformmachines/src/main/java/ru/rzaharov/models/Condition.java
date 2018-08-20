@@ -42,13 +42,4 @@ public class Condition {
         this.id = id;
     }
 
-    @Override
-    public String toString() {
-        return "Condition{" +
-                "id=" + id +
-                ", condition='" + condition + '\'' +
-                ", year=" + year +
-                ", mileage=" + mileage +
-                '}';
-    }
 }

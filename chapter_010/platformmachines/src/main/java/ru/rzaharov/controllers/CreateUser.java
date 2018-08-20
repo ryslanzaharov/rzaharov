@@ -22,7 +22,7 @@ public class CreateUser extends HttpServlet {
     }
 
     @RequestMapping(value = "/createuser", method = RequestMethod.POST)
-    public void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
+    public void addUser(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
         super.doPost(req, resp);
         String login  = req.getParameter("login");
         String password = req.getParameter("Password");

@@ -22,17 +22,16 @@ import java.util.List;
 public class Edit {
 
     @RequestMapping(value = "/editCar", method = RequestMethod.GET)
-    protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
+    public void showYourAds(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
         HttpSession session = req.getSession();
         int user_id = UserRepository.getInstance().getUserByLogin(session.getAttribute("login").toString()).get(0).getId();
         List<Car> cars = CarRepository.getInstance().getByUserId(user_id);
-        System.out.println("1212" + cars);
         req.setAttribute("cars", cars);
         req.getRequestDispatcher("/WEB-INF/carlist/UpdateCar.jsp").forward(req, resp);
     }
 
     @RequestMapping(value = "/editCar", method = RequestMethod.POST)
-    protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
+    protected void updateCar(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
         resp.setContentType("text/html");
         HttpSession session = req.getSession();
         Car car = new Car();
@@ -53,6 +52,6 @@ public class Edit {
         User user = UserRepository.getInstance().getUserByLogin(session.getAttribute("login").toString()).get(0);
         car.setUser(user);
         CarRepository.getInstance().update(car);
-        doGet(req, resp);
+        showYourAds(req, resp);
     }
 }

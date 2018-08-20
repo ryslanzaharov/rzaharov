@@ -35,14 +35,4 @@ public class User {
         this.id = id;
     }
 
-    @Override
-    public String toString() {
-        return "User{" +
-                "id=" + id +
-                ", login='" + login + '\'' +
-                ", password='" + password + '\'' +
-                ", created=" + created +
- //               ", cars=" + cars +
-                '}';
-    }
 }

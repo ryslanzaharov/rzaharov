@@ -19,7 +19,7 @@ import java.io.PrintWriter;
 public class Index {
 
     @RequestMapping(value = "/index", method = RequestMethod.GET)
-    public void showCars(ModelMap model, HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
+    public void showCars(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
         DBManager.getInstance().buildSessionFactory();
         ObjectMapper objectMapper = new ObjectMapper();
         PrintWriter writer = resp.getWriter();
@@ -29,12 +29,5 @@ public class Index {
         else
             writer.append(objectMapper.writeValueAsString(CarRepository.getInstance().getAll()));
         writer.flush();
-       // return "index.";
-    }
-
-    @RequestMapping(value = "/index", method = RequestMethod.POST)
-    protected void doPost(ModelMap model, HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-//        super.doPost(req, resp);
-        showCars(model, req, resp);
     }
 }

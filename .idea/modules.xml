@@ -2,13 +2,22 @@
 <project version="4">
   <component name="ProjectModuleManager">
     <modules>
+      <module fileurl="file://$PROJECT_DIR$/chapter_010/IoC/IoC.iml" filepath="$PROJECT_DIR$/chapter_010/IoC/IoC.iml" group="chapter_010 and modules" />
+      <module fileurl="file://$PROJECT_DIR$/chapter_010/MVC/MVC.iml" filepath="$PROJECT_DIR$/chapter_010/MVC/MVC.iml" group="chapter_010 and modules" />
+      <module fileurl="file://$PROJECT_DIR$/chapter_010/annotation/annotation.iml" filepath="$PROJECT_DIR$/chapter_010/annotation/annotation.iml" group="chapter_010 and modules" />
       <module fileurl="file://$PROJECT_DIR$/chapter_001/chapter_001.iml" filepath="$PROJECT_DIR$/chapter_001/chapter_001.iml" />
       <module fileurl="file://$PROJECT_DIR$/chapter_003/chapter_003.iml" filepath="$PROJECT_DIR$/chapter_003/chapter_003.iml" />
       <module fileurl="file://$PROJECT_DIR$/chapter_005/chapter_005.iml" filepath="$PROJECT_DIR$/chapter_005/chapter_005.iml" />
       <module fileurl="file://$PROJECT_DIR$/chapter_007/chapter_007.iml" filepath="$PROJECT_DIR$/chapter_007/chapter_007.iml" />
       <module fileurl="file://$PROJECT_DIR$/chapter_008/chapter_008.iml" filepath="$PROJECT_DIR$/chapter_008/chapter_008.iml" />
       <module fileurl="file://$PROJECT_DIR$/chapter_009/chapter_009.iml" filepath="$PROJECT_DIR$/chapter_009/chapter_009.iml" />
+      <module fileurl="file://$PROJECT_DIR$/chapter_010/chapter_010.iml" filepath="$PROJECT_DIR$/chapter_010/chapter_010.iml" />
+      <module fileurl="file://$PROJECT_DIR$/chapter_010/platformmachines/platformmachines.iml" filepath="$PROJECT_DIR$/chapter_010/platformmachines/platformmachines.iml" group="chapter_010 and modules" />
       <module fileurl="file://$PROJECT_DIR$/.idea/rzaharov.iml" filepath="$PROJECT_DIR$/.idea/rzaharov.iml" />
+      <module fileurl="file://$PROJECT_DIR$/spring/spring.iml" filepath="$PROJECT_DIR$/spring/spring.iml" />
+      <module fileurl="file://$PROJECT_DIR$/chapter_010/springData/springData.iml" filepath="$PROJECT_DIR$/chapter_010/springData/springData.iml" />
+      <module fileurl="file://$PROJECT_DIR$/chapter_010/springTest/springTest.iml" filepath="$PROJECT_DIR$/chapter_010/springTest/springTest.iml" group="chapter_010 and modules" />
+      <module fileurl="file://$PROJECT_DIR$/chapter_010/springs/springs.iml" filepath="$PROJECT_DIR$/chapter_010/springs/springs.iml" group="chapter_010 and modules" />
     </modules>
   </component>
 </project>

@@ -10,14 +10,14 @@
 
     <!--Filter-->
 
-    <filter>
-        <filter-name>AuthFilter</filter-name>
-        <filter-class>rzaharov.servlets.AuthFilter</filter-class>
-    </filter>
-    <filter-mapping>
-        <filter-name>AuthFilter</filter-name>
-        <url-pattern>*</url-pattern>
-    </filter-mapping>
+    <!--<filter>-->
+        <!--<filter-name>AuthFilter</filter-name>-->
+        <!--<filter-class>rzaharov.servlets.AuthFilter</filter-class>-->
+    <!--</filter>-->
+    <!--<filter-mapping>-->
+        <!--<filter-name>AuthFilter</filter-name>-->
+        <!--<url-pattern>*</url-pattern>-->
+    <!--</filter-mapping>-->
 
     <!--Signin-->
 
@@ -118,60 +118,60 @@
 
     <!--&lt;!&ndash;uploadFile&ndash;&gt;-->
 
-    <!--<servlet>-->
-        <!--<servlet-name>UploadDownloadFileServlet</servlet-name>-->
-        <!--<servlet-class>rzaharov.servlets.sendfile.UploadDownloadFileServlet</servlet-class>-->
-    <!--</servlet>-->
-    <!--<servlet-mapping>-->
-        <!--<servlet-name>UploadDownloadFileServlet</servlet-name>-->
-        <!--<url-pattern>/uploadFile</url-pattern>-->
-    <!--</servlet-mapping>-->
+    <servlet>
+        <servlet-name>UploadDownloadFileServlet</servlet-name>
+        <servlet-class>rzaharov.servlets.uploadfile.FileUpload</servlet-class>
+    </servlet>
+    <servlet-mapping>
+        <servlet-name>UploadDownloadFileServlet</servlet-name>
+        <url-pattern>/uploadFile</url-pattern>
+    </servlet-mapping>
 
     <!--MusicCourt-->
 
-    <servlet>
-        <servlet-name>Signin</servlet-name>
-        <servlet-class>rzaharov.servlets.cop.musiccourt.servlet.SignInController</servlet-class>
-    </servlet>
-    <servlet-mapping>
-        <servlet-name>Signin</servlet-name>
-        <url-pattern>/signin</url-pattern>
-    </servlet-mapping>
+    <!--<servlet>-->
+        <!--<servlet-name>Signin</servlet-name>-->
+        <!--<servlet-class>rzaharov.servlets.cop.musiccourt.servlet.SignInController</servlet-class>-->
+    <!--</servlet>-->
+    <!--<servlet-mapping>-->
+        <!--<servlet-name>Signin</servlet-name>-->
+        <!--<url-pattern>/signin</url-pattern>-->
+    <!--</servlet-mapping>-->
 
-    <servlet>
-    <servlet-name>Users Controller Servlet</servlet-name>
-    <servlet-class>rzaharov.servlets.cop.musiccourt.servlet.methods.GetController</servlet-class>
-    </servlet>
-    <servlet-mapping>
-    <servlet-name>Users Controller Servlet</servlet-name>
-    <url-pattern>/</url-pattern>
-    </servlet-mapping>
+    <!--<servlet>-->
+    <!--<servlet-name>Users Controller Servlet</servlet-name>-->
+    <!--<servlet-class>rzaharov.servlets.cop.musiccourt.servlet.methods.GetController</servlet-class>-->
+    <!--</servlet>-->
+    <!--<servlet-mapping>-->
+    <!--<servlet-name>Users Controller Servlet</servlet-name>-->
+    <!--<url-pattern>/</url-pattern>-->
+    <!--</servlet-mapping>-->
 
-    <servlet>
-        <servlet-name>Create Controller Servlet</servlet-name>
-        <servlet-class>rzaharov.servlets.cop.musiccourt.servlet.methods.CreateController</servlet-class>
-    </servlet>
-    <servlet-mapping>
-        <servlet-name>Create Controller Servlet</servlet-name>
-        <url-pattern>/createUser</url-pattern>
-    </servlet-mapping>
+    <!--<servlet>-->
+        <!--<servlet-name>Create Controller Servlet</servlet-name>-->
+        <!--<servlet-class>rzaharov.servlets.cop.musiccourt.servlet.methods.CreateController</servlet-class>-->
+    <!--</servlet>-->
+    <!--<servlet-mapping>-->
+        <!--<servlet-name>Create Controller Servlet</servlet-name>-->
+        <!--<url-pattern>/createUser</url-pattern>-->
+    <!--</servlet-mapping>-->
 
-    <servlet>
-        <servlet-name>Edit Controller Servlet</servlet-name>
-        <servlet-class>rzaharov.servlets.cop.musiccourt.servlet.methods.EditController</servlet-class>
-    </servlet>
-    <servlet-mapping>
-        <servlet-name>Edit Controller Servlet</servlet-name>
-        <url-pattern>/editUser</url-pattern>
-    </servlet-mapping>
+    <!--<servlet>-->
+        <!--<servlet-name>Edit Controller Servlet</servlet-name>-->
+        <!--<servlet-class>rzaharov.servlets.cop.musiccourt.servlet.methods.EditController</servlet-class>-->
+    <!--</servlet>-->
+    <!--<servlet-mapping>-->
+        <!--<servlet-name>Edit Controller Servlet</servlet-name>-->
+        <!--<url-pattern>/editUser</url-pattern>-->
+    <!--</servlet-mapping>-->
 
-    <servlet>
-        <servlet-name>Delete Controller Servlet</servlet-name>
-        <servlet-class>rzaharov.servlets.cop.musiccourt.servlet.methods.DeleteController</servlet-class>
-    </servlet>
-    <servlet-mapping>
-        <servlet-name>Delete Controller Servlet</servlet-name>
-        <url-pattern>/deleteUser</url-pattern>
-    </servlet-mapping>
+    <!--<servlet>-->
+        <!--<servlet-name>Delete Controller Servlet</servlet-name>-->
+        <!--<servlet-class>rzaharov.servlets.cop.musiccourt.servlet.methods.DeleteController</servlet-class>-->
+    <!--</servlet>-->
+    <!--<servlet-mapping>-->
+        <!--<servlet-name>Delete Controller Servlet</servlet-name>-->
+        <!--<url-pattern>/deleteUser</url-pattern>-->
+    <!--</servlet-mapping>-->
 
 </web-app>

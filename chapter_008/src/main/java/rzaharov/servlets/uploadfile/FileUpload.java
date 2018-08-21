@@ -14,6 +14,8 @@ import java.io.IOException;
 import java.io.PrintWriter;
 import java.util.Iterator;
 import java.util.List;
+import java.util.concurrent.ConcurrentHashMap;
+import java.util.concurrent.ConcurrentMap;
 
 /**
  * Сервлет для загрузки файла на сервер.
@@ -27,8 +29,8 @@ public class FileUpload extends HttpServlet {
 
     static final int fileMaxSize = 100 * 1024;
     static final int memMaxSize = 100 * 1024;
-
-    private String filePath = "";
+    private static final ConcurrentMap<String, String> FORM = new ConcurrentHashMap<String, String>();
+    private String filePath = "D:/files/";
     private File file;
 
     public void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {

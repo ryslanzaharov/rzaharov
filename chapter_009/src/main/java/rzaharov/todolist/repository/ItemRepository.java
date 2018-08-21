@@ -15,13 +15,13 @@ import java.util.List;
 
 public class ItemRepository extends CommonRepository<Item> {
 
-    private static final ItemRepository itemRepository = new ItemRepository();
+    private static final ItemRepository instance = new ItemRepository();
     private DBManager dbManager;
     private ItemRepository() {
         this.dbManager = DBManager.getInstance();
     }
-    public static ItemRepository getItemRepository() {
-        return itemRepository;
+    public static ItemRepository getInstance() {
+        return instance;
     }
 
     public void add(Item item) {

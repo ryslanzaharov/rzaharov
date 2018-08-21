@@ -4,6 +4,7 @@ import org.codehaus.jackson.map.ObjectMapper;
 import rzaharov.todolist.database.DBManager;
 import rzaharov.todolist.repository.ItemRepository;
 
+
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
@@ -22,7 +23,7 @@ public class Index extends HttpServlet {
         DBManager.getInstance().buildSessionFactry();
         ObjectMapper objectMapper = new ObjectMapper();
         PrintWriter writer = resp.getWriter();
-        writer.append(objectMapper.writeValueAsString(ItemRepository.getItemRepository().getAll(done)));
+        writer.append(objectMapper.writeValueAsString(ItemRepository.getInstance().getAll(done)));
         writer.flush();
         DBManager.getInstance().closeSessionFactory();
     }

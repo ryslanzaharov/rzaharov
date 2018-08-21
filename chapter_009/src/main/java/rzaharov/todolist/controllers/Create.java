@@ -24,7 +24,7 @@ public class Create extends HttpServlet {
         Item item = new Item();
         item.setDesc(req.getParameter("desc"));
         item.setCreationTime(new Timestamp(System.currentTimeMillis()));
-        ItemRepository.getItemRepository().add(item);
+        ItemRepository.getInstance().add(item);
         DBManager.getInstance().closeSessionFactory();
     }
 }

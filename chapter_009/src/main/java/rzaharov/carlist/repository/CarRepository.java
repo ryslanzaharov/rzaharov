@@ -46,16 +46,6 @@ public class CarRepository extends CommonRepository<Car> {
                 " left join fetch c.condition").list());
     }
 
-    public List<Car> getCarByParam(Car car) {
-        return super.getAll(session -> {
-            Query query = session.createQuery("from Car where mark=:mark and body_type=:bt and engine=:engine")
-                    .setParameter("mark", car.getMark())
-                    .setParameter("bt", car.getBody_type())
-                    .setParameter("engine", car.getEngine());
-            return query.list();
-        });
-    }
-
     public List<Car> getByUserId(int user_id) {
         return super.getAll(session -> {
             Query query = session.createQuery("from Car where user_id=:user_id")
@@ -65,9 +55,6 @@ public class CarRepository extends CommonRepository<Car> {
     }
 
     public List<Car> getByMark(String mark, boolean today) {
-        String form = "yyyy-MM-dd";
-        SimpleDateFormat sdf = new SimpleDateFormat(form);
-
         return super.getAll(session ->  {
             Query query;
             if (today)

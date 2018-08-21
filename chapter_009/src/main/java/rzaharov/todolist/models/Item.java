@@ -1,12 +1,23 @@
 package rzaharov.todolist.models;
 
+import javax.persistence.*;
 import java.sql.Timestamp;
 
+@Entity
+@Table(name = "tasklist")
 public class Item {
-
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @Column(name = "id")
     public Integer id;
+
+    @Column(name = "description")
     public String desc;
+
+    @Column(name = "create_date")
     public Timestamp creationTime;
+
+    @Column(name = "done")
     public boolean done;
 
     public Integer getId() {

@@ -16,9 +16,9 @@ public class Edit extends HttpServlet {
     @Override
     protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
         DBManager.getInstance().buildSessionFactry();
-        Item item = ItemRepository.getItemRepository().getById(Integer.parseInt(req.getParameter("id")));
+        Item item = ItemRepository.getInstance().getById(Integer.parseInt(req.getParameter("id")));
         item.setDone(Boolean.parseBoolean(req.getParameter("done")));
-        ItemRepository.getItemRepository().update(item);
+        ItemRepository.getInstance().update(item);
         DBManager.getInstance().closeSessionFactory();
     }
 }

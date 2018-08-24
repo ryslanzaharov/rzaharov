@@ -9,7 +9,7 @@ import static org.junit.Assert.*;
 public class UserDataRepositoryTest {
 
     @Test
-    public void when() {
+    public void whenAddUserDataByCrudRepos() {
         ApplicationContext context = new ClassPathXmlApplicationContext("hibernate-data-context.xml");
         UserDataRepository dataRepository = context.getBean(UserDataRepository.class);
         User user = new User();

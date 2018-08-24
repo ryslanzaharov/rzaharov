@@ -11,7 +11,16 @@
 
     <groupId>ru.job4j</groupId>
     <artifactId>chapter_010</artifactId>
+    <packaging>pom</packaging>
     <version>2.0</version>
+    <modules>
+        <module>IoC</module>
+        <module>MVC</module>
+        <module>annotation</module>
+        <module>platformmachines</module>
+        <module>springTest</module>
+        <module>springs</module>
+    </modules>
 
 
 </project>

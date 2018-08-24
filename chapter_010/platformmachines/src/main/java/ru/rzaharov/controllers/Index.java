@@ -5,6 +5,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.RequestParam;
 import ru.rzaharov.database.DBManager;
 import ru.rzaharov.repository.CarRepository;
 
@@ -19,12 +20,14 @@ import java.io.PrintWriter;
 public class Index {
 
     @RequestMapping(value = "/index", method = RequestMethod.GET)
-    public void showCars(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
+    public void showCars(@RequestParam("mark") String mark, @RequestParam("last") Boolean last, HttpServletResponse resp) throws ServletException, IOException {
         DBManager.getInstance().buildSessionFactory();
+        System.out.println(mark.substring(5));
+        System.out.println(last);
         ObjectMapper objectMapper = new ObjectMapper();
         PrintWriter writer = resp.getWriter();
-        if (!req.getParameter("mark").substring(5).isEmpty() || Boolean.valueOf(req.getParameter("last")) == true) {
-            writer.append(objectMapper.writeValueAsString(CarRepository.getInstance().getByMark(req.getParameter("mark").substring(5), Boolean.valueOf(req.getParameter("last")))));
+        if (!mark.substring(5).isEmpty() || last == true) {
+            writer.append(objectMapper.writeValueAsString(CarRepository.getInstance().getByMark(mark.substring(5), last)));
         }
         else
             writer.append(objectMapper.writeValueAsString(CarRepository.getInstance().getAll()));

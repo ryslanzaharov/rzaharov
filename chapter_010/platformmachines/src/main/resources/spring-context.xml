@@ -11,6 +11,18 @@
         <!--<constructor-arg name="storage" ref="memory"></constructor-arg>-->
     <!--</bean>-->
 
+    <!--<bean id="dataSource" class="com.mchange.v2.c3p0.ComboPooledDataSource" destroy-method="close">-->
+        <!--<property name="driverClass" value="org.postgresql.Driver" />-->
+        <!--<property name="jdbcUrl" value="jdbc:postgresql://localhost:5432/postgres" />-->
+        <!--<property name="user" value="postgres" />-->
+        <!--<property name="password" value="" />-->
+    <!--</bean>-->
+
+    <!--<bean id="jdbcTemplate"-->
+          <!--class="org.springframework.jdbc.core.JdbcTemplate">-->
+        <!--<constructor-arg name="dataSource" ref="dataSource"/>-->
+    <!--</bean>-->
+
     <bean class="org.springframework.web.servlet.view.InternalResourceViewResolver">
         <property name="prefix">
             <value>/WEB-INF/carlist/</value>
@@ -19,6 +31,8 @@
             <value>.jsp</value>
         </property>
     </bean>
+
+    <bean id="encodingFilter" class="ru.rzaharov.authfilter.AuthFilter"></bean>
 
     <mvc:annotation-driven />
 

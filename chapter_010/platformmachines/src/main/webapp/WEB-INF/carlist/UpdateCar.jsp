@@ -74,7 +74,8 @@
                 <input type="hidden" name="condId" value="${car.condition.id}"/>
                 <button type="submit">Update</button>
             </td></tr>
-    </c:forEach></form>
+    </c:forEach>
+    </form>
 </table><br>
 <form action="${pageContext.servletContext.contextPath}/signout" method="post">
     <button type="submit">Sign Out</button>

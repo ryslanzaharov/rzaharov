@@ -7,8 +7,7 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.*;
 import ru.rzaharov.models.Car;
 import ru.rzaharov.models.Condition;
 import ru.rzaharov.models.Engine;
@@ -29,6 +28,7 @@ import java.util.concurrent.ConcurrentHashMap;
 import java.util.concurrent.ConcurrentMap;
 
 @Controller
+//@SessionAttributes(value = "login")
 public class CreateCar{
 
     private static final Logger Log = LoggerFactory.getLogger(CreateCar.class);
@@ -42,13 +42,15 @@ public class CreateCar{
     private String fileName;
 
     @RequestMapping(value = "/createCar", method = RequestMethod.GET)
-    protected String showPage() {
+    protected String showPage(@ModelAttribute("login") String login) {
         return "CreateCar";
     }
 
     @RequestMapping(value = "/createCar", method = RequestMethod.POST)
-    public void addCar(HttpServletRequest req, HttpServletResponse resp) {
+    public String addCar(HttpServletRequest req) {
+        String path;
         try {
+
             Properties properties = new Properties();
             properties.load(CreateCar.class.getClassLoader().getResourceAsStream("fp.properties"));
             this.filePath = properties.getProperty("FILE_PATH");
@@ -83,7 +85,6 @@ public class CreateCar{
         } catch (Exception e) {
             Log.error(e.getMessage(), e);
         }
-        resp.setContentType("text/html");
         HttpSession session = req.getSession();
         Car car = new Car();
         car.setMark(FORM.get("mark"));
@@ -105,6 +106,6 @@ public class CreateCar{
         }
         car.setPhoto("img/" + fileName);
         CarRepository.getInstance().add(car);
-        showPage();
+        return "CreateCar";
     }
 }

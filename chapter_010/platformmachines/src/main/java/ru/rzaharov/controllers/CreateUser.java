@@ -3,6 +3,7 @@ package ru.rzaharov.controllers;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.RequestParam;
 import ru.rzaharov.models.User;
 import ru.rzaharov.repository.UserRepository;
 
@@ -22,10 +23,7 @@ public class CreateUser extends HttpServlet {
     }
 
     @RequestMapping(value = "/createuser", method = RequestMethod.POST)
-    public void addUser(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-        super.doPost(req, resp);
-        String login  = req.getParameter("login");
-        String password = req.getParameter("Password");
+    public void addUser(@RequestParam("login") String login, @RequestParam("password") String password) {
         User user = new User();
         user.setLogin(login);
         user.setPassword(password);

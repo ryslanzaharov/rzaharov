@@ -19,7 +19,6 @@
         <module>annotation</module>
         <module>platformmachines</module>
         <module>springTest</module>
-        <module>springs</module>
     </modules>
 
 

@@ -5,9 +5,14 @@ import org.apache.commons.fileupload.disk.DiskFileItemFactory;
 import org.apache.commons.fileupload.servlet.ServletFileUpload;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.context.ApplicationContext;
+import org.springframework.context.support.ClassPathXmlApplicationContext;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
 import org.springframework.web.bind.annotation.*;
+import ru.rzaharov.crudrepository.CarDataRepository;
+import ru.rzaharov.crudrepository.UserDataRepository;
 import ru.rzaharov.models.Car;
 import ru.rzaharov.models.Condition;
 import ru.rzaharov.models.Engine;
@@ -41,6 +46,13 @@ public class CreateCar{
     private File file;
     private String fileName;
 
+    private final CarDataRepository carDataRepository;
+
+    @Autowired
+    public CreateCar(final CarDataRepository carDataRepository) {
+        this.carDataRepository = carDataRepository;
+    }
+
     @RequestMapping(value = "/createCar", method = RequestMethod.GET)
     protected String showPage(@ModelAttribute("login") String login) {
         return "CreateCar";
@@ -48,7 +60,6 @@ public class CreateCar{
 
     @RequestMapping(value = "/createCar", method = RequestMethod.POST)
     public String addCar(HttpServletRequest req) {
-        String path;
         try {
 
             Properties properties = new Properties();
@@ -105,7 +116,7 @@ public class CreateCar{
             car.setUser(user);
         }
         car.setPhoto("img/" + fileName);
-        CarRepository.getInstance().add(car);
+        carDataRepository.save(car);
         return "CreateCar";
     }
 }

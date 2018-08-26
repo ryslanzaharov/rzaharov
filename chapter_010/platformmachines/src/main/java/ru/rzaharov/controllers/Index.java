@@ -1,11 +1,16 @@
 package ru.rzaharov.controllers;
 
 import org.codehaus.jackson.map.ObjectMapper;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.context.ApplicationContext;
+import org.springframework.context.support.ClassPathXmlApplicationContext;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
+import ru.rzaharov.crudrepository.CarDataRepository;
+import ru.rzaharov.crudrepository.UserDataRepository;
 import ru.rzaharov.database.DBManager;
 import ru.rzaharov.repository.CarRepository;
 
@@ -19,18 +24,24 @@ import java.io.PrintWriter;
 @Controller
 public class Index {
 
+    private final CarDataRepository carDataRepository;
+
+    @Autowired
+    public Index( final CarDataRepository carDataRepository) {
+        this.carDataRepository = carDataRepository;
+    }
+
     @RequestMapping(value = "/index", method = RequestMethod.GET)
     public void showCars(@RequestParam("mark") String mark, @RequestParam("last") Boolean last, HttpServletResponse resp) throws ServletException, IOException {
-        DBManager.getInstance().buildSessionFactory();
-        System.out.println(mark.substring(5));
-        System.out.println(last);
         ObjectMapper objectMapper = new ObjectMapper();
         PrintWriter writer = resp.getWriter();
-        if (!mark.substring(5).isEmpty() || last == true) {
-            writer.append(objectMapper.writeValueAsString(CarRepository.getInstance().getByMark(mark.substring(5), last)));
+        if (!mark.substring(5).isEmpty()) {
+            writer.append(objectMapper.writeValueAsString(carDataRepository.getByMark(mark)));
         }
+        else if (last == true)
+            writer.append(objectMapper.writeValueAsString(carDataRepository.getLastDay()));
         else
-            writer.append(objectMapper.writeValueAsString(CarRepository.getInstance().getAll()));
+            writer.append(objectMapper.writeValueAsString(carDataRepository.getAll()));
         writer.flush();
     }
 }

@@ -36,7 +36,7 @@ public class Index {
         ObjectMapper objectMapper = new ObjectMapper();
         PrintWriter writer = resp.getWriter();
         if (!mark.substring(5).isEmpty()) {
-            writer.append(objectMapper.writeValueAsString(carDataRepository.getByMark(mark)));
+            writer.append(objectMapper.writeValueAsString(carDataRepository.getByMark(mark.substring(5))));
         }
         else if (last == true)
             writer.append(objectMapper.writeValueAsString(carDataRepository.getLastDay()));

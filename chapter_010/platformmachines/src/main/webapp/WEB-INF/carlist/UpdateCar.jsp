@@ -80,7 +80,7 @@
 <form action="${pageContext.servletContext.contextPath}/signout" method="post">
     <button type="submit">Sign Out</button>
 </form>
-<form action="${pageContext.servletContext.contextPath}/index.html" >
+<form action="${pageContext.servletContext.contextPath}/" >
     <input type="submit" value="Home">
 </form>
 </body>

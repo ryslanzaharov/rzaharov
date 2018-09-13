@@ -16,6 +16,7 @@ import ru.rzaharov.models.User;
 import ru.rzaharov.repository.CarRepository;
 import ru.rzaharov.repository.UserRepository;
 
+import javax.persistence.EntityNotFoundException;
 import javax.servlet.ServletContext;
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServletRequest;
@@ -23,6 +24,7 @@ import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 import java.io.IOException;
 import java.util.List;
+import java.util.Optional;
 
 @Controller
 @SessionAttributes("login")
@@ -45,24 +47,18 @@ public class AuthController {
     @RequestMapping(value = "/signin", method = RequestMethod.POST)
     protected String signIn(@RequestParam("login") String login, @RequestParam("password") String password,
                             ModelMap model, HttpSession session) {
-        List<User> users = userDataRepository.getAll();
+        User user = userDataRepository.getUserByLogin(login).orElseThrow(() -> new EntityNotFoundException(login));
         boolean isCredentional = false;
-        for (User user : users) {
             if (user.getLogin().equals(login) && user.getPassword().equals(password)) {
                 isCredentional = true;
-                break;
             }
-        }
         String path;
         if (isCredentional) {
             ModelAndView modelAndView = new ModelAndView();
-            synchronized (modelAndView) {
                 modelAndView.addObject("login", login);
-                int user_id = userDataRepository.getUserByLogin(login).get(0).getId();
-                List<Car> cars = carDataRepository.getByUserId(user_id);
+                List<Car> cars = carDataRepository.getByUserId(user.getId());
                 model.addAttribute("cars", cars);
                 session.setAttribute("login", login);
-            }
             path = "UpdateCar";
         } else {
             model.addAttribute("error", "Credentional invalid");
@@ -72,13 +68,13 @@ public class AuthController {
     }
 
     @RequestMapping(name = "/signout", method = RequestMethod.GET)
-    public void showSignOutPage(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException   {
-        req.getRequestDispatcher("/index.html").forward(req, resp);
+    public String showSignOutPage() throws ServletException, IOException   {
+        return "index";
     }
 
     @RequestMapping(value = "/signout", method = RequestMethod.POST)
-    public void signOut(HttpServletRequest req, HttpServletResponse resp, SessionStatus sessionStatus) throws ServletException, IOException {
+    public String signOut(SessionStatus sessionStatus) throws ServletException, IOException {
         sessionStatus.setComplete();
-        req.getRequestDispatcher("/index.html").forward(req, resp);
+        return "index";
     }
 }

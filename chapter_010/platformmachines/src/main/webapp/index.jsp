@@ -1,5 +1,12 @@
-<!DOCTYPE html>
-<html lang="en">
+<%--
+  Created by IntelliJ IDEA.
+  User: Руслан
+  Date: 12.09.2018
+  Time: 9:59
+  To change this template use File | Settings | File Templates.
+--%>
+<%@ page contentType="text/html;charset=UTF-8" language="java" %>
+<html>
 <head>
     <meta http-equiv="content-type" content="text/html" charset="UTF-8">
     <title>Simple To Do App</title>
@@ -71,5 +78,3 @@
 </div>
 </body>
 </html>
-
-

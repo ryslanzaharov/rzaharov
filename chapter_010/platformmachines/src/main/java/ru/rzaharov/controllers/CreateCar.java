@@ -26,8 +26,10 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 import java.io.File;
+import java.io.FileOutputStream;
 import java.io.IOException;
 import java.util.List;
+import java.util.Map;
 import java.util.Properties;
 import java.util.concurrent.ConcurrentHashMap;
 import java.util.concurrent.ConcurrentMap;
@@ -59,9 +61,13 @@ public class CreateCar{
     }
 
     @RequestMapping(value = "/createCar", method = RequestMethod.POST)
-    public String addCar(HttpServletRequest req) {
+    public String addCar(HttpServletRequest req, @RequestParam("photo") String photo, @RequestParam("mark") String mark,
+                         @RequestParam("model") String model, @RequestParam("body_type") String body_type,
+                         @RequestParam("engine_name") String engine_name, @RequestParam("type_engine") String type_engine,
+                         @RequestParam("engine_condition") String engine_condition, @RequestParam("condition_condition") String condition_condition,
+                         @RequestParam("year") Integer year, @RequestParam("mileage") Integer mileage,
+                         @RequestParam("price") Integer price, @RequestParam("sale") String sale) {
         try {
-
             Properties properties = new Properties();
             properties.load(CreateCar.class.getClassLoader().getResourceAsStream("fp.properties"));
             this.filePath = properties.getProperty("FILE_PATH");
@@ -85,38 +91,35 @@ public class CreateCar{
                     //получаем название файла.
                     fileName = fileItem.getName();
                     //создаем файл.
-                    file = new File(filePath + fileName);
+                    file = new File(filePath + photo);
                     //записываем полученные данные в file на диске.
                     fileItem.write(file);
                 }
-                else {
-                    FORM.put(fileItem.getFieldName(), fileItem.getString());
-                }
             }
-        } catch (Exception e) {
-            Log.error(e.getMessage(), e);
-        }
         HttpSession session = req.getSession();
         Car car = new Car();
-        car.setMark(FORM.get("mark"));
-        car.setModel(FORM.get("model"));
-        car.setBody_type(FORM.get("body_type"));
-        car.setPrice(Integer.parseInt(FORM.get("price")));
-        car.setSale(FORM.get("sale"));
+        car.setMark(mark);
+        car.setModel(model);
+        car.setBody_type(body_type);
+        car.setPrice(price);
+        car.setSale(sale);
         car.setEngine(new Engine(
-                FORM.get("engine_name"),
-                FORM.get("type_engine"),
-                FORM.get("engine_condition")));
+                engine_name,
+                type_engine,
+                engine_condition));
         car.setCondition(new Condition(
-                FORM.get("condition_condition"),
-                Integer.parseInt(FORM.get("year")),
-                Integer.parseInt(FORM.get("mileage"))));
+                condition_condition,
+                year,
+                mileage));
         if (session.getAttribute("login") != null) {
             User user = UserRepository.getInstance().getUserByLogin(session.getAttribute("login").toString()).get(0);
             car.setUser(user);
         }
-        car.setPhoto("img/" + fileName);
+        car.setPhoto("img/" + photo);
         carDataRepository.save(car);
+        } catch (Exception e) {
+            Log.error(e.getMessage(), e);
+        }
         return "CreateCar";
     }
 }

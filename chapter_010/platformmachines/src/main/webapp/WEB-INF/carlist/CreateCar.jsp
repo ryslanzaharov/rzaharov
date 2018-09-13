@@ -31,9 +31,9 @@
 </head>
 <body>
 
-<form action="<%=request.getContextPath()%>/createCar" enctype="multipart/form-data" method="post" onsubmit="return validate();">
+<form action="<%=request.getContextPath()%>/createCar"  method="post" onsubmit="return validate();">
 
-    Photo :  <input type="file" name="photo"><br><br>
+    Photo :  <input formenctype="multipart/form-data" type="file" name="photo"><br><br>
     Producer :  <input type="text" name="mark"><br><br>
     Model : <input type="text" name="model"><br><br>
     Body : <input type="text" name="body_type"><br><br>
@@ -51,7 +51,7 @@
 <form action="${pageContext.servletContext.contextPath}/signout" method="post">
     <button type="submit">Sign Out</button>
 </form>
-<form action="${pageContext.servletContext.contextPath}/index.html" >
+<form action="${pageContext.servletContext.contextPath}/" >
     <input type="submit" value="Home">
 </form>
 </body>

@@ -33,7 +33,7 @@
     Password : <input type="password" name="password"><br/>
     <input type="submit" value="Sign in">
 </form>
-<form action="${pageContext.servletContext.contextPath}/index.html" >
+<form action="${pageContext.servletContext.contextPath}/" >
     <input type="submit" value="Home">
 </form>
 

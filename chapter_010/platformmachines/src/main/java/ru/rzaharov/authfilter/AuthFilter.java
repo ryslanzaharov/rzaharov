@@ -1,5 +1,7 @@
 package ru.rzaharov.authfilter;
 
+import org.springframework.ui.ModelMap;
+
 import javax.servlet.*;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
@@ -18,7 +20,7 @@ public class AuthFilter implements Filter {
         HttpServletRequest request = (HttpServletRequest) req;
         if (request.getRequestURI().contains("/signin") || request.getRequestURI().contains("/createUser") ||
                 request.getRequestURI().contains("/index") || request.getRequestURI().equals("/ch9/") ||
-                request.getRequestURI().contains("img/")){
+                request.getRequestURI().contains("img/") || request.getRequestURI().endsWith("/")){
             chain.doFilter(req, resp);
         }
         else {

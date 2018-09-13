@@ -17,7 +17,7 @@
     Password : <input type="password" name="password"><br><br>
     <input type="submit" value="Create">
 </form>
-<form action="${pageContext.servletContext.contextPath}/index.html" >
+<form action="${pageContext.servletContext.contextPath}/" >
     <input type="submit" value="Home">
 </form>
 </body>

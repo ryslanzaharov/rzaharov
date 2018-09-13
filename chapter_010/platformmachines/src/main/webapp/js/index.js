@@ -21,7 +21,7 @@ function updatePage() {
                 for (var i = 0; i < tasks.length; i++) {
                     $("#list").append(getTasks(tasks[i]));
                 }
-                setHandlers();
+              //  setHandlers();
             }
         })
  //   )

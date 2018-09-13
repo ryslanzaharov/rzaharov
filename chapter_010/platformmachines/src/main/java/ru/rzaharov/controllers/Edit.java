@@ -4,7 +4,9 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.ApplicationContext;
 import org.springframework.context.support.ClassPathXmlApplicationContext;
 import org.springframework.stereotype.Controller;
+import org.springframework.ui.ModelMap;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.servlet.ModelAndView;
 import ru.rzaharov.crudrepository.CarDataRepository;
 import ru.rzaharov.crudrepository.UserDataRepository;
 import ru.rzaharov.models.Car;
@@ -14,6 +16,7 @@ import ru.rzaharov.models.User;
 import ru.rzaharov.repository.CarRepository;
 import ru.rzaharov.repository.UserRepository;
 
+import javax.persistence.EntityNotFoundException;
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
@@ -36,16 +39,17 @@ public class Edit {
     }
 
     @RequestMapping(value = "/editCar", method = RequestMethod.GET)
-    public String showYourAds(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-        int user_id = userDataRepository.getUserByLogin(req.getParameter("login")).get(0).getId();
-        List<Car> cars = carDataRepository.getByUserId(user_id);
-        req.setAttribute("cars", cars);
+    public String showYourAds(@RequestParam("login") String login, ModelMap model) throws ServletException, IOException {
+        User user = userDataRepository.getUserByLogin(login).orElseThrow(() -> new EntityNotFoundException(login));
+        ModelAndView modelAndView = new ModelAndView();
+        modelAndView.addObject("login", login);
+        List<Car> cars = carDataRepository.getByUserId(user.getId());
+        model.addAttribute("cars", cars);
         return "UpdateCar";
     }
 
     @RequestMapping(value = "/editCar", method = RequestMethod.POST)
     public String updateCar(@ModelAttribute("login") String login, HttpServletRequest req) throws ServletException, IOException {
-        HttpSession session = req.getSession();
         Car car = new Car();
         car.setId(Integer.parseInt(req.getParameter("car_id")));
         car.setMark(req.getParameter("mark"));
@@ -61,7 +65,7 @@ public class Edit {
                 req.getParameter("condition_condition"),
                 Integer.parseInt(req.getParameter("year")),
                 Integer.parseInt(req.getParameter("mileage"))));
-        User user = userDataRepository.getUserByLogin(session.getAttribute("login").toString()).get(0);
+        User user = userDataRepository.getUserByLogin(login).orElseThrow(() -> new EntityNotFoundException(login));
         car.setUser(user);
         carDataRepository.save(car);
         return "UpdateCar";

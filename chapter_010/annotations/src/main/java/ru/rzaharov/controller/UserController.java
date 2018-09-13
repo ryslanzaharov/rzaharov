@@ -23,12 +23,14 @@ public class UserController {
     @RequestMapping(value = "/users", method = RequestMethod.GET)
     public String showItems(ModelMap model) {
         model.addAttribute("users", this.users);
+        System.out.println("1111");
         return "user";
     }
 
     @RequestMapping(value = "/users", method = RequestMethod.POST)
     public String addItem(@ModelAttribute User user) {
         this.users.add(user);
+        System.out.println("22222");
         return "redirect:users.do";
     }
 }

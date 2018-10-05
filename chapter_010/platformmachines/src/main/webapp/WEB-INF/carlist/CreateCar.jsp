@@ -12,7 +12,7 @@
             var engine_name = document.getElementsByName("engine_name")[0].value;
             var type_engine = document.getElementsByName("type_engine")[0].value;
             var engine_condition = document.getElementsByName("engine_condition")[0].value;
-            var condition_condition = document.getElementsByName("condition_condition")[0].value;
+            var condition_condition = document.getElementsByName("condition")[0].value;
             var year = document.getElementsByName("year")[0].value;
             var mileage = document.getElementsByName("mileage")[0].value;
             var price = document.getElementsByName("price")[0].value;
@@ -31,16 +31,16 @@
 </head>
 <body>
 
-<form action="<%=request.getContextPath()%>/createCar"  method="post" onsubmit="return validate();">
+<form action="${pageContext.servletContext.contextPath}/createCar" method="post"  >
 
-    Photo :  <input formenctype="multipart/form-data" type="file" name="photo"><br><br>
+    Photo :  <input type="file" formenctype="multipart/form-data" name="photo"><br><br>
     Producer :  <input type="text" name="mark"><br><br>
     Model : <input type="text" name="model"><br><br>
     Body : <input type="text" name="body_type"><br><br>
-    Engine :<input type="text" name="engine_name"><br><br>
+    Engine :<input type="text" name="name"><br><br>
     Type_of_engine :<input type="text" name="type_engine"><br><br>
-    Engine_condition :<input type="text" name="engine_condition"><br><br>
-    Car_condition :<input type="text" name="condition_condition"><br><br>
+    Engine_condition :<input type="text" name="conditionEng"><br><br>
+    Car_condition :<input type="text" name="conditionCond"><br><br>
     Year :<input type="text" name="year"><br><br>
     Mileage :<input type="text" name="mileage"><br><br>
     Price :<input type="text" name="price"><br><br>

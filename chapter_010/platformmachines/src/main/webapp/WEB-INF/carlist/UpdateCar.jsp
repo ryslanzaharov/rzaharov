@@ -49,17 +49,18 @@
         <th>Price</th>
         <th>Sale</th>
     </tr>
-    <form action="${pageContext.servletContext.contextPath}/editCar" method="post">
+
     <c:forEach items="${cars}" var="car">
+        <form action="${pageContext.servletContext.contextPath}/editCar" method="post">
         <tr>
             <td><input type="text" name="photo" value="${car.mark}"></td>
             <td><input type="text" name="mark" value="${car.mark}"> </td>
             <td><input type="text" name="model" value="${car.model}"> </td>
             <td><input type="text" name="body_type" value="${car.body_type}"></td>
-            <td><input type="text" name="engine_name" value="${car.engine.name}"></td>
+            <td><input type="text" name="name" value="${car.engine.name}"></td>
             <td><input type="text" name="type_engine" value="${car.engine.type_engine}"></td>
-            <td><input type="text" name="engine_condition" value="${car.engine.condition}"></td>
-            <td><input type="text" name="condition_condition" value="${car.condition.condition}"></td>
+            <td><input type="text" name="conditionEng" value="${car.engine.conditionEng}"></td>
+            <td><input type="text" name="conditionCond" value="${car.condition.conditionCond}"></td>
             <td><input type="text" name="year" value="${car.condition.year}"></td>
             <td><input type="text" name="mileage" value="${car.condition.mileage}"></td>
             <td><input type="text" name="price" value="${car.price}"></td>
@@ -74,8 +75,9 @@
                 <input type="hidden" name="condId" value="${car.condition.id}"/>
                 <button type="submit">Update</button>
             </td></tr>
-    </c:forEach>
     </form>
+    </c:forEach>
+
 </table><br>
 <form action="${pageContext.servletContext.contextPath}/signout" method="post">
     <button type="submit">Sign Out</button>

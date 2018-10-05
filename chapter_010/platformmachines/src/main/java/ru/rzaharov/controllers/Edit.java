@@ -23,6 +23,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 import java.io.IOException;
+import java.sql.Timestamp;
 import java.util.List;
 
 @Controller
@@ -49,25 +50,14 @@ public class Edit {
     }
 
     @RequestMapping(value = "/editCar", method = RequestMethod.POST)
-    public String updateCar(@ModelAttribute("login") String login, HttpServletRequest req) throws ServletException, IOException {
-        Car car = new Car();
-        car.setId(Integer.parseInt(req.getParameter("car_id")));
-        car.setMark(req.getParameter("mark"));
-        car.setModel(req.getParameter("model"));
-        car.setBody_type(req.getParameter("body_type"));
-        car.setPrice(Integer.parseInt(req.getParameter("price")));
-        car.setSale(req.getParameter("sale"));
-        car.setEngine(new Engine(Integer.parseInt(req.getParameter("engId")),
-                req.getParameter("engine_name"),
-                req.getParameter("type_engine"),
-                req.getParameter("engine_condition")));
-        car.setCondition(new Condition(Integer.parseInt(req.getParameter("condId")),
-                req.getParameter("condition_condition"),
-                Integer.parseInt(req.getParameter("year")),
-                Integer.parseInt(req.getParameter("mileage"))));
+    public String updateCar(@ModelAttribute("login") String login, HttpServletRequest req,
+                            @ModelAttribute Car car, @ModelAttribute Condition condition, @ModelAttribute Engine engine) throws ServletException, IOException {
         User user = userDataRepository.getUserByLogin(login).orElseThrow(() -> new EntityNotFoundException(login));
         car.setUser(user);
-        carDataRepository.save(car);
+        car.setEngine(engine);
+        car.setCondition(condition);
+        car.setDate(new Timestamp(System.currentTimeMillis()));
+        carDataRepository.save(cars);
         return "UpdateCar";
     }
 }

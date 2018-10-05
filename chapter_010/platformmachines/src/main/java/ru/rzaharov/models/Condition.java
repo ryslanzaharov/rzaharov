@@ -15,7 +15,7 @@ public class Condition {
     private int id;
 
     @Column(name = "condition")
-    private String condition;
+    private String conditionCond;
 
     @Column(name = "year")
     private int year;
@@ -23,15 +23,15 @@ public class Condition {
     @Column(name = "mileage")
     private int mileage;
 
-    public Condition(int id, String condition, int year, int mileage) {
-        this.condition = condition;
+    public Condition(int id, String conditionCond, int year, int mileage) {
+        this.conditionCond = conditionCond;
         this.year = year;
         this.mileage = mileage;
         this.id = id;
     }
 
-    public Condition(String condition, int year, int mileage) {
-        this.condition = condition;
+    public Condition(String conditionCond, int year, int mileage) {
+        this.conditionCond = conditionCond;
         this.year = year;
         this.mileage = mileage;
     }

@@ -1,6 +1,7 @@
 package ru.rzaharov.controllers;
 
 import org.apache.commons.fileupload.FileItem;
+import org.apache.commons.fileupload.disk.DiskFileItem;
 import org.apache.commons.fileupload.disk.DiskFileItemFactory;
 import org.apache.commons.fileupload.servlet.ServletFileUpload;
 import org.slf4j.Logger;
@@ -11,6 +12,7 @@ import org.springframework.context.support.ClassPathXmlApplicationContext;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.multipart.MultipartFile;
 import ru.rzaharov.crudrepository.CarDataRepository;
 import ru.rzaharov.crudrepository.UserDataRepository;
 import ru.rzaharov.models.Car;
@@ -21,10 +23,8 @@ import ru.rzaharov.repository.CarRepository;
 import ru.rzaharov.repository.UserRepository;
 
 import javax.servlet.ServletException;
-import javax.servlet.http.HttpServlet;
-import javax.servlet.http.HttpServletRequest;
-import javax.servlet.http.HttpServletResponse;
-import javax.servlet.http.HttpSession;
+import javax.servlet.annotation.MultipartConfig;
+import javax.servlet.http.*;
 import java.io.File;
 import java.io.FileOutputStream;
 import java.io.IOException;
@@ -34,6 +34,7 @@ import java.util.Properties;
 import java.util.concurrent.ConcurrentHashMap;
 import java.util.concurrent.ConcurrentMap;
 
+@MultipartConfig
 @Controller
 //@SessionAttributes(value = "login")
 public class CreateCar{
@@ -61,12 +62,10 @@ public class CreateCar{
     }
 
     @RequestMapping(value = "/createCar", method = RequestMethod.POST)
-    public String addCar(HttpServletRequest req, @RequestParam("photo") String photo, @RequestParam("mark") String mark,
-                         @RequestParam("model") String model, @RequestParam("body_type") String body_type,
-                         @RequestParam("engine_name") String engine_name, @RequestParam("type_engine") String type_engine,
-                         @RequestParam("engine_condition") String engine_condition, @RequestParam("condition_condition") String condition_condition,
-                         @RequestParam("year") Integer year, @RequestParam("mileage") Integer mileage,
-                         @RequestParam("price") Integer price, @RequestParam("sale") String sale) {
+    public String addCar(
+            @ModelAttribute Car cars, @ModelAttribute Condition condition, @ModelAttribute Engine engine,HttpServletRequest req, HttpSession session
+    ) {
+
         try {
             Properties properties = new Properties();
             properties.load(CreateCar.class.getClassLoader().getResourceAsStream("fp.properties"));
@@ -91,32 +90,17 @@ public class CreateCar{
                     //получаем название файла.
                     fileName = fileItem.getName();
                     //создаем файл.
-                    file = new File(filePath + photo);
+                    file = new File(filePath + cars.getPhoto());
                     //записываем полученные данные в file на диске.
                     fileItem.write(file);
                 }
             }
-        HttpSession session = req.getSession();
-        Car car = new Car();
-        car.setMark(mark);
-        car.setModel(model);
-        car.setBody_type(body_type);
-        car.setPrice(price);
-        car.setSale(sale);
-        car.setEngine(new Engine(
-                engine_name,
-                type_engine,
-                engine_condition));
-        car.setCondition(new Condition(
-                condition_condition,
-                year,
-                mileage));
-        if (session.getAttribute("login") != null) {
             User user = UserRepository.getInstance().getUserByLogin(session.getAttribute("login").toString()).get(0);
-            car.setUser(user);
-        }
-        car.setPhoto("img/" + photo);
-        carDataRepository.save(car);
+            cars.setUser(user);
+            cars.setEngine(engine);
+            cars.setCondition(condition);
+        cars.setPhoto("img/" + cars.getPhoto());
+        carDataRepository.save(cars);
         } catch (Exception e) {
             Log.error(e.getMessage(), e);
         }

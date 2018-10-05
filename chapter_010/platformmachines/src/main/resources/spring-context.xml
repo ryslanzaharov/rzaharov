@@ -48,6 +48,8 @@
     <!--<context:annotation-config/>-->
     <!--<tx:annotation-driven/>-->
 
+    <!--<bean id="multipartResolver" class="org.springframework.web.multipart.commons.CommonsMultipartResolver"/>-->
+
     <jpa:repositories base-package="ru.rzaharov" />
 
     <bean id="encodingFilter" class="ru.rzaharov.authfilter.AuthFilter"></bean>

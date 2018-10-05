@@ -19,6 +19,7 @@
         <module>annotation</module>
         <module>platformmachines</module>
         <module>springTest</module>
+        <module>annotations</module>
     </modules>
 
 

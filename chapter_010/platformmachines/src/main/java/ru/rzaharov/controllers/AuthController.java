@@ -3,6 +3,9 @@ package ru.rzaharov.controllers;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.ApplicationContext;
 import org.springframework.context.support.ClassPathXmlApplicationContext;
+import org.springframework.security.core.Authentication;
+import org.springframework.security.core.authority.SimpleGrantedAuthority;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.ui.ModelMap;
@@ -39,42 +42,94 @@ public class AuthController {
         this.carDataRepository = carDataRepository;
     }
 
-    @RequestMapping(value = "/signin", method = RequestMethod.GET)
-    public String showSignInPage() throws ServletException, IOException {
-        return "LoginView";
-    }
-
-    @RequestMapping(value = "/signin", method = RequestMethod.POST)
-    protected String signIn(@RequestParam("login") String login, @RequestParam("password") String password,
-                            ModelMap model, HttpSession session) {
-        User user = userDataRepository.getUserByLogin(login).orElseThrow(() -> new EntityNotFoundException(login));
-        boolean isCredentional = false;
-            if (user.getLogin().equals(login) && user.getPassword().equals(password)) {
-                isCredentional = true;
-            }
-        String path;
-        if (isCredentional) {
-            ModelAndView modelAndView = new ModelAndView();
-                modelAndView.addObject("login", login);
-                List<Car> cars = carDataRepository.getByUserId(user.getId());
-                model.addAttribute("cars", cars);
-                session.setAttribute("login", login);
-            path = "UpdateCar";
-        } else {
-            model.addAttribute("error", "Credentional invalid");
-            path = "LoginView";
+    @RequestMapping(value = "/login", method = RequestMethod.GET)
+    public String login(
+            @RequestParam(value = "error", required = false) String error,
+            @RequestParam(value = "logout", required = false) String logout,
+            Model model) {
+        System.out.println("gregrth");
+        if (error != null) {
+            model.addAttribute("error", "Invalid username and password!");
         }
-        return path;
+        if (logout != null) {
+            model.addAttribute("msg", "You've been logged out successfully.");
+        }
+        return "login";
     }
 
-    @RequestMapping(name = "/signout", method = RequestMethod.GET)
-    public String showSignOutPage() throws ServletException, IOException   {
+    @RequestMapping(value = "/login", method = RequestMethod.POST)
+    public String login() {
+        System.out.println("post");
         return "index";
     }
 
-    @RequestMapping(value = "/signout", method = RequestMethod.POST)
-    public String signOut(SessionStatus sessionStatus) throws ServletException, IOException {
-        sessionStatus.setComplete();
-        return "index";
-    }
+//    @RequestMapping(value = "/signin", method = RequestMethod.GET)
+//    public String showSignInPage() throws ServletException, IOException {
+//        return "LoginView";
+//    }
+//
+//    @RequestMapping(value = "/signin", method = RequestMethod.POST)
+//    protected String signIn(@RequestParam("login") String login, @RequestParam("password") String password,
+//                            ModelMap model, HttpSession session) {
+//        User user = userDataRepository.getUserByLogin(login).orElseThrow(() -> new EntityNotFoundException(login));
+//        boolean isCredentional = false;
+//        if (user.getLogin().equals(login) && user.getPassword().equals(password)) {
+//            isCredentional = true;
+//        }
+//        String path;
+//        if (isCredentional) {
+//            ModelAndView modelAndView = new ModelAndView();
+//            modelAndView.addObject("login", login);
+//            List<Car> cars = carDataRepository.getByUserId(user.getId());
+//            model.addAttribute("cars", cars);
+//            session.setAttribute("login", login);
+//            path = "UpdateCar";
+//        } else {
+//            model.addAttribute("error", "Credentional invalid");
+//            path = "LoginView";
+//        }
+//
+//        return path;
+//    }
+//
+//
+//    @RequestMapping(value = "/signins", method = RequestMethod.GET)
+//    public String showSignInPages() throws ServletException, IOException {
+//        return "LoginView";
+//    }
+//
+//    @RequestMapping(value = "/signins", method = RequestMethod.POST)
+//    protected String signIns(@RequestParam("login") String login, @RequestParam("password") String password,
+//                            ModelMap model, HttpSession session) {
+//        User user = userDataRepository.getUserByLogin(login).orElseThrow(() -> new EntityNotFoundException(login));
+//        boolean isCredentional = false;
+//        if (user.getLogin().equals(login) && user.getPassword().equals(password)) {
+//            isCredentional = true;
+//        }
+//        String path;
+//        if (isCredentional) {
+//            ModelAndView modelAndView = new ModelAndView();
+//            modelAndView.addObject("login", login);
+//            List<Car> cars = carDataRepository.getByUserId(user.getId());
+//            model.addAttribute("cars", cars);
+//            session.setAttribute("login", login);
+//            path = "createCar";
+//        } else {
+//            model.addAttribute("error", "Credentional invalid");
+//            path = "LoginView";
+//        }
+//
+//        return path;
+//    }
+//
+//    @RequestMapping(name = "/signout", method = RequestMethod.GET)
+//    public String showSignOutPage() throws ServletException, IOException   {
+//        return "index";
+//    }
+//
+//    @RequestMapping(value = "/signout", method = RequestMethod.POST)
+//    public String signOut(SessionStatus sessionStatus) throws ServletException, IOException {
+//        //sessionStatus.setComplete();
+//        return "index";
+//    }
 }

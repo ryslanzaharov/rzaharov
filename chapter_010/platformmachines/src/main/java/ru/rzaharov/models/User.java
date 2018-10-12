@@ -15,8 +15,8 @@ public class User {
     @Column(name = "id")
     private int id;
 
-    @Column(name = "login")
-    private String login;
+    @Column(name = "username")
+    private String username;
 
     @Column(name = "password")
     private String password;
@@ -24,8 +24,15 @@ public class User {
     @Column(name = "create_date")
     private Timestamp created;
 
+    @Column(name = "enabled")
+    private boolean enabled;
+
+    @ManyToOne(cascade = {CascadeType.ALL}, fetch = FetchType.EAGER)
+    @JoinColumn(name = "roles_id")
+    private Role role;
+
     public User(String login, String password) {
-        this.login = login;
+        this.username = login;
         this.password = password;
     }
 
@@ -39,7 +46,7 @@ public class User {
     public String toString() {
         return "User{" +
                 "id=" + id +
-                ", login='" + login + '\'' +
+                ", login='" + username + '\'' +
                 ", password='" + password + '\'' +
                 ", created=" + created +
                 '}';

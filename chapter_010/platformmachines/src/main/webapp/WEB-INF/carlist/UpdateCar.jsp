@@ -79,10 +79,10 @@
     </c:forEach>
 
 </table><br>
-<form action="${pageContext.servletContext.contextPath}/signout" method="post">
+<form action="${pageContext.servletContext.contextPath}/index" method="post">
     <button type="submit">Sign Out</button>
 </form>
-<form action="${pageContext.servletContext.contextPath}/" >
+<form action="${pageContext.servletContext.contextPath}/index" >
     <input type="submit" value="Home">
 </form>
 </body>

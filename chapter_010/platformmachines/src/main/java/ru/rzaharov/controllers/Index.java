@@ -4,6 +4,9 @@ import org.codehaus.jackson.map.ObjectMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.ApplicationContext;
 import org.springframework.context.support.ClassPathXmlApplicationContext;
+import org.springframework.security.core.Authentication;
+import org.springframework.security.core.authority.SimpleGrantedAuthority;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -32,7 +35,13 @@ public class Index {
     }
 
     @RequestMapping(value = "/index", method = RequestMethod.GET)
+    public String showCar() {
+        return "index";
+    }
+
+    @RequestMapping(value = "/index", method = RequestMethod.POST)
     public void showCars(@RequestParam("mark") String mark, @RequestParam("last") Boolean last, HttpServletResponse resp) throws ServletException, IOException {
+        System.out.println("jhhghjb");
         ObjectMapper objectMapper = new ObjectMapper();
         PrintWriter writer = resp.getWriter();
         if (!mark.substring(5).isEmpty()) {

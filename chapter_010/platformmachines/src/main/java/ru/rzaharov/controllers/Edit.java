@@ -3,6 +3,9 @@ package ru.rzaharov.controllers;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.ApplicationContext;
 import org.springframework.context.support.ClassPathXmlApplicationContext;
+import org.springframework.security.core.Authentication;
+import org.springframework.security.core.authority.SimpleGrantedAuthority;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
 import org.springframework.web.bind.annotation.*;
@@ -40,24 +43,25 @@ public class Edit {
     }
 
     @RequestMapping(value = "/editCar", method = RequestMethod.GET)
-    public String showYourAds(@RequestParam("login") String login, ModelMap model) throws ServletException, IOException {
-        User user = userDataRepository.getUserByLogin(login).orElseThrow(() -> new EntityNotFoundException(login));
+    public String showYourAds(ModelMap model) throws ServletException, IOException {
+        Authentication auth = SecurityContextHolder.getContext().getAuthentication();
+        User user = userDataRepository.getUserByLogin(auth.getName()).orElseThrow(() -> new EntityNotFoundException(auth.getName()));
         ModelAndView modelAndView = new ModelAndView();
-        modelAndView.addObject("login", login);
+        modelAndView.addObject("login", auth.getName());
         List<Car> cars = carDataRepository.getByUserId(user.getId());
         model.addAttribute("cars", cars);
-        return "UpdateCar";
+        return auth.getAuthorities().contains(new SimpleGrantedAuthority("ROLE_USER")) ? "UpdateCar" : "redirect:/login.do";
     }
 
     @RequestMapping(value = "/editCar", method = RequestMethod.POST)
-    public String updateCar(@ModelAttribute("login") String login, HttpServletRequest req,
-                            @ModelAttribute Car car, @ModelAttribute Condition condition, @ModelAttribute Engine engine) throws ServletException, IOException {
-        User user = userDataRepository.getUserByLogin(login).orElseThrow(() -> new EntityNotFoundException(login));
+    public String updateCar(@ModelAttribute Car car, @ModelAttribute Condition condition, @ModelAttribute Engine engine) throws ServletException, IOException {
+        Authentication auth = SecurityContextHolder.getContext().getAuthentication();
+        User user = userDataRepository.getUserByLogin(auth.getName()).orElseThrow(() -> new EntityNotFoundException(auth.getName()));
         car.setUser(user);
         car.setEngine(engine);
         car.setCondition(condition);
         car.setDate(new Timestamp(System.currentTimeMillis()));
-        carDataRepository.save(cars);
+        carDataRepository.save(car);
         return "UpdateCar";
     }
 }

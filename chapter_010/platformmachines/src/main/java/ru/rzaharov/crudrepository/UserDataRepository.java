@@ -10,8 +10,8 @@ import java.util.Optional;
 
 public interface UserDataRepository extends CrudRepository<User, Integer> {
 
-    @Query("select u from User u where login=:login")
-    Optional<User> getUserByLogin(@Param("login") String login);
+    @Query("select u from User u where username=:username")
+    Optional<User> getUserByLogin(@Param("username") String login);
 
     @Query("select u from User u")
     List<User> getAll();

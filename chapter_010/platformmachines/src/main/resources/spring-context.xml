@@ -16,24 +16,7 @@
 
     <import resource="hibernate-data-context.xml"/>
 
-    <!--<import resource="spring-security-jdbc.xml"/>-->
-
-    <!--<bean id="jpaVendorAdapter" class="org.springframework.orm.jpa.vendor.HibernateJpaVendorAdapter">-->
-        <!--<property name="showSql" value="true"/>-->
-        <!--<property name="generateDdl" value="true"/>-->
-        <!--<property name="database" value="POSTGRESQL"/>-->
-    <!--</bean>-->
-
-    <!--<bean id="entityManagerFactory" class="org.springframework.orm.jpa.LocalContainerEntityManagerFactoryBean">-->
-        <!--<property name="dataSource" ref="dataSource"/>-->
-        <!--<property name="jpaVendorAdapter" ref="jpaVendorAdapter"/>-->
-        <!--&lt;!&ndash; spring based scanning for entity classes&ndash;&gt;-->
-        <!--<property name="packagesToScan" value="ru.rzaharov"/>-->
-    <!--</bean>-->
-
-    <!--<bean id="transactionManager" class="org.springframework.orm.jpa.JpaTransactionManager">-->
-        <!--<property name="entityManagerFactory" ref="entityManagerFactory" />-->
-    <!--</bean>-->
+    <import resource="spring-security-jdbc.xml"/>
 
     <bean class="org.springframework.web.servlet.view.InternalResourceViewResolver">
         <property name="prefix">
@@ -52,12 +35,14 @@
 
     <jpa:repositories base-package="ru.rzaharov" />
 
-    <bean id="encodingFilter" class="ru.rzaharov.authfilter.AuthFilter"></bean>
+    <!--<bean id="encodingFilter" class="ru.rzaharov.authfilter.AuthFilter"></bean>-->
 
 
-    <mvc:annotation-driven />
+    <!--<mvc:annotation-driven />-->
 
     <context:component-scan base-package="ru.rzaharov" />
+    <context:annotation-config/>
+    <tx:annotation-driven/>
 
     <!--<mvc:resources mapping="/**" location="/" />-->
     <!--<mvc:resources mapping="/WEB-INF/static/**" location="/WEB-INF/" />-->

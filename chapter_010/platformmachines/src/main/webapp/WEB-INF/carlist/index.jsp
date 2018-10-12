@@ -47,8 +47,8 @@
     <div class="container">
         <div class="row">
             <div class="col-6">
-                <form action="./signin" method="get">
-                    <input type="submit" value="Sign In">
+                <form action="./editCar" method="get">
+                    <input type="submit" value="Update Car">
                 </form>
                 <form action="./createCar" method="get">
                     <button type="submit">Create</button>

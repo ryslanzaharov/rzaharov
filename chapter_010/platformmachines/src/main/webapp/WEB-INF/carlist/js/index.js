@@ -10,7 +10,7 @@ function updatePage() {
         'mark': mark,
         'last':last
     };
-    // console.log("egsrgsrgshsdhd");
+     console.log("egsrgsrgshsdhd");
         $.ajax({
             type: 'POST',
             url: './index',

@@ -42,6 +42,14 @@ public class User {
       //  this.id = id;
     }
 
+    public User(String username, String password, Timestamp created, boolean enabled, Role role) {
+        this.username = username;
+        this.password = password;
+        this.created = created;
+        this.enabled = enabled;
+        this.role = role;
+    }
+
     @Override
     public String toString() {
         return "User{" +

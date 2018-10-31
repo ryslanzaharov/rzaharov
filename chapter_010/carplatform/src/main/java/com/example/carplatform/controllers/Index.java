@@ -2,6 +2,7 @@ package com.example.carplatform.controllers;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.context.annotation.Configuration;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
@@ -31,7 +32,6 @@ public class Index {
     @RequestMapping(value = "/index", method = RequestMethod.POST)
     public void showCars(@RequestParam("mark") String mark, @RequestParam("last") Boolean last, HttpServletResponse resp) throws ServletException, IOException {
         ObjectMapper objectMapper = new ObjectMapper();
-        System.out.println("Asfasfa");
         PrintWriter writer = resp.getWriter();
         if (!mark.substring(5).isEmpty()) {
             writer.append(objectMapper.writeValueAsString(carDataRepository.getByMark(mark.substring(5))));

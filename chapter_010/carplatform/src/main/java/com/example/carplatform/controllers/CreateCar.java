@@ -29,7 +29,6 @@ import java.util.concurrent.ConcurrentMap;
 
 @MultipartConfig
 @Controller
-//@SessionAttributes(value = "login")
 public class CreateCar{
 
     private static final Logger Log = LoggerFactory.getLogger(CreateCar.class);
@@ -68,29 +67,29 @@ public class CreateCar{
             this.filePath = properties.getProperty("FILE_PATH");
 
 //управление параметрами запроса.
-        DiskFileItemFactory diskFileItemFactory = new DiskFileItemFactory();
-        diskFileItemFactory.setRepository(new File(filePath));
-        diskFileItemFactory.setSizeThreshold(memMaxSize);
-        //процесс парсинга.
-        ServletFileUpload upload = new ServletFileUpload(diskFileItemFactory);
-        upload.setSizeMax(fileMaxSize);
-            //парсинг запроса.
-            List<FileItem> fileItems = upload.parseRequest(req);
-            //список запросов.
-            //Iterator iterator = fileItems.iterator();
-            //получаем сведения о файле.
-            for (FileItem fileItem : fileItems) {
-               // FileItem fileItem = (FileItem) iterator.next();
-                //если это не обычное поле.
-                if (!fileItem.isFormField()) {
-                    //получаем название файла.
-                    fileName = fileItem.getName();
-                    //создаем файл.
-                    file = new File(filePath + cars.getPhoto());
-                    //записываем полученные данные в file на диске.
-                    fileItem.write(file);
-                }
-            }
+//        DiskFileItemFactory diskFileItemFactory = new DiskFileItemFactory();
+//        diskFileItemFactory.setRepository(new File(filePath));
+//        diskFileItemFactory.setSizeThreshold(memMaxSize);
+//        //процесс парсинга.
+//        ServletFileUpload upload = new ServletFileUpload(diskFileItemFactory);
+//        upload.setSizeMax(fileMaxSize);
+//            //парсинг запроса.
+//            List<FileItem> fileItems = upload.parseRequest(req);
+//            //список запросов.
+//            //Iterator iterator = fileItems.iterator();
+//            //получаем сведения о файле.
+//            for (FileItem fileItem : fileItems) {
+//               // FileItem fileItem = (FileItem) iterator.next();
+//                //если это не обычное поле.
+//                if (!fileItem.isFormField()) {
+//                    //получаем название файла.
+//                    fileName = fileItem.getName();
+//                    //создаем файл.
+//                    file = new File(filePath + cars.getPhoto());
+//                    //записываем полученные данные в file на диске.
+//                    fileItem.write(file);
+//                }
+//            }
             User user = userDataRepository.getUserByLogin(session.getAttribute("login").toString()).orElseThrow(() ->new EntityNotFoundException(session.getAttribute("login").toString()));
             cars.setUser(user);
             cars.setEngine(engine);
@@ -100,6 +99,6 @@ public class CreateCar{
         } catch (Exception e) {
             Log.error(e.getMessage(), e);
         }
-        return "CreateCar";
+        return "redirect:CreateCar";
     }
 }

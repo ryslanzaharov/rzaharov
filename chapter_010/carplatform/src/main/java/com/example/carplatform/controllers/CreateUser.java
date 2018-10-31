@@ -1,5 +1,6 @@
 package com.example.carplatform.controllers;
 
+import com.fasterxml.jackson.databind.ObjectMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.ModelAttribute;
@@ -9,6 +10,7 @@ import com.example.carplatform.crudrepository.UserDataRepository;
 import com.example.carplatform.models.User;
 
 import javax.servlet.http.HttpServlet;
+import javax.servlet.http.HttpServletRequest;
 import java.sql.Timestamp;
 
 @Controller
@@ -27,8 +29,10 @@ public class CreateUser extends HttpServlet {
     }
 
     @RequestMapping(value = "/createuser", method = RequestMethod.POST)
-    public void addUser(@ModelAttribute User user) {
-        user.setCreated(new Timestamp(System.currentTimeMillis()));
+    public String addUser(@ModelAttribute User user, HttpServletRequest req) {
+        user = (User) (req.getAttribute("user"));
+        //user.setCreated(new Timestamp(System.currentTimeMillis()));
         userDataRepository.save(user);
+        return "redirect:CreateUser";
     }
 }

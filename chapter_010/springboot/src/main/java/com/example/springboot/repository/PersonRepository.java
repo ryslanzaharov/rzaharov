@@ -1,6 +1,7 @@
 package com.example.springboot.repository;
 
 import com.example.springboot.domain.Person;
+import com.example.springboot.domain.User;
 import org.springframework.data.repository.CrudRepository;
 
 /**

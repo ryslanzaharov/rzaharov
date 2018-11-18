@@ -2,6 +2,7 @@ package com.example.springboot.service;
 
 
 import com.example.springboot.domain.Person;
+import com.example.springboot.domain.User;
 import com.example.springboot.repository.PersonRepository;
 import com.google.common.collect.Lists;
 import org.springframework.beans.factory.annotation.Autowired;

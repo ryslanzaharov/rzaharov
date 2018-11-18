@@ -1,6 +1,7 @@
 package com.example.springboot.web;
 
 import com.example.springboot.domain.Person;
+import com.example.springboot.domain.User;
 import com.example.springboot.service.PersonService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;

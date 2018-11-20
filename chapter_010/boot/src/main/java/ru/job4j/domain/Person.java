@@ -1,24 +1,28 @@
-package ru.parsentev;
+package ru.job4j.domain;
 
-
-import javax.persistence.*;
+import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
+import javax.persistence.Id;
 
 /**
- * @author parsentev
- * @since 21.06.2016
+ * //TODO add comments.
+ *
+ * @author Petr Arsentev (parsentev@yandex.ru)
+ * @version $Id$
+ * @since 0.1
  */
-@Entity(name = "users")
-public class User {
+@Entity
+public class Person {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int id;
-
     private String name;
 
-    public User() {
+    public Person() {
     }
 
-    public User(String name) {
+    public Person(String name) {
         this.name = name;
     }
 
@@ -43,11 +47,10 @@ public class User {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
 
-        User user = (User) o;
+        Person user = (Person) o;
 
-        if (id != user.id) return false;
+        return id == user.id;
 
-        return true;
     }
 
     @Override

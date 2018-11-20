@@ -19,9 +19,8 @@ import ru.rzaharov.models.Car;
 import ru.rzaharov.models.Condition;
 import ru.rzaharov.models.Engine;
 import ru.rzaharov.models.User;
-import ru.rzaharov.repository.CarRepository;
-import ru.rzaharov.repository.UserRepository;
 
+import javax.persistence.EntityNotFoundException;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.MultipartConfig;
 import javax.servlet.http.*;
@@ -50,10 +49,13 @@ public class CreateCar{
     private String fileName;
 
     private final CarDataRepository carDataRepository;
+    private final UserDataRepository userDataRepository;
 
     @Autowired
-    public CreateCar(final CarDataRepository carDataRepository) {
+    public CreateCar(final CarDataRepository carDataRepository,
+                     final UserDataRepository userDataRepository) {
         this.carDataRepository = carDataRepository;
+        this.userDataRepository = userDataRepository;
     }
 
     @RequestMapping(value = "/createCar", method = RequestMethod.GET)
@@ -95,7 +97,7 @@ public class CreateCar{
                     fileItem.write(file);
                 }
             }
-            User user = UserRepository.getInstance().getUserByLogin(session.getAttribute("login").toString()).get(0);
+            User user = userDataRepository.getUserByLogin(session.getAttribute("login").toString()).orElseThrow(() ->new EntityNotFoundException(session.getAttribute("login").toString()));
             cars.setUser(user);
             cars.setEngine(engine);
             cars.setCondition(condition);

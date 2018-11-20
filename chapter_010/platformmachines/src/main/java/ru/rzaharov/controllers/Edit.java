@@ -16,8 +16,6 @@ import ru.rzaharov.models.Car;
 import ru.rzaharov.models.Condition;
 import ru.rzaharov.models.Engine;
 import ru.rzaharov.models.User;
-import ru.rzaharov.repository.CarRepository;
-import ru.rzaharov.repository.UserRepository;
 
 import javax.persistence.EntityNotFoundException;
 import javax.servlet.ServletException;

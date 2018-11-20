@@ -16,8 +16,6 @@ import ru.rzaharov.crudrepository.CarDataRepository;
 import ru.rzaharov.crudrepository.UserDataRepository;
 import ru.rzaharov.models.Car;
 import ru.rzaharov.models.User;
-import ru.rzaharov.repository.CarRepository;
-import ru.rzaharov.repository.UserRepository;
 
 import javax.persistence.EntityNotFoundException;
 import javax.servlet.ServletContext;

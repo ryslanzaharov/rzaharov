@@ -11,7 +11,6 @@ import org.springframework.web.bind.annotation.RequestParam;
 import ru.rzaharov.crudrepository.CarDataRepository;
 import ru.rzaharov.crudrepository.UserDataRepository;
 import ru.rzaharov.models.User;
-import ru.rzaharov.repository.UserRepository;
 
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;

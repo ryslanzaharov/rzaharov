@@ -1,6 +1,6 @@
 package ru.rzaharov.controllers;
 
-import org.codehaus.jackson.map.ObjectMapper;
+import com.fasterxml.jackson.databind.ObjectMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.ApplicationContext;
 import org.springframework.context.support.ClassPathXmlApplicationContext;
@@ -14,8 +14,6 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import ru.rzaharov.crudrepository.CarDataRepository;
 import ru.rzaharov.crudrepository.UserDataRepository;
-import ru.rzaharov.database.DBManager;
-import ru.rzaharov.repository.CarRepository;
 
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
@@ -41,7 +39,6 @@ public class Index {
 
     @RequestMapping(value = "/index", method = RequestMethod.POST)
     public void showCars(@RequestParam("mark") String mark, @RequestParam("last") Boolean last, HttpServletResponse resp) throws ServletException, IOException {
-        System.out.println("jhhghjb");
         ObjectMapper objectMapper = new ObjectMapper();
         PrintWriter writer = resp.getWriter();
         if (!mark.substring(5).isEmpty()) {

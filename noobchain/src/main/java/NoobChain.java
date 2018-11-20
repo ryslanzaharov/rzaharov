@@ -27,7 +27,7 @@ public class NoobChain {
         System.out.println("\nBlockchain is Valid: " + isChainValid());
 
         String blockchainJson = new GsonBuilder().setPrettyPrinting().create().toJson(blockchain);
-        System.out.println("\nThe block chain: ");
+        System.out.println("\nThe block chains : ");
         System.out.println(blockchainJson);
     }
 

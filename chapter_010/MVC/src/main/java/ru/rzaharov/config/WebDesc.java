@@ -1,6 +1,5 @@
 //package ru.rzaharov.config;
 //
-//import org.springframework.lang.Nullable;
 //import org.springframework.web.servlet.support.AbstractAnnotationConfigDispatcherServletInitializer;
 //
 //public class WebDesc extends AbstractAnnotationConfigDispatcherServletInitializer {

@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.w3.org/1999/xhtml">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <script
+            src="https://code.jquery.com/jquery-3.1.1.min.js"
+            integrity="sha256-hVVnYaiADRTO2PzUGmuLJr8BLUSjGIZsDYGmIJLv2b8="
+            crossorigin="anonymous"></script>
+    <script src="js/account.js"></script>
+</head>
+<body>
+<div th:if="${param.error}">
+    Invalid username and password.
+</div>
+<div th:if="${param.logout}">
+    You have been logged out.
+</div>
+<div th:text="${password}"></div>
+<form th:action="@{/registerAccount}" method="post">
+    <div><label> User Name : <input type="text" id="username"/> </label></div>
+    <div><input type="button"  onclick="openAcc()" value="Registration"></input></div>
+</form>
+<form th:action="@{/account}" method="get">
+    <div><input type="submit" value="Back"/></div>
+</form>
+</body>
+</html>

@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.w3.org/1999/xhtml"
+      xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity3">
+<head>
+    <meta charset="UTF-8"/>
+    <!--<meta name="_csrf" th:content="${_csrf.token}"/>-->
+    <!--<meta name="_csrf_header" th:content="${_csrf.headerName}"/>-->
+    <title>Title</title>
+    <script
+            src="https://code.jquery.com/jquery-3.1.1.min.js"
+            integrity="sha256-hVVnYaiADRTO2PzUGmuLJr8BLUSjGIZsDYGmIJLv2b8="
+            crossorigin="anonymous"></script>
+    <script src="js/validation.js"></script>
+</head>
+<body>
+<form th:action="@{/index}" method="get">
+    <div><input type="submit" value="Back"/></div>
+</form>
+<form th:action="@{/addcontacts}" method="post">
+    <div><label> Firstname : <input type="text" id="firstname"/> </label></div>
+    <div><label> Lastname : <input type="text" id="lastname"/> </label></div>
+    <div><label> Patronymic : <input type="text" id="patronymic"/> </label></div>
+    <div><label> Telephone number : <input type="text" id="telephone_number"/> </label></div>
+    <div><label> Home phone number : <input type="text" id="home_phone_number"/> </label></div>
+    <div><label> Address : <input type="text" id="address"/> </label></div>
+    <div><label> E-mail : <input type="text" id="e_mail"/> </label></div>
+
+    <div><input type="button" onclick="addContact()"  value="Add contact"></input></div>
+</form>
+</body>
+</html>

@@ -15,16 +15,35 @@ import org.springframework.web.bind.annotation.RequestParam;
 import javax.persistence.EntityNotFoundException;
 import java.util.*;
 
+/**
+ * Registration users.
+ * @author Руслан .
+ * @version 01.
+ * @since 01.02.2019.
+ */
 @Controller
 public class UsersPhoneBook {
 
-    @Autowired
+    /**
+     * Data repository for CRUD operation.
+     */
     private final UserDataRepository userDataRepository;
 
+    /**
+     * * Constructor for initialize the repository.
+     * @param userDataRepository repository for users data.
+     */
+    @Autowired
     public UsersPhoneBook(final  UserDataRepository userDataRepository) {
         this.userDataRepository = userDataRepository;
     }
 
+    /**
+     * Shows added contacts from phonebook.
+     * @param model contains users contacts.
+     * @param filter conatins a label to filter when displaying contacts.
+     * @return page index.
+     */
     @RequestMapping(value = "/index", method = RequestMethod.GET)
     public String getPhones(ModelMap model, @RequestParam(value = "filter", required = false) String filter) {
         Authentication auth = SecurityContextHolder.getContext().getAuthentication();
@@ -32,26 +51,11 @@ public class UsersPhoneBook {
         List<Contacts> contacts = user.getContacts();
         if (filter != null) {
             if (filter.equals("firstname")) {
-                Collections.sort(contacts, new Comparator<Contacts>() {
-                    @Override
-                    public int compare(Contacts o1, Contacts o2) {
-                        return o1.getFirstname().compareTo(o2.getFirstname());
-                    }
-                });
+                contacts.sort((o1, o2) -> o1.getFirstname().compareTo(o2.getFirstname()));
             } else if (filter.equals("lastname")) {
-                Collections.sort(contacts, new Comparator<Contacts>() {
-                    @Override
-                    public int compare(Contacts o1, Contacts o2) {
-                        return o1.getLastname().compareTo(o2.getLastname());
-                    }
-                });
+               contacts.sort(((o1, o2) -> o1.getLastname().compareTo(o2.getLastname())));
             } else if (filter.equals("telephone_number")) {
-                Collections.sort(contacts, new Comparator<Contacts>() {
-                    @Override
-                    public int compare(Contacts o1, Contacts o2) {
-                        return o1.getTelephone_number().compareTo(o2.getTelephone_number());
-                    }
-                });
+                contacts.sort(((o1, o2) -> o1.getTelephone_number().compareTo(o2.getTelephone_number())));
             }
         }
         model.addAttribute("contacts", contacts);

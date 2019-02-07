@@ -17,18 +17,36 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import javax.persistence.EntityNotFoundException;
 import java.util.List;
 
+/**
+ * Update users contacts.
+ * @author Руслан .
+ * @version 01.
+ * @since 01.02.2019.
+ */
 @Controller
 public class EditContacts {
 
+    /**
+     * Data repository for CRUD operation.
+     */
     private final UserDataRepository userDataRepository;
     private final ContactsDataRepository contactsDataRepository;
 
+    /**
+     * @param contactsDataRepository repository for user contacts.
+     * @param userDataRepository repository for users data.
+     */
     @Autowired
     public EditContacts(final UserDataRepository userDataRepository, final ContactsDataRepository contactsDataRepository) {
         this.userDataRepository = userDataRepository;
         this.contactsDataRepository = contactsDataRepository;
     }
 
+    /**
+     * Shows added contacts from phonebook.
+     * @param model get user contacts.
+     * @return deletecontacts page.
+     */
     @RequestMapping(value = "/editcontacts", method = RequestMethod.GET)
     public String getContacts(ModelMap model) {
         Authentication auth = SecurityContextHolder.getContext().getAuthentication();
@@ -38,6 +56,12 @@ public class EditContacts {
         return "editcontacts";
     }
 
+
+    /**
+     * Edits added contacts from phonebook.
+     * @param contact
+     * @return
+     */
     @RequestMapping(value = "/editcontacts", method = RequestMethod.POST)
     public String editContacts(@ModelAttribute Contacts contact) {
         Authentication auth = SecurityContextHolder.getContext().getAuthentication();
@@ -47,16 +71,6 @@ public class EditContacts {
         return "redirect:editcontacts";
     }
 
-    @RequestMapping(value = "/editcontacts", method = RequestMethod.DELETE)
-    public String removeContact(@ModelAttribute Contacts contact) {
-        System.out.println(contact);
-        contactsDataRepository.delete(contact);
-//        Authentication auth = SecurityContextHolder.getContext().getAuthentication();
-//        User user = userDataRepository.getUserByLogin(auth.getName()).orElseThrow(() -> new EntityNotFoundException(auth.getName()));
-//        contact.setUser(user);
-//        contactsDataRepository.save(contact);
-        return "redirect:editcontacts";
-    }
 
 
 }

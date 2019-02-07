@@ -14,25 +14,46 @@ import org.springframework.web.bind.annotation.RequestMethod;
 
 import javax.persistence.EntityNotFoundException;
 
+/**
+ * Add users contacts.
+ * @author Руслан .
+ * @version 01.
+ * @since 01.02.2019.
+ */
 @Controller
 public class AddContacts {
 
+    /**
+     * Data repository for CRUD operation.
+     */
     private final ContactsDataRepository contactsDataRepository;
     private final UserDataRepository userDataRepository;
 
+    /**
+     * @param contactsDataRepository repository for user contacts.
+     * @param userDataRepository repository for users data.
+     */
     @Autowired
     public AddContacts(final ContactsDataRepository contactsDataRepository, final UserDataRepository userDataRepository) {
         this.contactsDataRepository = contactsDataRepository;
         this.userDataRepository = userDataRepository;
     }
 
+    /**
+     * displays a page for adding a contact.
+     * @return page addcontacts.
+     */
     @RequestMapping(value = "/addcontacts", method = RequestMethod.GET)
-    public String getCreateNumberPage() {
+    public String showAddContactPage() {
         return "addcontacts";
     }
 
+    /**
+     * add contact in phonebook.
+     * @param contacts users contact data for add in phonebook.
+     */
     @RequestMapping(value = "/addcontacts", method = RequestMethod.POST)
-    public void addNumber(@RequestBody Contacts contacts) {
+    public void addContact(@RequestBody Contacts contacts) {
         Authentication auth = SecurityContextHolder.getContext().getAuthentication();
         User user = userDataRepository.getUserByLogin(auth.getName()).orElseThrow(() -> new EntityNotFoundException(auth.getName()));
         contacts.setUser(user);

@@ -3,10 +3,7 @@ package com.example.demo.models;
 import lombok.Data;
 
 import javax.persistence.*;
-import java.util.ArrayList;
-import java.util.Collection;
-import java.util.List;
-import java.util.Set;
+import java.util.*;
 
 @Entity
 @Table(name = "users")
@@ -47,6 +44,27 @@ public class User {
 
     public User(int id) {
         //  this.id = id;
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        User user = (User) o;
+        return id == user.id &&
+                enabled == user.enabled &&
+                Objects.equals(login, user.login) &&
+                Objects.equals(password, user.password) &&
+                Objects.equals(firstname, user.firstname) &&
+                Objects.equals(lastname, user.lastname) &&
+                Objects.equals(patronymic, user.patronymic) &&
+                Objects.equals(role, user.role) &&
+                Objects.equals(contacts, user.contacts);
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(id, login, password, firstname, lastname, patronymic, role, enabled, contacts);
     }
 
     @Override

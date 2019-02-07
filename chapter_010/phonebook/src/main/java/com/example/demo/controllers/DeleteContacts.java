@@ -16,18 +16,36 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import javax.persistence.EntityNotFoundException;
 import java.util.List;
 
+/**
+ * Delete users contacts.
+ * @author Руслан .
+ * @version 01.
+ * @since 01.02.2019.
+ */
 @Controller
 public class DeleteContacts {
 
+    /**
+     * Data repository for CRUD operation.
+     */
     private final UserDataRepository userDataRepository;
     private final ContactsDataRepository contactsDataRepository;
 
+    /**
+     * @param contactsDataRepository repository for user contacts.
+     * @param userDataRepository repository for users data.
+     */
     @Autowired
     public DeleteContacts(final UserDataRepository userDataRepository, final ContactsDataRepository contactsDataRepository) {
         this.userDataRepository = userDataRepository;
         this.contactsDataRepository = contactsDataRepository;
     }
 
+    /**
+     * Shows added contacts from phonebook.
+     * @param model get user contacts.
+     * @return deletecontacts page.
+     */
     @RequestMapping(value = "/deletecontacts", method = RequestMethod.GET)
     public String getContacts(ModelMap model) {
         Authentication auth = SecurityContextHolder.getContext().getAuthentication();
@@ -38,14 +56,14 @@ public class DeleteContacts {
     }
 
 
+    /**
+     * Removes added contacts from phonebook.
+     * @param contact
+     * @return deletecontacts page.
+     */
     @RequestMapping(value = "/deletecontacts", method = RequestMethod.POST)
     public String removeContact(@ModelAttribute Contacts contact) {
-        System.out.println(contact);
         contactsDataRepository.delete(contact);
-//        Authentication auth = SecurityContextHolder.getContext().getAuthentication();
-//        User user = userDataRepository.getUserByLogin(auth.getName()).orElseThrow(() -> new EntityNotFoundException(auth.getName()));
-//        contact.setUser(user);
-//        contactsDataRepository.save(contact);
         return "redirect:deletecontacts";
     }
 }

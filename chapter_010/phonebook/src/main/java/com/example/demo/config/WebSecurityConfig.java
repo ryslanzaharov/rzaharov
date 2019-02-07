@@ -1,25 +1,26 @@
 package com.example.demo.config;
 
+import com.example.demo.controllers.Registration;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.boot.autoconfigure.security.SecurityProperties;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
-import org.springframework.core.annotation.Order;
 import org.springframework.security.config.annotation.authentication.builders.AuthenticationManagerBuilder;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
 import org.springframework.security.config.annotation.web.configuration.WebSecurityConfigurerAdapter;
 import org.springframework.security.core.userdetails.UserDetailsService;
-import org.springframework.security.crypto.password.NoOpPasswordEncoder;
-import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
 import javax.sql.DataSource;
 
+
 @Configuration
-//@Order(SecurityProperties.IGNORED_ORDER)
-@Service
+@EnableWebSecurity
 public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
+
+    private static final Logger Log = LoggerFactory.getLogger(Registration.class);
 
     @Autowired
     private DataSource dataSource;
@@ -29,8 +30,7 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
     public UserDetailsService userDetailsServiceBean() throws Exception{
         return super.userDetailsServiceBean();
     }
-//    @Autowired(required=true)
-//    private PasswordEncoder passwordEncoder;
+
 
     @Autowired
     public void configureGlobal(AuthenticationManagerBuilder auth) throws Exception {
@@ -38,7 +38,6 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
             auth
                     .jdbcAuthentication()
                     .dataSource(dataSource)
-//                    .passwordEncoder(NoOpPasswordEncoder.getInstance())
                     .usersByUsernameQuery(
                             "select username, password, enabled from users "+
                                     " where username=?"
@@ -48,9 +47,8 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
                                     " where r.id = u.roles_id and u.username=?"
                     );
 
-            // .passwordEncoder(passwordEncoder);
         } catch (Exception e) {
-            throw new RuntimeException(e);
+            Log.error(e.getMessage(), e);
         }
     }
 

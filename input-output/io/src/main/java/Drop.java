@@ -9,18 +9,16 @@ public class Drop {
         try(BufferedReader br = new BufferedReader(new InputStreamReader(in));
                 PrintStream ps = new PrintStream(out)
         ) {
-            abuse = br.readLine().split(" ");
-            for (int i = 0; i != abuse.length; i++ ) {
-                abuse[i] = abuse[i].replace("abuse", "");
+            String line = br.readLine();
+            for(String ab : abuse) {
+                if (line.contains(ab))
+                    line.replaceAll(ab, "");
             }
-            ps.print(Arrays.toString(abuse));
+            ps.print(line);
+            ps.flush();
         } catch (IOException e) {
             e.printStackTrace();
         }
     }
 
-    public static void main(String[] args) {
-        Drop drop = new Drop();
-        drop.dropAbuses(System.in, System.out, new String[12]);
-    }
 }

@@ -17,7 +17,6 @@ import org.springframework.stereotype.Service;
 import javax.sql.DataSource;
 
 @Configuration
-//@Order(SecurityProperties.ACCESS_OVERRIDE_ORDER)
 @Service
 public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
 

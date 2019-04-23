@@ -1,7 +1,11 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
-  <component name="Encoding">
+  <component name="Encoding" addBOMForNewFiles="with NO BOM">
     <file url="file://$PROJECT_DIR$" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/IoC&amp;DI" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/bchain" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/bchain_parser" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/chain" charset="UTF-8" />
     <file url="file://$PROJECT_DIR$/chapter_001" charset="UTF-8" />
     <file url="file://$PROJECT_DIR$/chapter_003" charset="UTF-8" />
     <file url="file://$PROJECT_DIR$/chapter_005" charset="UTF-8" />
@@ -11,10 +15,17 @@
     <file url="file://$PROJECT_DIR$/chapter_010" charset="UTF-8" />
     <file url="file://$PROJECT_DIR$/chapter_010/IoC" charset="UTF-8" />
     <file url="file://$PROJECT_DIR$/chapter_010/MVC" charset="UTF-8" />
-    <file url="file://$PROJECT_DIR$/chapter_010/annotation" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/chapter_010/annotations" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/chapter_010/boot" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/chapter_010/boots" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/chapter_010/carplatform" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/chapter_010/phonebook" charset="UTF-8" />
     <file url="file://$PROJECT_DIR$/chapter_010/platformmachines" charset="UTF-8" />
-    <file url="file://$PROJECT_DIR$/chapter_010/springTest" charset="UTF-8" />
-    <file url="file://$PROJECT_DIR$/chapter_010/springs" charset="UTF-8" />
-    <file url="file://$PROJECT_DIR$/spring" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/chapter_010/springboot" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/chapter_010/urlshortener" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/input-output" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/input-output/io" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/noobchain" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/tests" charset="UTF-8" />
   </component>
 </project>

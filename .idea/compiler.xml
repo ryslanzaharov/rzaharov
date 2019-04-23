@@ -2,27 +2,52 @@
 <project version="4">
   <component name="CompilerConfiguration">
     <annotationProcessing>
+      <profile default="true" name="Default" enabled="true" />
       <profile name="Maven default annotation processors profile" enabled="true">
         <sourceOutputDir name="target/generated-sources/annotations" />
         <sourceTestOutputDir name="target/generated-test-sources/test-annotations" />
         <outputRelativeToContentRoot value="true" />
-        <module name="annotation" />
+        <module name="bchain" />
+        <module name="bchain_parser" />
+        <module name="boot" />
+        <module name="carplatform" />
+        <module name="chain" />
         <module name="chapter_001" />
         <module name="chapter_003" />
         <module name="chapter_005" />
         <module name="chapter_007" />
         <module name="chapter_008" />
         <module name="chapter_009" />
+        <module name="hibernate_envers" />
+        <module name="io" />
+        <module name="IoCDI" />
+        <module name="noobchain" />
+        <module name="phonebook" />
+        <module name="platformmachines" />
+        <module name="springboot" />
+        <module name="tests" />
+        <module name="urlshortener" />
+        <module name="usersmanagements" />
+      </profile>
+      <profile name="Annotation profile for IoC" enabled="true">
+        <sourceOutputDir name="../target/generated-sources/annotations" />
+        <sourceTestOutputDir name="../target/generated-test-sources/test-annotations" />
+        <outputRelativeToContentRoot value="true" />
+        <module name="annotations" />
+        <module name="boots" />
         <module name="IoC" />
         <module name="MVC" />
-        <module name="platformmachines" />
-        <module name="spring" />
-        <module name="springs" />
-        <module name="springTest" />
       </profile>
     </annotationProcessing>
     <bytecodeTargetLevel>
-      <module name="annotation" target="1.8" />
+      <module name="1234" target="1.8" />
+      <module name="annotations" target="1.8" />
+      <module name="bchain" target="1.8" />
+      <module name="bchain_parser" target="11" />
+      <module name="boot" target="1.8" />
+      <module name="boots" target="1.8" />
+      <module name="carplatform" target="1.8" />
+      <module name="chain" target="11" />
       <module name="chapter_001" target="1.8" />
       <module name="chapter_003" target="1.8" />
       <module name="chapter_005" target="1.8" />
@@ -30,18 +55,36 @@
       <module name="chapter_008" target="1.8" />
       <module name="chapter_009" target="1.8" />
       <module name="chapter_010" target="1.8" />
-      <module name="chh" target="1.8" />
-      <module name="chhh" target="1.8" />
+      <module name="groovy" target="1.5" />
+      <module name="hibernate_envers" target="1.5" />
+      <module name="input-output" target="1.8" />
+      <module name="io" target="1.8" />
       <module name="IoC" target="1.8" />
+      <module name="IoCDI" target="11" />
+      <module name="junior" target="11" />
       <module name="MVC" target="1.8" />
+      <module name="noobchain" target="1.8" />
+      <module name="phonebook" target="1.8" />
       <module name="platformmachines" target="1.8" />
-      <module name="rzaharov" target="1.8" />
-      <module name="spring" target="1.8" />
-      <module name="springData" target="1.5" />
-      <module name="springDatas" target="1.8" />
-      <module name="springDataTest" target="1.8" />
-      <module name="springs" target="1.8" />
-      <module name="springTest" target="1.8" />
+      <module name="springboot" target="1.8" />
+      <module name="springIoC" target="1.8" />
+      <module name="sweater" target="1.8" />
+      <module name="tests" target="1.8" />
+      <module name="urlshortener" target="1.8" />
     </bytecodeTargetLevel>
+  </component>
+  <component name="JavacSettings">
+    <option name="ADDITIONAL_OPTIONS_OVERRIDE">
+      <module name="IoCDI" options="-parameters" />
+      <module name="bchain" options="" />
+      <module name="bchain_parser" options="-parameters" />
+      <module name="chain" options="-parameters" />
+      <module name="chapter_010" options="-parameters" />
+      <module name="junior" options="-parameters" />
+      <module name="phonebook" options="" />
+      <module name="springIoC" options="-parameters" />
+      <module name="sweater" options="-parameters" />
+      <module name="urlshortener" options="-parameters" />
+    </option>
   </component>
 </project>

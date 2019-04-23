@@ -24,19 +24,20 @@
     <div><input type="button" value="Add URL"/></div>
 </form>
 Statistic
-<table border="1" ><caption>Users data</caption>
+<table border="1">
+    <caption>Users data</caption>
     <tr>
         <th>ID</th>
         <th>URL</th>
         <th>Short URL</th>
     </tr>
-<#list urls as url>
-    <tr>
-        <td><input  name="url" value="${url.id}"></td>
-        <td><input  name="url" value="${url.url}"></td>
-        <td><input name="short_url" value="${url.short_url}"> </td>
-      </tr>
-</#list>
+    <#list urls as url>
+        <tr>
+            <td><input name="url" value="${url.id}"></td>
+            <td><input name="url" value="${url.url}"></td>
+            <td><input name="short_url" value="${url.short_url}"></td>
+        </tr>
+    </#list>
 </table>
 
 </body>

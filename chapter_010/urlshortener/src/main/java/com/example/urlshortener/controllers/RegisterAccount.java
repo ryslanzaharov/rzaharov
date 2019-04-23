@@ -18,7 +18,7 @@ public class RegisterAccount {
     private final UserDataRepository userDataRepository;
 
     @Autowired
-    public RegisterAccount (UserDataRepository userDataRepository) {
+    public RegisterAccount(UserDataRepository userDataRepository) {
         this.userDataRepository = userDataRepository;
     }
 
@@ -28,22 +28,23 @@ public class RegisterAccount {
     }
 
     @RequestMapping(value = "registerAccount", method = RequestMethod.POST, consumes = "application/json")
-    public @ResponseBody String registerAccount(@RequestParam(value = "error", required = false) String error,
-                    @RequestBody User user,
-                    Model model) {
-            Generator passwordGenerator = new Generator.PasswordGeneratorBuilder()
-                    .useDigits(true)
-                    .useLower(true)
-                    .useUpper(true)
-                    .build();
-            String password = "";
-            if (!user.getUsername().equals("") && !compareUserName(user.getUsername())) {
-                password = passwordGenerator.generate(8);
-                user.setPassword(password);
-                user.setEnabled(true);
-                user.setRole(1);
-                userDataRepository.save(user);
-            }
+    public @ResponseBody
+    String registerAccount(@RequestParam(value = "error", required = false) String error,
+                           @RequestBody User user,
+                           Model model) {
+        Generator passwordGenerator = new Generator.PasswordGeneratorBuilder()
+                .useDigits(true)
+                .useLower(true)
+                .useUpper(true)
+                .build();
+        String password = "";
+        if (!user.getUsername().equals("") && !compareUserName(user.getUsername())) {
+            password = passwordGenerator.generate(8);
+            user.setPassword(password);
+            user.setEnabled(true);
+            user.setRole(1);
+            userDataRepository.save(user);
+        }
 
         return password;
     }

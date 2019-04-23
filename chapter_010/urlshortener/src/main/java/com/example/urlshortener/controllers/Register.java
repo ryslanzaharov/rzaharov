@@ -38,9 +38,10 @@ public class Register {
     }
 
     @RequestMapping(value = "register", method = RequestMethod.POST, consumes = "application/json")
-    public @ResponseBody String registration(
+    public @ResponseBody
+    String registration(
             @RequestBody Url url
-       ) {
+    ) {
         String shortUrl = "";
         if (!url.getUrl().isEmpty()) {
             Authentication auth = SecurityContextHolder.getContext().getAuthentication();

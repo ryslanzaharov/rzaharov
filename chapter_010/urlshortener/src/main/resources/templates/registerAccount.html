@@ -19,7 +19,7 @@
 <div th:text="${password}"></div>
 <form th:action="@{/registerAccount}" method="post">
     <div><label> User Name : <input type="text" id="username"/> </label></div>
-    <div><input type="button"  onclick="openAcc()" value="Registration"></input></div>
+    <div><input type="button" onclick="openAcc()" value="Registration"></input></div>
 </form>
 <form th:action="@{/account}" method="get">
     <div><input type="submit" value="Back"/></div>

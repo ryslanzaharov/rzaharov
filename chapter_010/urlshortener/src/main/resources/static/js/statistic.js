@@ -1,4 +1,3 @@
-
 window.onload = updatePage;
 
 function updatePage() {
@@ -6,7 +5,7 @@ function updatePage() {
     $.ajax({
         type: 'POST',
         url: './statistic',
-        data : data,
+        data: data,
         complete: function (data) {
             var tasks = JSON.parse(data.responseText);
             for (var i = 0; i < tasks.length; i++) {

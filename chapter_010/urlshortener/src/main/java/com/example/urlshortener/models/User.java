@@ -8,7 +8,7 @@ import org.hibernate.annotations.NotFoundAction;
 import javax.persistence.*;
 
 @Entity
-@Table(name="users")
+@Table(name = "users")
 @Data
 public class User {
 
@@ -35,7 +35,8 @@ public class User {
     @Column(name = "roles_id")
     private Integer role;
 
-    public User() {}
+    public User() {
+    }
 
     public User(int id) {
         //  this.id = id;
@@ -46,7 +47,7 @@ public class User {
         this.password = password;
         this.enabled = enabled;
         this.role = role;
-     //   this.role = role;
+        //   this.role = role;
     }
 
     @Override

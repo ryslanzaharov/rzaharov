@@ -23,7 +23,7 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
     @Autowired
     private DataSource dataSource;
 
-    @Autowired(required=false)
+    @Autowired(required = false)
     private PasswordEncoder passwordEncoder;
 //
 //    @Bean
@@ -44,7 +44,7 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
                     .dataSource(dataSource)
                     .passwordEncoder(NoOpPasswordEncoder.getInstance())
                     .usersByUsernameQuery(
-                            "select username, password, enabled from users "+
+                            "select username, password, enabled from users " +
                                     " where username=?"
                     )
                     .authoritiesByUsernameQuery(
@@ -52,7 +52,7 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
                                     " where r.id = u.roles_id and u.username=?"
                     );
 
-           // .passwordEncoder(passwordEncoder);
+            // .passwordEncoder(passwordEncoder);
         } catch (Exception e) {
             throw new RuntimeException(e);
         }

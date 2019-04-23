@@ -20,7 +20,7 @@ public class Account {
     }
 
     @RequestMapping(value = "/account", method = RequestMethod.GET,
-             produces = "application/json")
+            produces = "application/json")
     public String accountPage() {
         return "account";
     }

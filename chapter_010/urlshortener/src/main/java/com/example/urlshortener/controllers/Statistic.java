@@ -34,14 +34,13 @@ public class Statistic {
     }
 
     @RequestMapping(value = "/statistic", method = RequestMethod.GET)
-    public String statisticPage(ModelMap model, HttpServletResponse resp) throws IOException{
+    public String statisticPage(ModelMap model, HttpServletResponse resp) throws IOException {
         Authentication auth = SecurityContextHolder.getContext().getAuthentication();
-        User user = userDataRepository.getUserByLogin(auth.getName()).orElseThrow(() ->new EntityNotFoundException(auth.getName()));
+        User user = userDataRepository.getUserByLogin(auth.getName()).orElseThrow(() -> new EntityNotFoundException(auth.getName()));
         List<Url> urls = urlDataRepository.getUrlsById(user.getId());
         model.addAttribute("urls", urls);
         return "statistic";
     }
-
 
 
 }

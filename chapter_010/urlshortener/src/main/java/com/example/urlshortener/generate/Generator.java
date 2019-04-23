@@ -48,7 +48,7 @@ public final class Generator {
          * (abc...xyz). Default false.
          *
          * @param useLower true in case you would like to include lower
-         * characters (abc...xyz). Default false.
+         *                 characters (abc...xyz). Default false.
          * @return the builder for chaining.
          */
         public PasswordGeneratorBuilder useLower(boolean useLower) {
@@ -61,7 +61,7 @@ public final class Generator {
          * (ABC...XYZ). Default false.
          *
          * @param useUpper true in case you would like to include upper
-         * characters (ABC...XYZ). Default false.
+         *                 characters (ABC...XYZ). Default false.
          * @return the builder for chaining.
          */
         public PasswordGeneratorBuilder useUpper(boolean useUpper) {
@@ -74,7 +74,7 @@ public final class Generator {
          * Default false.
          *
          * @param useDigits true in case you would like to include digit
-         * characters (123..). Default false.
+         *                  characters (123..). Default false.
          * @return the builder for chaining.
          */
         public PasswordGeneratorBuilder useDigits(boolean useDigits) {
@@ -87,7 +87,7 @@ public final class Generator {
          * (!@#..). Default false.
          *
          * @param usePunctuation true in case you would like to include
-         * punctuation characters (!@#..). Default false.
+         *                       punctuation characters (!@#..). Default false.
          * @return the builder for chaining.
          */
         public PasswordGeneratorBuilder usePunctuation(boolean usePunctuation) {
@@ -97,7 +97,7 @@ public final class Generator {
 
         /**
          * Get an object to use.
-         *
+         * <p>
          * object.
          */
         public Generator build() {

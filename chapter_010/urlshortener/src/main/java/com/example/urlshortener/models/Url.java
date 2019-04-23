@@ -25,7 +25,8 @@ public class Url {
     @JoinColumn(name = "users_id")
     private User user;
 
-    public Url() {}
+    public Url() {
+    }
 
     public Url(String url, String short_url, User user) {
         this.url = url;
